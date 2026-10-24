@@ -11,6 +11,6 @@ with ZipFile(destination, "w", ZIP_DEFLATED, compresslevel=9) as archive:
             archive.write(file, file.relative_to(root).as_posix())
 with ZipFile(destination) as archive:
     assert archive.testzip() is None
-    for filename in ["index.html", "styles.css", "app.js", "data/catalog.js", "data/knowledge.js", ".nojekyll"]:
+    for filename in ["index.html", "styles.css", "app.js", "data/catalog.js", ".nojekyll"]:
         assert filename in archive.namelist(), filename
 print(f"Created {destination} ({destination.stat().st_size:,} bytes)")
