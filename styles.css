@@ -71,6 +71,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 22px 28px 35px; }
 #draw-results .card-mint { background: var(--mint); }
 #draw-results .is-active { box-shadow: 10px 13px 0 var(--ink); }
 .card-content { display: flex; flex-direction: column; height: 100%; min-height: 0; backface-visibility: hidden; }
+.inspiration-card { color: var(--ink); text-decoration: none; }
 .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
 #draw-results .draw-card-title { font-size: 21px; line-height: 1.6; }
 #draw-results .section-label { margin-top: 19px; }

@@ -127,7 +127,7 @@
     results.dataset.count = count;
     while (results.children.length > count) results.lastElementChild.remove();
     while (results.children.length < count) {
-      const article = document.createElement('article');
+      const article = document.createElement('a');
       article.id = results.children.length ? 'draw-card-' + (results.children.length+1) : 'inspiration-card';
       article.className = 'inspiration-card is-cover';
       article.setAttribute('aria-label','待翻開的文案靈感卡');
@@ -138,16 +138,13 @@
         if(event.pointerType==='mouse' && article.dataset.cardId) setActiveHand(index);
       });
       article.addEventListener('focusin',()=>{if(article.dataset.cardId)setActiveHand(index);});
-      article.addEventListener('click',event=>{
-        if(!event.target.closest('a') && article.dataset.cardId){setActiveHand(index);article.focus({preventScroll:true});}
-      });
       article.addEventListener('keydown',event=>{
         if(event.target!==article) return;
         if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){
           event.preventDefault();
           const next=event.key==='Home'?0:event.key==='End'?results.children.length-1:(index+(event.key==='ArrowRight'?1:-1)+results.children.length)%results.children.length;
           results.children[next].focus({preventScroll:true});
-        } else if(event.key==='Enter') $('.card-detail-link',article)?.click();
+        }
       });
       results.append(article);
     }
@@ -159,8 +156,10 @@
       const article = $('#draw-results').children[index];
       article.className = 'inspiration-card card-' + themeColor(card);
       article.dataset.cardId = card.id;
-      article.setAttribute('aria-label',card.id + ' ' + card.template);
-      $('.card-content',article).innerHTML = '<div class="card-meta"><span class="card-code">' + card.id + '</span><span class="mini-face" aria-hidden="true">' + icon('smile') + '</span></div>' + tags(card) + '<h2 class="draw-card-title">' + escape(card.template) + '</h2><div class="section-label">故事架構</div>' + structure(card) + '<a class="card-detail-link" href="#card/' + card.id + '" data-open-card="' + card.id + '">看完整內容 ' + icon('arrow') + '</a>';
+      article.href='#card/'+card.id;
+      article.dataset.openCard=card.id;
+      article.setAttribute('aria-label','看完整內容：' + card.id + ' ' + card.template);
+      $('.card-content',article).innerHTML = '<div class="card-meta"><span class="card-code">' + card.id + '</span><span class="mini-face" aria-hidden="true">' + icon('smile') + '</span></div>' + tags(card) + '<h2 class="draw-card-title">' + escape(card.template) + '</h2><div class="section-label">故事架構</div>' + structure(card) + '<span class="card-detail-link">看完整內容 ' + icon('arrow') + '</span>';
     });
     renderHandPicker();
     layoutHand();

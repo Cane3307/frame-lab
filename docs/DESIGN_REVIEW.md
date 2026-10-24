@@ -21,3 +21,5 @@
 - 控制位置、抽選、搜尋、詳情返回與複製回歸。
 
 數據見 [TEST_RESULTS.json](TEST_RESULTS.json)，畫面見 [放大狀態](screenshots/hand-hover-desktop.png)及[手機手牌](screenshots/hand-five-mobile.png)。
+
+整張已抽出的卡面是單一原生連結；點題目、步驟或底部提示都進入完整內容。手機用編號選牌，點卡面直接進入詳情。

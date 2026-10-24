@@ -121,12 +121,14 @@ function executablePath() {
     const batchIds=await drawIds();
     await page.locator('#draw-card-5').focus();
     await page.waitForTimeout(380);
-    await page.locator('#draw-results .card-detail-link').nth(4).click();
+    await page.locator('#draw-card-5 .draw-card-title').click();
     await page.waitForSelector('#detail-view:not([hidden])');
     assert.equal(await page.locator('.detail-card .card-code').textContent(),batchIds[4]);
     await page.locator('#detail-back').click();
     await page.waitForSelector('#draw-view:not([hidden])');
     assert.deepEqual(await drawIds(),batchIds);
+    assert.equal(await page.locator('#draw-results a.inspiration-card[data-open-card]').count(),5);
+    assert.equal(await page.locator('#draw-results a a').count(),0);
     await page.locator('input[name="draw-count"][value="3"]').check();
     await page.evaluate(()=>{document.querySelector('#draw-button').click();location.hash='#cards';});
     await page.waitForSelector('#cards-view:not([hidden])');
@@ -139,7 +141,7 @@ function executablePath() {
     await page.locator('#draw-button').click(); await settleDraw();
 
     const drawn=await page.locator('#inspiration-card').getAttribute('data-card-id');
-    await page.locator('.card-detail-link').first().click();
+    await page.locator('#inspiration-card .framework li').first().click();
     await page.waitForSelector('#detail-view:not([hidden])');
     assert.ok((await page.locator('#detail-back').textContent()).includes('回到翻卡'));
     assert.ok(await page.locator('.detail-card .card-code').textContent()===drawn);
