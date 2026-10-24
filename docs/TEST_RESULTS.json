@@ -1,20 +1,21 @@
 {
-  "date": "2026-10-24T09:27:17.740Z",
-  "scope": "game-hand-draw",
-  "checks": 12,
+  "date": "2026-10-24T11:38:14.295Z",
+  "scope": "dialog-and-sequential-physical-flip",
+  "checks": 13,
   "passed": [
-    "210 complete unique frameworks; active UI has no gradients or old notebook dependencies",
-    "Primary button draws usable frameworks; consecutive cards differ; keyboard focus survives repeated flips",
-    "Real pointer hover raises and enlarges a card; keyboard arrows select neighboring cards",
-    "1/3/5 draws have unique cards, retain the same card node and button position, exclude the previous batch and survive detail navigation",
-    "Draw/detail navigation preserves current card; navigation cancels animation; all 210 cards are rendered",
-    "Search, empty reset and seven-theme filtering work; detail examples expand and back restores card position/focus",
-    "Clipboard copies actual structure; unavailable clipboard exposes selectable text without false success",
-    "Mobile hand selector expands individual cards without a nested scrollbar; repeated draws keep controls stable",
-    "All three views fit 320/360/390/768/1024/1440px; mobile inputs use 16px type",
-    "Reduced motion draws immediately with no animation and keyboard navigation remains native",
-    "All 210 actual rendered frameworks fit fully at mobile width without clipping or internal scroll containers",
-    "Direct file opening works; no JavaScript errors or missing local assets"
+    "210 complete unique cards and a flat-color interface",
+    "All five backs spread before the first reveal; five separate physical rotations finish in order",
+    "1/3/5 draws retain card nodes and control position; reduced motion reveals instantly and excludes the last batch",
+    "Pointer hover and arrow keys still raise the selected card",
+    "Card popup keeps the URL, hand, selected card, exact positions and focus; X, Escape and backdrop all close safely with focus containment",
+    "Catalog search/filter/scroll survive popup close; catalog popup footer offers return to draw with the requested hint and preserves the hand",
+    "Legacy card links open a popup over the catalog; closing normalizes the URL; copying and manual fallback work inside the dialog",
+    "A delayed native close event cannot dismiss a newly opened popup or a changed deep link",
+    "Draws, catalog and popup fit 320/360/390/768/1024/1440px without horizontal overflow",
+    "Mobile card popup closes back to the same selected card and exact reading position",
+    "All 210 card fronts fit at 320px without clipping or card-internal scroll regions",
+    "Navigation cancels gathering, spreading and revealing with no delayed mutation and restores the previous complete hand",
+    "Direct file use, relative assets and scripts work without browser errors"
   ],
   "errors": []
 }

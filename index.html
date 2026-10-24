@@ -6,10 +6,10 @@
   <meta name="theme-color" content="#faf8ee">
   <meta name="description" content="一次抽 1、3 或 5 張文案靈感卡，從 210 種短影音架構中找到下一個點子。">
   <title>文案靈感隨機卡片</title>
-  <link rel="icon" href="assets/favicon.svg?v=hand-2" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=hand-2">
+  <link rel="icon" href="assets/favicon.svg?v=dialog-1" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=dialog-1">
   <script src="data/catalog.js" defer></script>
-  <script src="app.js?v=hand-2" defer></script>
+  <script src="app.js?v=dialog-1" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">跳到主要內容</a>
@@ -66,10 +66,13 @@
     <div id="empty-state" class="empty-state" hidden><svg aria-hidden="true"><use href="#i-smile"/></svg><h2>這個點子，還沒找到。</h2><p>試試其他關鍵字，或看看全部卡片。</p><button id="reset-search" class="button secondary">顯示全部卡片</button></div>
   </section>
 
-  <section id="detail-view" class="page detail-page" hidden aria-label="靈感卡完整內容"><div id="detail-content"></div></section>
 </main>
 <footer class="site-footer"><span>文案靈感隨機卡片 <svg aria-hidden="true"><use href="#i-smile"/></svg></span><p>好點子，不用一次想完。</p></footer>
-<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<dialog id="card-dialog" class="card-dialog" aria-labelledby="detail-title">
+  <div class="dialog-toolbar"><span>完整內容</span><button id="close-detail" class="dialog-close" type="button" aria-label="關閉完整內容" autofocus>×</button></div>
+  <div id="detail-content"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</dialog>
 <noscript><p class="noscript">開啟 JavaScript，就能翻開你的靈感卡。</p></noscript>
 </body>
 </html>

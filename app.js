@@ -17,10 +17,11 @@
   const steps = card => card.formula.split('→').map(text => text.trim()).filter(Boolean);
   const structure = card => '<ol class="framework">' + steps(card).map((text,index) => '<li><span class="step-number">' + String(index+1).padStart(2,'0') + '</span><span>' + escape(text) + '</span></li>').join('') + '</ol>';
   const tags = card => '<div class="tags"><span>' + escape(card.theme) + '</span><span>' + escape(card.form) + '</span><span>' + escape(card.headline) + '</span></div>';
-  let page = 'draw', currentCards = [], drawCount = 1, detailOrigin = 'cards';
-  let drawScroll = 0, lastDrawId = '';
-  let query = '', theme = '', listScroll = 0, lastOpenedId = '';
-  let midTimer, endTimer, searchTimer, toastTimer, flipFocus;
+  let page = 'draw', currentCards = [], drawCount = 1;
+  let query = '', theme = '';
+  let searchTimer, toastTimer, flipFocus, drawTimers=[], pendingDraw=null;
+  const cardDialog=$('#card-dialog');
+  let modalState=null,restoringModal=false;
   const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   const searchIndex = new Map(catalog.map(card => [card.id, JSON.stringify(card).toLocaleLowerCase()]));
   const order = catalog.map((_,index) => catalog[(index % 7)*30 + ((Math.floor(index/7)*7 + (index%7)*4)%30)]);
@@ -35,7 +36,7 @@
     const middle = (cards.length-1)/2;
     cards.forEach((card,index) => {
       const relative = index-middle;
-      const active = index===activeHand && Boolean(card.dataset.cardId);
+      const active = index===activeHand && Boolean(card.dataset.cardId)&&!card.classList.contains('is-covered');
       card.classList.toggle('is-active',active);
       card.style.setProperty('--fan-x',(active && compact ? 0 : relative*spacing)+'px');
       card.style.setProperty('--fan-y',(active ? -24 : Math.abs(relative)*(compact?9:13))+'px');
@@ -47,7 +48,7 @@
     $$('#hand-picker button').forEach((button,index) => button.setAttribute('aria-pressed',String(index===activeHand)));
   }
   function setActiveHand(index) {
-    if ($('#draw-button').disabled) return;
+    if ($('#draw-button').disabled||cardDialog.open||restoringModal) return;
     activeHand=index;
     positionHand();
   }
@@ -102,110 +103,131 @@
     $('#toast').hidden = false;
     toastTimer = setTimeout(() => { $('#toast').hidden = true; },3500);
   }
+  function setCovered(card,covered) {
+    card.classList.toggle('is-covered',covered);
+    card.tabIndex=covered?-1:0;
+    if(covered)card.setAttribute('aria-disabled','true');else card.removeAttribute('aria-disabled');
+    $('.card-front',card).setAttribute('aria-hidden',String(covered));
+  }
   function resetFlipControls() {
-    $('#draw-button').disabled = false;
+    $('#draw-button').disabled=false;
     $('#draw-button').removeAttribute('aria-busy');
-    $('#draw-button-label').textContent = drawCount === 1 ? '翻一張' : '翻 ' + drawCount + ' 張';
-    $$('.draw-count input').forEach(input => { input.disabled = false; });
+    $('#draw-button-label').textContent=drawCount===1?'翻一張':'翻 '+drawCount+' 張';
+    $$('.draw-count input').forEach(input=>{input.disabled=false;});
     $$('#hand-picker button').forEach(button=>{button.disabled=false;});
     const results=$('#draw-results');
     results.removeAttribute('aria-busy');
-    results.classList.remove('is-gathering','is-revealing');
+    results.classList.remove('is-gathering','is-dealing');
+    results.dataset.phase='idle';
+    delete results.dataset.revealIndex;
   }
   function cancelFlip() {
-    const unrevealed = midTimer !== undefined;
-    clearTimeout(midTimer); clearTimeout(endTimer);
-    midTimer = endTimer = undefined;
-    if (unrevealed) {
-      ensureSlots(currentCards.length || 1);
-      if (currentCards.length) renderDraw(currentCards);
-    }
-    resetFlipControls();
+    drawTimers.forEach(clearTimeout);drawTimers=[];
+    if(pendingDraw) {
+      const saved=pendingDraw;pendingDraw=null;
+      const results=$('#draw-results');
+      results.classList.add('skip-flip');
+      activeHand=saved.activeHand;
+      ensureSlots(saved.cards.length||1);
+      if(saved.cards.length)renderDraw(saved.cards);
+      else {
+        currentCards=[];
+        const card=results.firstElementChild;
+        card.className='inspiration-card is-cover';
+        card.removeAttribute('href');delete card.dataset.cardId;delete card.dataset.openCard;
+        card.setAttribute('aria-label','待翻開的文案靈感卡');
+        $('.card-content',card).innerHTML='<div class="card-cover"><svg class="cover-doodle" aria-hidden="true"><use href="#i-cover"/></svg></div>';
+        setCovered(card,true);renderHandPicker();layoutHand();
+      }
+      resetFlipControls();void results.offsetHeight;results.classList.remove('skip-flip');
+    } else resetFlipControls();
   }
   function ensureSlots(count) {
-    const results = $('#draw-results');
-    results.dataset.count = count;
-    while (results.children.length > count) results.lastElementChild.remove();
-    while (results.children.length < count) {
-      const article = document.createElement('a');
-      article.id = results.children.length ? 'draw-card-' + (results.children.length+1) : 'inspiration-card';
-      article.className = 'inspiration-card is-cover';
-      article.setAttribute('aria-label','待翻開的文案靈感卡');
-      article.tabIndex=0;
-      article.innerHTML = '<div class="card-content"><div class="card-meta"><span class="card-code">?</span><span class="mini-face" aria-hidden="true">' + icon('smile') + '</span></div><div class="card-cover"><svg class="cover-doodle" aria-hidden="true"><use href="#i-cover"/></svg></div></div><div class="card-reverse" aria-hidden="true"><svg class="cover-doodle"><use href="#i-cover"/></svg></div>';
+    const results=$('#draw-results');
+    results.dataset.count=count;
+    while(results.children.length>count)results.lastElementChild.remove();
+    while(results.children.length<count) {
+      const card=document.createElement('a');
+      card.id=results.children.length?'draw-card-'+(results.children.length+1):'inspiration-card';
+      card.className='inspiration-card is-cover';
+      card.setAttribute('aria-label','待翻開的文案靈感卡');
+      card.innerHTML='<div class="card-flipper"><div class="card-face card-front"><div class="card-content"><div class="card-cover"><svg class="cover-doodle" aria-hidden="true"><use href="#i-cover"/></svg></div></div></div><div class="card-face card-reverse" aria-hidden="true"><svg class="cover-doodle" aria-hidden="true"><use href="#i-cover"/></svg></div></div>';
+      setCovered(card,true);
       const index=results.children.length;
-      article.addEventListener('pointerenter',event=>{
-        if(event.pointerType==='mouse' && article.dataset.cardId) setActiveHand(index);
-      });
-      article.addEventListener('focusin',()=>{if(article.dataset.cardId)setActiveHand(index);});
-      article.addEventListener('keydown',event=>{
-        if(event.target!==article) return;
+      card.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse'&&card.dataset.cardId)setActiveHand(index);});
+      card.addEventListener('focusin',()=>{if(card.dataset.cardId)setActiveHand(index);});
+      card.addEventListener('keydown',event=>{
+        if(event.target!==card||pendingDraw)return;
         if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){
           event.preventDefault();
           const next=event.key==='Home'?0:event.key==='End'?results.children.length-1:(index+(event.key==='ArrowRight'?1:-1)+results.children.length)%results.children.length;
           results.children[next].focus({preventScroll:true});
         }
       });
-      results.append(article);
+      results.append(card);
     }
   }
-  function renderDraw(cards) {
-    currentCards = cards;
+  function renderDraw(cards,covered=false) {
+    currentCards=cards;
     if(activeHand>=cards.length)activeHand=cards.length-1;
-    cards.forEach((card,index) => {
-      const article = $('#draw-results').children[index];
-      article.className = 'inspiration-card card-' + themeColor(card);
-      article.dataset.cardId = card.id;
-      article.href='#card/'+card.id;
-      article.dataset.openCard=card.id;
-      article.setAttribute('aria-label','看完整內容：' + card.id + ' ' + card.template);
-      $('.card-content',article).innerHTML = '<div class="card-meta"><span class="card-code">' + card.id + '</span><span class="mini-face" aria-hidden="true">' + icon('smile') + '</span></div>' + tags(card) + '<h2 class="draw-card-title">' + escape(card.template) + '</h2><div class="section-label">故事架構</div>' + structure(card) + '<span class="card-detail-link">看完整內容 ' + icon('arrow') + '</span>';
+    cards.forEach((card,index)=>{
+      const element=$('#draw-results').children[index];
+      element.className='inspiration-card card-'+themeColor(card);
+      element.dataset.cardId=card.id;
+      element.href='#card/'+card.id;element.dataset.openCard=card.id;
+      element.setAttribute('aria-label','看完整內容：'+card.id+' '+card.template);
+      element.setAttribute('aria-haspopup','dialog');
+      $('.card-content',element).innerHTML='<div class="card-meta"><span class="card-code">'+card.id+'</span><span class="mini-face" aria-hidden="true">'+icon('smile')+'</span></div>'+tags(card)+'<h2 class="draw-card-title">'+escape(card.template)+'</h2><div class="section-label">故事架構</div>'+structure(card)+'<span class="card-detail-link">看完整內容 '+icon('arrow')+'</span>';
+      setCovered(element,covered);
     });
-    renderHandPicker();
-    layoutHand();
+    renderHandPicker();layoutHand();
   }
   function draw() {
-    if ($('#draw-button').disabled) return;
-    const previous = new Set(currentCards.map(card => card.id));
-    const candidates = catalog.filter(card => !previous.has(card.id));
-    const next = [];
-    const random = new Uint32Array(drawCount);
-    if (globalThis.crypto?.getRandomValues) crypto.getRandomValues(random);
-    else random.forEach((_,index) => { random[index] = Math.floor(Math.random()*4294967296); });
-    for (let index=0; index<drawCount; index++) next.push(candidates.splice(random[index] % candidates.length,1)[0]);
+    if($('#draw-button').disabled)return;
+    const previous=new Set(currentCards.map(card=>card.id));
+    const candidates=catalog.filter(card=>!previous.has(card.id)),next=[];
+    const random=new Uint32Array(drawCount);
+    if(globalThis.crypto?.getRandomValues)crypto.getRandomValues(random);
+    else random.forEach((_,index)=>{random[index]=Math.floor(Math.random()*4294967296);});
+    for(let index=0;index<drawCount;index++)next.push(candidates.splice(random[index]%candidates.length,1)[0]);
+    const saved={cards:[...currentCards],activeHand};
     ensureSlots(drawCount);
     activeHand=compactHand()?Math.floor(drawCount/2):-1;
-    layoutHand();
-    flipFocus = document.activeElement;
-    const complete = () => {
-      resetFlipControls();
-      $('#draw-status').textContent = '抽到 ' + next.length + ' 張：' + next.map(card => card.id + ' ' + card.template).join('；');
-      if (flipFocus === $('#draw-button') && document.activeElement === document.body) $('#draw-button').focus({preventScroll:true});
-    };
-    if (reduced()) {
-      renderDraw(next); complete();
-      return;
-    }
-    $('#draw-button').disabled = true;
-    $('#draw-button').setAttribute('aria-busy','true');
-    $('#draw-button-label').textContent = '翻卡中…';
-    $$('.draw-count input').forEach(input => { input.disabled = true; });
-    $$('#hand-picker button').forEach(button=>{button.disabled=true;});
+    flipFocus=document.activeElement;
     const results=$('#draw-results');
+    const complete=()=>{
+      pendingDraw=null;drawTimers=[];
+      resetFlipControls();positionHand();
+      $('#draw-status').textContent='抽到 '+next.length+' 張：'+next.map(card=>card.id+' '+card.template).join('；');
+      if(flipFocus===$('#draw-button')&&document.activeElement===document.body)$('#draw-button').focus({preventScroll:true});
+    };
+    if(reduced()){renderDraw(next);complete();return;}
+    pendingDraw=saved;
+    $('#draw-button').disabled=true;$('#draw-button').setAttribute('aria-busy','true');
+    $('#draw-button-label').textContent='展開卡片…';
+    $$('.draw-count input').forEach(input=>{input.disabled=true;});
+    $$('#hand-picker button').forEach(button=>{button.disabled=true;});
     results.setAttribute('aria-busy','true');
-    results.classList.add('is-gathering');
-    $('#draw-status').textContent = '正在翻開 ' + drawCount + ' 張靈感卡';
-    midTimer = setTimeout(() => {
-      renderDraw(next);
-      results.classList.remove('is-gathering');
-      results.classList.add('is-revealing');
-      midTimer=undefined;
-    },180);
-    endTimer = setTimeout(() => {endTimer=undefined;complete();},180+360+55*(drawCount-1));
+    results.classList.add('is-dealing','is-gathering');results.dataset.phase='gather';
+    [...results.children].forEach(card=>setCovered(card,true));
+    positionHand();
+    $('#draw-status').textContent='先展開 '+drawCount+' 張卡片背面';
+    drawTimers.push(setTimeout(()=>{
+      renderDraw(next,true);
+      results.classList.remove('is-gathering');results.dataset.phase='spread';
+    },300));
+    next.forEach((card,index)=>{
+      drawTimers.push(setTimeout(()=>{
+        results.dataset.phase='reveal';results.dataset.revealIndex=index+1;
+        setCovered(results.children[index],false);positionHand();
+        $('#draw-button-label').textContent='翻牌 '+(index+1)+' / '+next.length;
+      },880+index*480));
+    });
+    drawTimers.push(setTimeout(complete,880+(next.length-1)*480+500));
   }
   $('#draw-button').addEventListener('click',draw);
-  $$('.draw-count input').forEach(input => input.addEventListener('change',() => {
-    cancelFlip(); drawCount=Number(input.value); resetFlipControls();
+  $$('.draw-count input').forEach(input=>input.addEventListener('change',()=>{
+    cancelFlip();drawCount=Number(input.value);resetFlipControls();
   }));
 
   const character = (index) => {
@@ -235,10 +257,71 @@
   });
 
   function renderDetail(card) {
-    const examples = card.examples.map((example,index) => '<details class="example"' + (index===0 ? ' open' : '') + '><summary><span>範例 ' + (index+1) + '：' + escape(example.scenario) + '</span><span class="plus" aria-hidden="true">+</span></summary><div class="example-content"><h3>' + escape(example.title) + '</h3><p class="example-note">虛構示例，請換成你的真實素材。</p><p>' + escape(example.copy) + '</p>' + (example.shots?.length ? '<h4>畫面怎麼拍</h4><ul>' + example.shots.map(text=>'<li>' + escape(text) + '</li>').join('') + '</ul>' : '') + '</div></details>').join('');
-    $('#detail-content').innerHTML = '<a class="back-link" id="detail-back" href="#' + detailOrigin + '">' + icon('back') + (detailOrigin==='draw' ? '回到翻卡' : '回到全部卡片') + '</a><article class="detail-card card-' + themeColor(card) + '"><header><div class="card-meta"><span class="card-code">' + card.id + '</span><span class="detail-doodle" aria-hidden="true">' + icon('spark') + '</span></div>' + tags(card) + '<h1>' + escape(card.template) + '</h1><p class="detail-concept">' + escape(card.concept) + '</p></header><section class="detail-framework" aria-labelledby="framework-title"><div class="section-heading"><h2 id="framework-title">這張卡的拍攝架構</h2><button class="button small-button" id="copy-framework">' + icon('copy') + '<span>複製架構</span></button></div>' + structure(card) + '<div id="copy-fallback" hidden><label for="framework-text">請選取文字複製</label><textarea id="framework-text" readonly rows="8"></textarea></div></section><section class="detail-examples" aria-labelledby="examples-title"><h2 id="examples-title">把架構，變成一支影片。</h2>' + examples + '</section><aside class="detail-tips"><h2>開拍前的小提醒</h2><ul>' + card.avoid.map(text=>'<li>' + escape(text) + '</li>').join('') + '</ul></aside></article>';
-    $('#copy-framework').addEventListener('click',() => copyFramework(card));
+    const examples=card.examples.map((example,index)=>'<details class="example"'+(index===0?' open':'')+'><summary><span>範例 '+(index+1)+'：'+escape(example.scenario)+'</span><span class="plus" aria-hidden="true">+</span></summary><div class="example-content"><h3>'+escape(example.title)+'</h3><p class="example-note">虛構示例，請換成你的真實素材。</p><p>'+escape(example.copy)+'</p>'+(example.shots?.length?'<h4>畫面怎麼拍</h4><ul>'+example.shots.map(text=>'<li>'+escape(text)+'</li>').join('')+'</ul>':'')+'</div></details>').join('');
+    const footer=modalState.source==='cards'
+      ?'<div class="return-draw"><a class="button" href="#draw" data-modal-nav="draw">'+icon('dice')+'回到翻卡</a><p>沒靈感，再抽抽看</p></div><button class="button secondary" data-close-detail type="button">關閉視窗</button>'
+      :'<button class="button" data-close-detail type="button">回到這手卡片</button><a class="button secondary" href="#cards" data-modal-nav="cards">查看全部卡片 '+icon('arrow')+'</a>';
+    $('#detail-content').innerHTML='<article class="detail-card"><header><div class="card-meta"><span class="card-code">'+card.id+'</span><span class="detail-doodle" aria-hidden="true">'+icon('spark')+'</span></div>'+tags(card)+'<h1 id="detail-title">'+escape(card.template)+'</h1><p class="detail-concept">'+escape(card.concept)+'</p></header><section class="detail-framework" aria-labelledby="framework-title"><div class="section-heading"><h2 id="framework-title">這張卡的拍攝架構</h2><button class="button small-button" id="copy-framework">'+icon('copy')+'<span>複製架構</span></button></div>'+structure(card)+'<div id="copy-fallback" hidden><label for="framework-text">請選取文字複製</label><textarea id="framework-text" readonly rows="8"></textarea></div></section><section class="detail-examples" aria-labelledby="examples-title"><h2 id="examples-title">把架構，變成一支影片。</h2>'+examples+'</section><aside class="detail-tips"><h2>開拍前的小提醒</h2><ul>'+card.avoid.map(text=>'<li>'+escape(text)+'</li>').join('')+'</ul></aside><footer class="dialog-footer">'+footer+'</footer></article>';
+    $('#copy-framework').addEventListener('click',()=>copyFramework(card));
   }
+  function baseTitle() {
+    return page==='cards'?'全部靈感卡｜文案靈感隨機卡片':'文案靈感隨機卡片';
+  }
+  function openDetail(id,opener=document.activeElement,legacy=false) {
+    const card=byId.get(id);if(!card)return;
+    if(modalState)closeDetail({restore:false,normalizeHash:false});
+    cancelFlip();
+    clearTimeout(toastTimer);$('#toast').hidden=true;
+    const body=document.body,root=document.documentElement;
+    const gap=innerWidth-root.clientWidth;
+    modalState={source:page,opener,scrollX,scrollY,activeHand,legacy,bodyOverflow:body.style.overflow,rootOverflow:root.style.overflow,bodyPadding:body.style.paddingRight};
+    body.style.paddingRight=((parseFloat(getComputedStyle(body).paddingRight)||0)+gap)+'px';
+    body.style.overflow='hidden';root.style.overflow='hidden';
+    cardDialog.className='card-dialog card-'+themeColor(card);
+    renderDetail(card);
+    document.title=card.template+'｜文案靈感隨機卡片';
+    cardDialog.showModal();cardDialog.scrollTop=0;
+    $('#close-detail').focus({preventScroll:true});
+    window.scrollTo(modalState.scrollX,modalState.scrollY);
+  }
+  function closeDetail({restore=true,normalizeHash=true}={}) {
+    const saved=modalState;
+    if(!saved){if(cardDialog.open)cardDialog.close();return;}
+    modalState=null;restoringModal=true;
+    clearTimeout(toastTimer);$('#toast').hidden=true;
+    if(cardDialog.open)cardDialog.close();
+    document.body.style.overflow=saved.bodyOverflow;
+    document.documentElement.style.overflow=saved.rootOverflow;
+    document.body.style.paddingRight=saved.bodyPadding;
+    if(normalizeHash&&saved.legacy)history.replaceState(null,'','#'+saved.source);
+    document.title=baseTitle();
+    if(restore){
+      activeHand=saved.activeHand;positionHand();
+      if(saved.opener?.isConnected)saved.opener.focus({preventScroll:true});
+      else $('#main').focus({preventScroll:true});
+      window.scrollTo(saved.scrollX,saved.scrollY);
+    }
+    queueMicrotask(()=>{restoringModal=false;});
+  }
+  $('#close-detail').addEventListener('click',()=>closeDetail());
+  cardDialog.addEventListener('keydown',event=>{
+    if(event.key!=='Tab')return;
+    const controls=$$('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),summary,[tabindex]:not([tabindex="-1"])',cardDialog).filter(node=>node.getClientRects().length);
+    const first=controls[0],last=controls[controls.length-1];
+    if(!first){event.preventDefault();return;}
+    if(event.shiftKey&&(document.activeElement===first||document.activeElement===cardDialog)){event.preventDefault();last.focus();}
+    else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+  });
+  cardDialog.addEventListener('cancel',event=>{event.preventDefault();closeDetail();});
+  cardDialog.addEventListener('close',()=>{if(!cardDialog.open&&modalState)closeDetail();});
+  let backdropDown=false;
+  const outsideDialog=event=>{
+    const rect=cardDialog.getBoundingClientRect();
+    return event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom;
+  };
+  cardDialog.addEventListener('pointerdown',event=>{backdropDown=event.target===cardDialog&&outsideDialog(event);});
+  cardDialog.addEventListener('click',event=>{if(backdropDown&&event.target===cardDialog&&outsideDialog(event))closeDetail();backdropDown=false;});
+
   async function copyFramework(card) {
     const copyButton = $('#copy-framework');
     const fallback = $('#copy-fallback'), field = $('#framework-text');
@@ -258,43 +341,39 @@
     } else toast('這個瀏覽器無法自動複製，請選取下方文字。');
   }
 
-  function route(focus = true) {
+  function route(focus=true) {
     cancelFlip();
-    const previous = page;
-    const hash = location.hash.slice(1) || 'draw';
-    const [target,id] = hash.split('/');
-    if ((target==='card' || target==='detail') && byId.has(id)) {
-      page='detail'; renderDetail(byId.get(id));
-    } else page = target==='cards' || target==='browse' ? 'cards' : 'draw';
-    document.body.dataset.view = page;
-    $$('.page').forEach(section => { section.hidden = section.id !== page+'-view'; });
-    $$('[data-page]').forEach(link => {
-      const active = link.dataset.page === (page==='detail' ? detailOrigin : page);
-      if (active) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
+    if(modalState)closeDetail({restore:false,normalizeHash:false});
+    const [target,id]=(location.hash.slice(1)||'draw').split('/');
+    const legacy=(target==='card'||target==='detail')&&byId.has(id);
+    page=target==='cards'||target==='browse'||legacy?'cards':'draw';
+    document.body.dataset.view=page;
+    $$('.page').forEach(section=>{section.hidden=section.id!==page+'-view';});
+    $$('[data-page]').forEach(link=>{
+      if(link.dataset.page===page)link.setAttribute('aria-current','page');
+      else link.removeAttribute('aria-current');
     });
-    if (page==='cards') renderCards();
-    if (page==='draw') layoutHand();
-    document.title = page==='detail' ? byId.get(id).template + '｜文案靈感隨機卡片' : page==='cards' ? '全部靈感卡｜文案靈感隨機卡片' : '文案靈感隨機卡片';
-    if (focus) {
-      if (page==='cards' && previous==='detail' && detailOrigin==='cards') {
-        window.scrollTo({top:listScroll,behavior:'instant'});
-        const cardLink=$('[data-open-card="'+lastOpenedId+'"]',$('#cards-grid'));
-        cardLink?.focus({preventScroll:true});
-      } else if (page==='draw' && previous==='detail' && detailOrigin==='draw') {
-        window.scrollTo({top:drawScroll,behavior:'instant'});
-        $('[data-open-card="'+lastDrawId+'"]',$('#draw-results'))?.focus({preventScroll:true});
-      } else {
-        window.scrollTo({top:0,behavior:'instant'});
-        $('#main').focus({preventScroll:true});
-      }
-    }
+    if(page==='cards')renderCards();else layoutHand();
+    document.title=baseTitle();
+    if(focus){window.scrollTo({top:0,behavior:'instant'});$('#main').focus({preventScroll:true});}
+    if(legacy)openDetail(id,$('#main'),true);
   }
-  document.addEventListener('click',event => {
+  document.addEventListener('click',event=>{
+    const close=event.target.closest('[data-close-detail]');
+    if(close){event.preventDefault();closeDetail();return;}
+    const destination=event.target.closest('[data-modal-nav]');
+    if(destination){
+      event.preventDefault();
+      const target=destination.dataset.modalNav;
+      closeDetail({restore:false});
+      if(location.hash==='#'+target)route();else location.hash=target;
+      return;
+    }
     const link=event.target.closest('[data-open-card]');
-    if (!link) return;
-    detailOrigin=page==='draw' ? 'draw' : 'cards';
-    if (page==='cards') { listScroll=scrollY; lastOpenedId=link.dataset.openCard; }
-    if (page==='draw') { drawScroll=scrollY; lastDrawId=link.dataset.openCard; }
+    if(!link||event.button!==0||event.ctrlKey||event.metaKey||event.altKey||event.shiftKey)return;
+    event.preventDefault();
+    if(pendingDraw||link.classList.contains('is-covered'))return;
+    openDetail(link.dataset.openCard,link);
   });
   $('.skip-link').addEventListener('click',event => {
     event.preventDefault(); $('#main').focus({preventScroll:true}); $('#main').scrollIntoView({block:'start'});

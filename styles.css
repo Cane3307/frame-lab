@@ -65,13 +65,16 @@ main { max-width: 1160px; margin: 0 auto; padding: 22px 28px 35px; }
 .draw-button[aria-busy=true] { background: var(--pink); }
 .draw-results { position: relative; width: 100%; max-width: none; margin: 0 auto; padding: 0; perspective: 1400px; isolation: isolate; }
 .draw-results::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 34%; width: 87%; height: 260px; transform: translateX(-50%); border: 3px dashed oklch(22% .015 280 / .16); border-radius: 50%; background: oklch(94% .035 155); pointer-events: none; }
-#draw-results .inspiration-card { position: absolute; top: var(--hand-top,90px); left: 50%; width: var(--hand-card-width,330px); height: auto; min-height: 460px; min-width: 0; padding: 23px 23px 19px; border: 4px solid var(--ink); border-radius: 27px; background: var(--pink); box-shadow: 7px 8px 0 var(--ink); transform: translateX(-50%) translate(var(--fan-x,0px),var(--fan-y,0px)) rotate(var(--fan-angle,0deg)) scale(var(--fan-scale,1)); transform-origin: 50% 100%; transition: transform .36s var(--ease),box-shadow .22s var(--ease); will-change: transform; }
-#draw-results .card-yellow { background: var(--yellow); }
-#draw-results .card-blue { background: var(--blue); }
-#draw-results .card-mint { background: var(--mint); }
-#draw-results .is-active { box-shadow: 10px 13px 0 var(--ink); }
-.card-content { display: flex; flex-direction: column; height: 100%; min-height: 0; backface-visibility: hidden; }
-.inspiration-card { color: var(--ink); text-decoration: none; }
+#draw-results .inspiration-card { --card-fill: var(--pink); position: absolute; top: var(--hand-top,90px); left: 50%; width: var(--hand-card-width,330px); height: auto; min-height: 460px; min-width: 0; padding: 0; border: 0; border-radius: 27px; background: transparent; box-shadow: none; color: var(--ink); text-decoration: none; transform: translateX(-50%) translate(var(--fan-x,0px),var(--fan-y,0px)) rotate(var(--fan-angle,0deg)) scale(var(--fan-scale,1)); transform-origin: 50% 100%; transform-style: preserve-3d; transition: transform .42s var(--ease); will-change: transform; }
+#draw-results .card-yellow { --card-fill: var(--yellow); }
+#draw-results .card-blue { --card-fill: var(--blue); }
+#draw-results .card-mint { --card-fill: var(--mint); }
+.card-flipper { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transform: rotateY(0deg); transition: transform .46s cubic-bezier(.45,0,.2,1); }
+.is-covered .card-flipper { transform: rotateY(180deg); }
+.card-face { width: 100%; min-height: 460px; border: 4px solid var(--ink); border-radius: inherit; box-shadow: 7px 8px 0 var(--ink); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.card-front { position: relative; height: 100%; padding: 23px 23px 19px; border-radius: 27px; background: var(--card-fill); transform: rotateY(0deg); }
+#draw-results .is-active .card-face { box-shadow: 10px 13px 0 var(--ink); }
+.card-content { display: flex; flex-direction: column; height: 100%; min-height: 0; }
 .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
 #draw-results .draw-card-title { font-size: 21px; line-height: 1.6; }
 #draw-results .section-label { margin-top: 19px; }
@@ -82,15 +85,12 @@ main { max-width: 1160px; margin: 0 auto; padding: 22px 28px 35px; }
 .doodle-fill { fill: var(--yellow); }
 .tiny-card { fill: var(--paper); }
 .doodle-star { fill: var(--mint); }
-.card-reverse { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 35px; border-radius: 22px; background: var(--pink); opacity: 0; visibility: hidden; pointer-events: none; }
+.card-reverse { position: absolute; inset: 0; height: 100%; display: flex; align-items: center; justify-content: center; padding: 35px; border-radius: 27px; background: var(--pink); transform: rotateY(180deg); pointer-events: none; }
 .card-reverse::before { content: ""; position: absolute; inset: 13px; border: 2px dashed var(--ink); border-radius: 16px; }
 .is-gathering .inspiration-card { transform: translateX(-50%) translateY(28px) rotate(0deg) scale(.78) !important; }
-.is-gathering .card-content { opacity: 0; }
-.is-gathering .card-reverse { opacity: 1; visibility: visible; }
-.is-gathering .inspiration-card,.is-revealing .inspiration-card { pointer-events: none; }
-.is-revealing .inspiration-card { transition-delay: var(--deal-delay,0ms) !important; }
-.is-revealing .card-content { animation: hand-face .36s var(--ease) both; animation-delay: var(--deal-delay,0ms); }
-@keyframes hand-face { from { transform: rotateY(-88deg); opacity: 0; } to { transform: rotateY(0); opacity: 1; } }
+.is-gathering .card-flipper { transition-duration: .28s; }
+.is-dealing .inspiration-card { pointer-events: none; }
+.skip-flip .card-flipper { transition: none !important; }
 .hand-picker { display: none; }
 .hand-picker button { display: grid; place-items: center; min-width: 44px; min-height: 44px; padding: 3px; border: var(--line); border-radius: 13px; background: var(--paper); box-shadow: 2px 2px 0 var(--ink); font: 800 13px/1 ui-monospace,monospace; }
 .hand-picker button[aria-pressed="true"] { background: var(--pink); }
@@ -181,6 +181,23 @@ body[data-view="draw"] .site-footer { display: none; }
 .site-footer p { color: var(--muted); }
 .toast { position: fixed; z-index: 30; bottom: 22px; left: 50%; transform: translateX(-50%); max-width: calc(100vw - 32px); width: max-content; padding: 11px 19px; border: var(--line); border-radius: 16px; background: var(--mint); box-shadow: 4px 4px 0 var(--ink); font-size: 12px; font-weight: 700; }
 .noscript { margin: 25px; padding: 20px; border: var(--line); border-radius: 20px; background: var(--yellow); }
+.card-dialog { width: min(860px,calc(100vw - 32px)); max-width: none; max-height: calc(100svh - 32px); margin: auto; padding: 0; border: 4px solid var(--ink); border-radius: 28px; color: var(--ink); box-shadow: 10px 10px 0 var(--ink); overflow-y: auto; overscroll-behavior: contain; }
+.card-dialog::backdrop { background: oklch(18% .02 280 / .66); }
+.dialog-toolbar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; min-height: 66px; padding: 10px 26px; border-bottom: 2px solid var(--ink); background: inherit; font-size: 13px; font-weight: 850; }
+.dialog-close { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: var(--line); border-radius: 14px; background: var(--paper); box-shadow: 3px 3px 0 var(--ink); font-size: 29px; line-height: 1; }
+.dialog-close:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+.card-dialog .detail-card { border: 0; border-radius: 0; box-shadow: none; padding: 25px 34px 32px; background: transparent; }
+.dialog-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; margin-top: 30px; padding-top: 25px; border-top: 3px solid var(--ink); }
+.return-draw p { margin-top: 12px; font-size: 12px; font-weight: 700; }
+@media (max-width: 540px) {
+  .card-dialog { width: calc(100vw - 20px); max-height: calc(100svh - 20px); border-radius: 23px; box-shadow: 5px 5px 0 var(--ink); }
+  .dialog-toolbar { padding: 9px 16px; }
+  .card-dialog .detail-card { padding: 22px 20px 28px; }
+  .dialog-footer { flex-direction: column; align-items: stretch; gap: 19px; }
+  .dialog-footer .button { width: 100%; }
+  .return-draw { text-align: center; }
+}
+
 @media (max-width: 1160px) {
   .site-footer { margin-inline: 28px; }
 }
@@ -252,13 +269,14 @@ body[data-view="draw"] .site-footer { display: none; }
 }
 @media (max-width: 740px), (hover: none) {
   .hand-picker:not([hidden]) { display: flex; justify-content: center; gap: 8px; padding: 4px 0 2px; }
-  #draw-results .inspiration-card { padding: 21px 20px 17px; border-radius: 24px; }
+  #draw-results .card-front { padding: 21px 20px 17px; border-radius: 24px; }
+  #draw-results .card-reverse { border-radius: 24px; }
   #draw-results .draw-card-title { font-size: 20px; }
   .draw-results::before { width: 94%; height: 200px; top: 37%; }
 }
 @media (max-width: 370px) {
   .brand { font-size: 20px; gap: 9px; }
-  #draw-results .inspiration-card { padding: 19px 16px 15px; }
+  #draw-results .card-front { padding: 19px 16px 15px; }
   #draw-results .draw-card-title { font-size: 19px; }
 }
 @media (prefers-reduced-motion: reduce) {
