@@ -69,7 +69,7 @@
       article.className = 'inspiration-card card-' + themeColor(card) + (article.classList.contains('is-flipping') ? ' is-flipping' : '');
       article.dataset.cardId = card.id;
       article.setAttribute('aria-label',card.id + ' ' + card.template);
-      $('.card-content',article).innerHTML = '<div class="draw-card-scroll" tabindex="0" role="region" aria-label="題材與故事架構"><div class="card-meta"><span class="card-code">' + card.id + '</span><span class="mini-face" aria-hidden="true">' + icon('smile') + '</span></div>' + tags(card) + '<h2 class="draw-card-title">' + escape(card.template) + '</h2><p class="card-concept">' + escape(card.concept) + '</p><div class="section-label">故事架構</div>' + structure(card) + '</div><a class="card-detail-link" href="#card/' + card.id + '" data-open-card="' + card.id + '">看完整內容 ' + icon('arrow') + '</a>';
+      $('.card-content',article).innerHTML = '<div class="draw-card-scroll" tabindex="0" role="region" aria-label="題材與故事架構"><div class="card-meta"><span class="card-code">' + card.id + '</span><span class="mini-face" aria-hidden="true">' + icon('smile') + '</span></div>' + tags(card) + '<h2 class="draw-card-title">' + escape(card.template) + '</h2><div class="section-label">故事架構</div>' + structure(card) + '</div><a class="card-detail-link" href="#card/' + card.id + '" data-open-card="' + card.id + '">看完整內容 ' + icon('arrow') + '</a>';
     });
   }
   function draw() {
