@@ -52,6 +52,7 @@
   let filters = {theme:'', form:'', headline:'', query:''};
   const locks = {theme:false, form:false, headline:false};
   let selectedId = '', previewIndex = 0, previewPlaying = false;
+  let stageRecord, stageStep = 0, stageTimer, stagePlaying = false;
   let confirmResolve, confirmPrevious;
   const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   function toast(message) {
@@ -112,6 +113,8 @@
   }
   function route(focus = true) {
     stopPreview();
+    stopStage();
+    cancelDraw();
     const path = location.hash.slice(1) || 'browse';
     const [target, id] = path.split('/');
     const known = ['browse','studio','saved','formulas','knowledge','detail'];
@@ -148,14 +151,82 @@
   const themes = data.meta.themes;
   const forms = data.meta.forms;
   const headlines = data.meta.headlines;
-  const themeSymbols = ['◴','⌁','⌘','♡','⚑','◇','▷'];
+  const themeSymbols = ['01','02','03','04','05','06','07'];
+  const storyNotes = {
+    '曬過程': {labels:['原本的樣子','動手改變','完成與對照'],notes:['先留下起點，讓改變有依據。','保留真正改變進度的操作。','用同一個角度回看結果。']},
+    '說故事': {labels:['人物想要','遇到阻礙','選擇與後果'],notes:['讓觀眾知道人物在意什麼。','一個阻礙，讓目標變得有重量。','讓人物的選擇真正改變後果。']},
+    '教知識': {labels:['提出困惑','找到判準','示範一次'],notes:['從觀眾真的遇過的問題開始。','給一個能用來判斷的方法。','把方法演示給觀眾看，而不只念名詞。']},
+    '熬雞湯': {labels:['一個處境','被理解了','小小的行動'],notes:['把抽象感受放回具體的一天。','先接住情緒，再換一個理解角度。','用一個做得到的小行動收尾。']},
+    '選立場': {labels:['看見爭點','攤開理由','作出判斷'],notes:['說清楚兩方真正不同意的是什麼。','把判準和例外一起放上桌。','讓觀眾理解理由，而不只記住站隊。']},
+    '賣商品': {labels:['有個需求','看見證據','判斷適合'],notes:['從需要解決的事出發。','展示使用方式與可查證的條件。','幫觀眾判斷是否適合自己。']},
+    '演劇情': {labels:['角色登場','衝突升級','合理收束'],notes:['每個角色都要有自己的目標。','讓行動造成新的阻礙或選擇。','結尾回應先前埋下的原因。']}
+  };
+  // Original pen drawings. Motion references inform the interaction, not these assets.
+  const penDrawings = {
+    box:'M13 21l18-9 20 8-19 10zM13 21l1 26 18 9 18-10 1-26M32 30v26m-12-32 18 8m-1-17 4 8',
+    tool:'M18 15a13 13 0 0 0 14 18l17 18 7-7-17-16a13 13 0 0 0-18-15l8 8-8 8-8-8z',
+    check:'M13 14l39-1 1 40-40 2zM22 32l8 9 17-24M18 7l30 1',
+    person:'M26 9c-13 1-13 19-1 20 13 0 14-21 1-20zM10 53c0-16 31-20 34-2M46 17l9-3m-7 11 8 3',
+    fork:'M30 56V36Q31 25 14 14m17 22q0-12 19-23M9 14h11M14 9v11m31-7h11m-5-5v11',
+    flag:'M18 56l-1-47m1 5c12-11 18 9 32-1l-1 22c-13 8-19-8-31 0M10 57h19',
+    question:'M27 10c-19 1-16 27 2 27 19-1 18-28-2-27zm12 27 14 17M23 21c0-9 14-8 11 0l-6 5v4m0 4v1',
+    list:'M15 9l36 2-2 46-37-1zM20 22l3 3 6-8m4 5h10M18 37l4 4 6-8m5 4h9M20 50h20',
+    bulb:'M24 43c0-9-12-11-12-23 1-21 40-22 40 1 0 10-12 16-13 22zM25 49h13m-12 6h11M5 15l-4-2m51-6 5-4M9 2l3 5m43 29 6 3',
+    cloud:'M9 31c-12-15 9-28 20-16 6-15 28-5 24 8 14 6 5 23-7 20H19M19 50l-3 7m17-7-4 9m17-8-2 6',
+    heart:'M32 52C14 40 5 31 10 19s21-9 22 1c4-15 25-15 25 1-1 14-14 22-25 31zM15 15l-4-5m40 1 4-6',
+    step:'M23 12c8 2 7 12 2 16-7 7-15 5-14-3 0-9 7-15 12-13zM13 37l12 2-2 10-13-1zM47 27c9 4 6 14 0 18-8 4-14 1-11-7 2-7 7-13 11-11zM35 50l13 4-4 8-12-3',
+    arrows:'M8 20h43m-10-9 11 9-10 10M55 46H12m10-10-11 10 10 10',
+    scale:'M31 9v45M13 18l37-2M15 19 6 39h19l-10-20M49 17 39 37h20l-10-20M20 57h23',
+    dialog:'M8 13l28-2 1 20-13 1-10 9 1-9-7-1zM42 23h15v23l-9-1 1 10-11-9H28V36',
+    bolt:'M35 6 15 34l17-1-3 26 23-33-19 1z'
+  };
+  const themeDrawings = {'曬過程':['box','tool','check'],'說故事':['person','fork','flag'],'教知識':['question','list','bulb'],'熬雞湯':['cloud','heart','step'],'選立場':['arrows','scale','flag'],'賣商品':['box','question','check'],'演劇情':['person','bolt','dialog']};
+  const penSvg = name => `<svg class="pen-drawing" aria-hidden="true" viewBox="0 0 64 64"><path pathLength="1" d="${penDrawings[name]}"/></svg>`;
+  function stopStage() {
+    clearInterval(stageTimer); stagePlaying = false;
+    const button = $('[data-stage-play]');
+    if (button) { button.setAttribute('aria-pressed','false'); button.innerHTML = `${icon('play')}播放這個故事走向`; }
+  }
+  function setStageStep(index) {
+    if (!stageRecord) return;
+    stageStep = index;
+    const notes = storyNotes[stageRecord.theme];
+    const diagram = $('#draw-result .story-preview');
+    if (diagram) diagram.dataset.phase = index;
+    $$('#draw-result [data-stage-step]').forEach(button => {
+      if (Number(button.dataset.stageStep) === index) button.setAttribute('aria-current','step');
+      else button.removeAttribute('aria-current');
+    });
+    const caption = $('#draw-result .stage-caption');
+    if (caption) caption.textContent = notes.notes[index];
+    $('#stage-status').textContent = `第 ${index+1} 段，${notes.labels[index]}。${notes.notes[index]}`;
+  }
+  function renderIdeaStage(record, isDraw = false) {
+    stopStage(); stageRecord = record; stageStep = 0;
+    $('#stage-status').textContent = isDraw ? `新靈感 ${record.id}：${record.examples[0].title}` : '';
+    const notes = storyNotes[record.theme];
+    const drawings = themeDrawings[record.theme];
+    const example = record.examples[0];
+    const saved = state.favorites.includes(record.id);
+    $('#draw-content').innerHTML = `<div class="idea-paper-top"><span class="mono">${isDraw ? 'A NEW IDEA' : 'TODAY’S PICK'} / ${record.id}</span><span class="paper-stamp">靈感試映</span></div><p class="draw-tags">${esc(record.theme)} × ${esc(record.form)} × ${esc(record.headline)}</p><h2 id="draw-title" class="live-idea-title">${esc(example.title)}</h2><p class="idea-example">${esc(record.concept)}</p><div class="story-preview" data-phase="0" role="group" aria-label="點選三個段落，試看敘事走向">${notes.labels.map((label,i) => `<button type="button" class="story-step" data-stage-step="${i}" ${i===0 ? 'aria-current="step"' : ''}><span class="story-step-no">0${i+1}</span>${penSvg(drawings[i])}<span class="story-step-label">${label}</span></button>`).join('')}</div><p class="stage-caption">${notes.notes[0]}</p><button type="button" class="stage-play text-button" data-stage-play aria-pressed="false">${icon('play')}播放這個故事走向</button><div class="idea-actions"><button class="button primary" data-open="${record.id}">翻看完整靈感 ${icon('arrow')}</button><button class="button secondary" data-favorite="${record.id}" aria-pressed="${saved}" aria-label="${saved ? '取消收藏' : '收藏'} ${record.id}">${icon('bookmark')}<span>${saved ? '已收藏' : '先收著'}</span></button></div><p class="paper-footnote">示例是起點，把它換成你自己的素材。</p>`;
+  }
+  function previewFromFilters() {
+    cancelDraw();
+    const options = matchingRecords();
+    if (options.length) renderIdeaStage(options[0]);
+    else {
+      stopStage(); stageRecord = undefined;
+      $('#draw-content').innerHTML = `<div class="idea-paper-top"><span class="mono">A PAGE FOR SOMETHING NEW</span><span class="paper-stamp">留一點空白</span></div><div class="empty-state"><h2 id="draw-title">這個念頭，還沒找到。</h2><p>換個關鍵字，或放寬一個條件，看看會長出什麼故事。</p><button class="button secondary" data-reset>清除條件，再翻翻看</button></div>`;
+      $('#stage-status').textContent = '沒有符合目前條件的靈感，可清除條件重新查找。';
+    }
+  }
   $('#theme-pills').innerHTML = `<button class="theme-pill" data-theme="" aria-pressed="true">全部靈感 <span class="theme-number">210</span></button>` + themes.map((theme, i) => `<button class="theme-pill" data-theme="${esc(theme)}" aria-pressed="false"><span aria-hidden="true">${themeSymbols[i]}</span>${esc(theme)}</button>`).join('');
   for (const [key, values] of Object.entries({theme:themes,form:forms,headline:headlines})) {
     $(`#filter-${key}`).insertAdjacentHTML('beforeend', values.map(value => `<option value="${esc(value)}">${esc(value)}</option>`).join(''));
     $(`#filter-${key}`).addEventListener('change', event => {
       filters[key] = event.target.value;
       if (!filters[key]) locks[key] = false;
-      syncFilters(); visibleLimit = 12; renderCatalog();
+      syncFilters(); visibleLimit = 12; renderCatalog(); previewFromFilters();
     });
   }
   function syncFilters() {
@@ -170,11 +241,12 @@
     $$('#theme-pills button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.theme === filters.theme)));
   }
   function resetFilters() {
+    cancelDraw();
     clearTimeout(searchTimer);
     filters = {theme:'',form:'',headline:'',query:''};
     for (const key in locks) locks[key] = false;
     $('#search').value = ''; visibleLimit = 12;
-    syncFilters(); renderCatalog();
+    syncFilters(); renderCatalog(); renderIdeaStage(records.get('C069'));
   }
   $('#reset-filters').addEventListener('click', resetFilters);
   $('#theme-pills').addEventListener('click', event => {
@@ -182,7 +254,7 @@
     if (!button) return;
     filters.theme = button.dataset.theme;
     if (!filters.theme) locks.theme = false;
-    visibleLimit = 12; syncFilters(); renderCatalog();
+    visibleLimit = 12; syncFilters(); renderCatalog(); previewFromFilters();
   });
   $$('[data-lock]').forEach(button => button.addEventListener('click', () => {
     const key = button.dataset.lock;
@@ -196,7 +268,7 @@
   function matchingRecords() { return discoveryOrder.filter(record => ['theme','form','headline'].every(key => !filters[key] || record[key] === filters[key]) && matchesQuery(record)); }
   function card(record) {
     const saved = state.favorites.includes(record.id);
-    return `<article class="idea-card"><button class="card-open" data-open="${record.id}" aria-label="檢視 ${record.id} ${esc(record.template)}"><div class="card-top"><span class="record-id mono">${record.id}</span><span class="theme-tag">${esc(record.theme)}</span></div><h3>${esc(record.template)}</h3><p class="card-concept">${esc(record.concept)}</p><div class="card-bottom"><span>${esc(record.form)} <span aria-hidden="true">·</span> ${esc(record.headline)}</span>${icon('arrow')}</div></button><button class="icon-button card-bookmark" data-favorite="${record.id}" aria-label="${saved ? '取消收藏' : '收藏'} ${record.id}" aria-pressed="${saved}">${icon('bookmark')}</button></article>`;
+    return `<article class="idea-card" data-theme-index="${themes.indexOf(record.theme)}"><button class="card-open" data-open="${record.id}" aria-label="檢視 ${record.id} ${esc(record.examples[0].title)}"><div class="card-top"><span class="record-id mono">NOTE / ${record.id}</span><span class="theme-tag">${esc(record.theme)}</span></div><div class="card-figure" aria-hidden="true">${themeDrawings[record.theme].map(name=>penSvg(name)).join('<span>⤳</span>')}</div><h3>${esc(record.examples[0].title)}</h3><p class="card-concept">${esc(record.template)}</p><div class="card-bottom"><span>${esc(record.form)} <span aria-hidden="true">·</span> ${esc(record.headline)}</span><span>翻開 ${icon('arrow')}</span></div></button><button class="icon-button card-bookmark" data-favorite="${record.id}" aria-label="${saved ? '取消收藏' : '收藏'} ${record.id}" aria-pressed="${saved}">${icon('bookmark')}</button></article>`;
   }
   function renderCatalog() {
     const list = matchingRecords();
@@ -206,50 +278,65 @@
     $('#loaded-count').textContent = list.length ? `已顯示 ${Math.min(visibleLimit,list.length)} / ${list.length}` : '';
   }
   $('#search').addEventListener('input', event => {
+    cancelDraw();
     clearTimeout(searchTimer);
     filters.query = event.target.value.trim();
-    searchTimer = setTimeout(() => { visibleLimit = 12; renderCatalog(); }, 120);
+    searchTimer = setTimeout(() => { visibleLimit = 12; renderCatalog(); previewFromFilters(); }, 120);
   });
   $('#load-more').addEventListener('click', () => {
     const oldLimit = visibleLimit;
     visibleLimit += 12; renderCatalog();
     $$('.card-open', $('#catalog-grid'))[oldLimit]?.focus({preventScroll:true});
   });
+  function cancelDraw() {
+    if (shuffleTimer === undefined) return;
+    clearTimeout(shuffleTimer); shuffleTimer = undefined;
+    $('#shuffle').disabled = false; $('#hero-shuffle').disabled = false;
+    $('#shuffle').removeAttribute('aria-busy'); $('#hero-shuffle').removeAttribute('aria-busy');
+    $('#shuffle').innerHTML = `${icon('shuffle')}再抽一張`;
+    document.body.classList.remove('drawing');
+  }
   async function shuffle() {
     if ($('#shuffle').disabled) return;
     clearTimeout(searchTimer);
     const candidates = data.combinations.filter(record => ['theme','form','headline'].every(key => !locks[key] || !filters[key] || record[key] === filters[key]) && matchesQuery(record));
     if (!candidates.length) { toast('這個關鍵字沒有符合的組合，試試清除搜尋。'); return; }
-    const previousId = selectedId;
+    const previousId = stageRecord?.id || selectedId;
     const pool = candidates.length > 1 ? candidates.filter(x => x.id !== previousId) : candidates;
     const random = new Uint32Array(1);
     if (globalThis.crypto?.getRandomValues) crypto.getRandomValues(random); else random[0] = Math.floor(Math.random()*4294967296);
     const record = pool[random[0] % pool.length];
+    const focusBeforeDraw = document.activeElement;
+    const restoreDrawFocus = focusBeforeDraw === $('#shuffle') || focusBeforeDraw === $('#hero-shuffle');
     $('#shuffle').disabled = true; $('#hero-shuffle').disabled = true;
     $('#shuffle').setAttribute('aria-busy','true');
-    $('#shuffle').innerHTML = `${icon('shuffle')}正在尋找靈感…`;
+    $('#shuffle').innerHTML = `${icon('shuffle')}翻找中…`;
+    $('#hero-shuffle').setAttribute('aria-busy','true');
+    stopStage();
+    $('#draw-result').classList.remove('revealed');
     document.body.classList.add('drawing');
     shuffleTimer = setTimeout(() => {
+      shuffleTimer = undefined;
       selectedId = record.id;
       for (const key of ['theme','form','headline']) filters[key] = record[key];
       syncFilters(); visibleLimit = 12; renderCatalog();
-      $('#draw-content').innerHTML = `<div class="draw-content-row"><div><p class="draw-tags">${record.id} / ${esc(record.theme)} × ${esc(record.form)} × ${esc(record.headline)}</p><h3 id="draw-title">${esc(record.template)}</h3></div><button class="button primary" data-open="${record.id}">看看這個靈感 ${icon('arrow')}</button></div>`;
+      document.body.classList.remove('drawing');
+      renderIdeaStage(record, true);
       $('#draw-result').hidden = false;
-      $('#draw-result').setAttribute('aria-live','polite');
       $('#draw-result').classList.remove('revealed');
       void $('#draw-result').offsetWidth;
       $('#draw-result').classList.add('revealed');
       $('#shuffle').disabled = false; $('#hero-shuffle').disabled = false;
       $('#shuffle').removeAttribute('aria-busy');
-      $('#shuffle').innerHTML = `${icon('shuffle')}抽一個組合`;
-      document.body.classList.remove('drawing');
-      $('#draw-result').scrollIntoView({behavior:reducedMotion() ? 'instant' : 'smooth',block:'center'});
+      $('#hero-shuffle').removeAttribute('aria-busy');
+      $('#shuffle').innerHTML = `${icon('shuffle')}再抽一張`;
+      if (restoreDrawFocus && document.activeElement === document.body) focusBeforeDraw.focus({preventScroll:true});
+      if (innerWidth < 760) $('#draw-result').scrollIntoView({behavior:reducedMotion() ? 'instant' : 'smooth',block:'center'});
       toast(`抽到 ${record.id}：${record.theme}、${record.form}、${record.headline}`);
-    }, reducedMotion() ? 0 : 520);
+    }, reducedMotion() ? 0 : 440);
   }
   $('#shuffle').addEventListener('click', shuffle);
   $('#hero-shuffle').addEventListener('click', shuffle);
-  $('#dismiss-draw').addEventListener('click', () => { $('#draw-result').hidden = true; $('#shuffle').focus(); });
 
   const listHtml = values => `<ul class="reading-list">${(values || []).map(value => `<li>${esc(value)}</li>`).join('')}</ul>`;
   function exampleHtml(example, index) {
@@ -361,7 +448,7 @@
     const button = event.target.closest('[data-beat]');
     if (button) { stopPreview(); previewIndex = Number(button.dataset.beat); renderBeats(); $(`[data-beat="${previewIndex}"]`).focus({preventScroll:true}); }
   });
-  document.addEventListener('visibilitychange', () => { if (document.hidden) stopPreview(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { stopPreview(); stopStage(); cancelDraw(); } });
 
   function renderSaved() {
     $('#favorite-total').textContent = `${state.favorites.length} 個靈感`;
@@ -458,6 +545,15 @@
   document.addEventListener('click', async event => {
     const button = event.target.closest('button');
     if (!button) return;
+    if (button.hasAttribute('data-stage-step')) { stopStage(); setStageStep(Number(button.dataset.stageStep)); }
+    if (button.hasAttribute('data-stage-play')) {
+      if (stagePlaying) stopStage();
+      else {
+        stagePlaying = true; setStageStep(0);
+        button.setAttribute('aria-pressed','true'); button.innerHTML = '■ 暫停試映';
+        stageTimer = setInterval(() => { if (stageStep >= 2) stopStage(); else setStageStep(stageStep+1); }, 1200);
+      }
+    }
     if (button.dataset.open) openRecord(button.dataset.open);
     if (button.hasAttribute('data-back')) navigate(returnView);
     if (button.hasAttribute('data-reset')) { resetFilters(); $('#search').focus(); }
@@ -487,6 +583,6 @@
       setTimeout(() => $('#search').focus(), 0);
     }
   });
-  updateCounts(); syncFilters(); route(false);
+  updateCounts(); syncFilters(); renderIdeaStage(records.get('C069')); route(false);
   if (initialNotice) { $('#save-status').textContent = '尚未儲存：請匯出備份'; setTimeout(() => toast(initialNotice),500); }
 })();

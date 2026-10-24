@@ -6,7 +6,7 @@
 
 ## 結果：PASS
 
-主代理以真實 Chromium 執行 `node tests/smoke.cjs`，9 組操作驗收全部通過，沒有 JavaScript 錯誤或本機資源 404。機器可讀結果與實際瀏覽器版本見 [TEST_RESULTS.json](TEST_RESULTS.json)。
+主代理以真實 Chromium 執行 `node tests/smoke.cjs`，10 組操作驗收全部通過，沒有 JavaScript 錯誤或本機資源 404。機器可讀結果與實際瀏覽器版本見 [TEST_RESULTS.json](TEST_RESULTS.json)。
 
 | 驗收項目 | 實測方式 | 結果 |
 |---|---|---|
@@ -26,6 +26,10 @@
 | 減少動態 | reduced-motion 模式抽選結果 animation-name 為 none | 通過 |
 | GitHub 路徑 | 測試伺服器使用 `/frame-lab/` 子路徑載入所有相對資源 | 通過 |
 | 本機直接開啟 | 以 `file://` 開啟 index.html，資料與腳本正常執行 | 通過 |
+
+## 筆記版互動驗收
+
+新增敘事段落的播放／暫停與live狀態、連續抽選動畫重播、按鈕焦點還原與跨頁取消抽選。紙張、索引、字型與三段原創筆畫已完成桌機及手機截圖檢視。
 
 ## 獨立 UI／UX 複查
 

@@ -3,6 +3,7 @@
   "browser": "149.0.7827.55",
   "checks": [
     "GitHub Pages repository subpath loads all relative assets; first shelf covers seven themes",
+    "Notebook storyboard plays with live narration; consecutive draws animate, retain focus and cancel on navigation",
     "Three-axis filter and locked random draw preserve chosen production conditions",
     "Details, fictional examples, favorites, worksheet, mode switch, focus trap and reload persistence",
     "Markdown download and JSON round trip preserve Traditional Chinese; invalid import preserves data",
