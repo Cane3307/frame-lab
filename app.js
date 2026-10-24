@@ -17,7 +17,8 @@
   const steps = card => card.formula.split('→').map(text => text.trim()).filter(Boolean);
   const structure = card => '<ol class="framework">' + steps(card).map((text,index) => '<li><span class="step-number">' + String(index+1).padStart(2,'0') + '</span><span>' + escape(text) + '</span></li>').join('') + '</ol>';
   const tags = card => '<div class="tags"><span>' + escape(card.theme) + '</span><span>' + escape(card.form) + '</span><span>' + escape(card.headline) + '</span></div>';
-  let page = 'draw', currentCard, detailOrigin = 'cards';
+  let page = 'draw', currentCards = [], drawCount = 1, detailOrigin = 'cards';
+  let drawScroll = 0, lastDrawId = '';
   let query = '', theme = '', listScroll = 0, lastOpenedId = '';
   let midTimer, endTimer, searchTimer, toastTimer, flipFocus;
   const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -33,53 +34,80 @@
   function resetFlipControls() {
     $('#draw-button').disabled = false;
     $('#draw-button').removeAttribute('aria-busy');
-    $('#draw-button-label').textContent = currentCard ? '再翻一張' : '隨機翻一張';
-    $('#inspiration-card').classList.remove('is-flipping');
+    $('#draw-button-label').textContent = drawCount === 1 ? '翻一張' : '翻 ' + drawCount + ' 張';
+    $$('.draw-count input').forEach(input => { input.disabled = false; });
+    $('#draw-results').removeAttribute('aria-busy');
+    $$('.inspiration-card',$('#draw-results')).forEach(card => card.classList.remove('is-flipping'));
   }
   function cancelFlip() {
+    const unrevealed = midTimer !== undefined;
     clearTimeout(midTimer); clearTimeout(endTimer);
     midTimer = endTimer = undefined;
+    if (unrevealed) {
+      ensureSlots(currentCards.length || 1);
+      if (currentCards.length) renderDraw(currentCards);
+    }
     resetFlipControls();
   }
-  function renderDraw(card) {
-    currentCard = card;
-    const article = $('#inspiration-card');
-    article.className = 'inspiration-card card-' + themeColor(card) + (article.classList.contains('is-flipping') ? ' is-flipping' : '');
-    article.dataset.cardId = card.id;
-    article.setAttribute('aria-label',card.id + ' ' + card.template);
-    $('#card-content').innerHTML = '<div class="card-meta"><span class="card-code">' + card.id + '</span><span class="mini-face" aria-hidden="true">' + icon('smile') + '</span></div>' + tags(card) + '<h2 class="draw-card-title">' + escape(card.template) + '</h2><p class="card-concept">' + escape(card.concept) + '</p><div class="section-label">故事可以這樣走 <span aria-hidden="true">↘</span></div>' + structure(card) + '<a class="card-detail-link" href="#card/' + card.id + '" data-open-card="' + card.id + '">看完整內容與範例 ' + icon('arrow') + '</a>';
+  function ensureSlots(count) {
+    const results = $('#draw-results');
+    results.dataset.count = count;
+    while (results.children.length > count) results.lastElementChild.remove();
+    while (results.children.length < count) {
+      const article = document.createElement('article');
+      article.id = results.children.length ? 'draw-card-' + (results.children.length+1) : 'inspiration-card';
+      article.className = 'inspiration-card is-cover';
+      article.setAttribute('aria-label','待翻開的短影音靈感卡');
+      article.innerHTML = '<div class="card-content"><div class="card-meta"><span class="card-code">?</span><span class="mini-face" aria-hidden="true">' + icon('smile') + '</span></div><div class="card-cover"><svg class="cover-doodle" aria-hidden="true"><use href="#i-cover"/></svg></div></div>';
+      results.append(article);
+    }
+  }
+  function renderDraw(cards) {
+    currentCards = cards;
+    cards.forEach((card,index) => {
+      const article = $('#draw-results').children[index];
+      article.className = 'inspiration-card card-' + themeColor(card) + (article.classList.contains('is-flipping') ? ' is-flipping' : '');
+      article.dataset.cardId = card.id;
+      article.setAttribute('aria-label',card.id + ' ' + card.template);
+      $('.card-content',article).innerHTML = '<div class="draw-card-scroll" tabindex="0" role="region" aria-label="題材與故事架構"><div class="card-meta"><span class="card-code">' + card.id + '</span><span class="mini-face" aria-hidden="true">' + icon('smile') + '</span></div>' + tags(card) + '<h2 class="draw-card-title">' + escape(card.template) + '</h2><p class="card-concept">' + escape(card.concept) + '</p><div class="section-label">故事架構</div>' + structure(card) + '</div><a class="card-detail-link" href="#card/' + card.id + '" data-open-card="' + card.id + '">看完整內容 ' + icon('arrow') + '</a>';
+    });
   }
   function draw() {
     if ($('#draw-button').disabled) return;
-    const candidates = catalog.filter(card => card.id !== currentCard?.id);
-    const random = new Uint32Array(1);
+    const previous = new Set(currentCards.map(card => card.id));
+    const candidates = catalog.filter(card => !previous.has(card.id));
+    const next = [];
+    const random = new Uint32Array(drawCount);
     if (globalThis.crypto?.getRandomValues) crypto.getRandomValues(random);
-    else random[0] = Math.floor(Math.random()*4294967296);
-    const next = candidates[random[0] % candidates.length];
+    else random.forEach((_,index) => { random[index] = Math.floor(Math.random()*4294967296); });
+    for (let index=0; index<drawCount; index++) next.push(candidates.splice(random[index] % candidates.length,1)[0]);
+    ensureSlots(drawCount);
     flipFocus = document.activeElement;
+    const complete = () => {
+      resetFlipControls();
+      $('#draw-status').textContent = '抽到 ' + next.length + ' 張：' + next.map(card => card.id + ' ' + card.template).join('；');
+      if (flipFocus === $('#draw-button') && document.activeElement === document.body) $('#draw-button').focus({preventScroll:true});
+    };
     if (reduced()) {
-      renderDraw(next); resetFlipControls();
-      $('#draw-status').textContent = '翻到 ' + next.id + '：' + next.template;
+      renderDraw(next); complete();
       return;
     }
     $('#draw-button').disabled = true;
     $('#draw-button').setAttribute('aria-busy','true');
     $('#draw-button-label').textContent = '翻卡中…';
-    $('#inspiration-card').classList.add('is-flipping');
-    $('#draw-status').textContent = '正在翻開下一張靈感…';
+    $$('.draw-count input').forEach(input => { input.disabled = true; });
+    $('#draw-results').setAttribute('aria-busy','true');
+    $$('.inspiration-card',$('#draw-results')).forEach(card => card.classList.add('is-flipping'));
+    $('#draw-status').textContent = '正在翻開 ' + drawCount + ' 張靈感卡';
     midTimer = setTimeout(() => { renderDraw(next); midTimer = undefined; },180);
-    endTimer = setTimeout(() => {
-      resetFlipControls(); endTimer = undefined;
-      $('#draw-status').textContent = '翻到 ' + next.id + '：' + next.template;
-      if (flipFocus === $('#draw-button') && document.activeElement === document.body) $('#draw-button').focus({preventScroll:true});
-      if (innerWidth < 760) $('#inspiration-card').scrollIntoView({behavior:'smooth',block:'start'});
-    },380);
+    endTimer = setTimeout(() => { endTimer = undefined; complete(); },380);
   }
   $('#draw-button').addEventListener('click',draw);
-  $('#cover-draw').addEventListener('click',() => {
-    $('#draw-button').focus({preventScroll:true});
-    draw();
-  });
+  $$('.draw-count input').forEach(input => input.addEventListener('change',() => {
+    cancelFlip();
+    drawCount = Number(input.value);
+    resetFlipControls();
+  }));
 
   const character = (index) => {
     const faces = [
@@ -139,6 +167,7 @@
     if ((target==='card' || target==='detail') && byId.has(id)) {
       page='detail'; renderDetail(byId.get(id));
     } else page = target==='cards' || target==='browse' ? 'cards' : 'draw';
+    document.body.dataset.view = page;
     $$('.page').forEach(section => { section.hidden = section.id !== page+'-view'; });
     $$('[data-page]').forEach(link => {
       const active = link.dataset.page === (page==='detail' ? detailOrigin : page);
@@ -151,6 +180,9 @@
         window.scrollTo({top:listScroll,behavior:'instant'});
         const cardLink=$('[data-open-card="'+lastOpenedId+'"]',$('#cards-grid'));
         cardLink?.focus({preventScroll:true});
+      } else if (page==='draw' && previous==='detail' && detailOrigin==='draw') {
+        window.scrollTo({top:drawScroll,behavior:'instant'});
+        $('[data-open-card="'+lastDrawId+'"]',$('#draw-results'))?.focus({preventScroll:true});
       } else {
         window.scrollTo({top:0,behavior:'instant'});
         $('#main').focus({preventScroll:true});
@@ -162,11 +194,13 @@
     if (!link) return;
     detailOrigin=page==='draw' ? 'draw' : 'cards';
     if (page==='cards') { listScroll=scrollY; lastOpenedId=link.dataset.openCard; }
+    if (page==='draw') { drawScroll=scrollY; lastDrawId=link.dataset.openCard; }
   });
   $('.skip-link').addEventListener('click',event => {
     event.preventDefault(); $('#main').focus({preventScroll:true}); $('#main').scrollIntoView({block:'start'});
   });
   window.addEventListener('hashchange',() => route());
   document.addEventListener('visibilitychange',() => { if(document.hidden) cancelFlip(); });
+  ensureSlots(1);
   route(false);
 })();

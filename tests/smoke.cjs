@@ -49,16 +49,16 @@ function executablePath() {
       await page.screenshot({path:path.join(shots,name),fullPage});
     };
     await page.goto(base);
-    await page.waitForSelector('#cover-draw');
+    await page.waitForSelector('#inspiration-card');
     assert.equal(await page.locator('.main-nav a').count(),2);
     assert.ok(await page.locator('#draw-view').isVisible());
     await capture('doodle-cover-desktop.png',true);
     fs.copyFileSync(path.join(shots,'doodle-cover-desktop.png'),path.join(shots,'preview.png'));
-    await page.locator('#cover-draw').click();
+    await page.locator('#draw-button').click();
     await page.waitForFunction(()=>!document.querySelector('#draw-button').disabled);
     await page.waitForSelector('#inspiration-card[data-card-id]');
     assert.ok(await page.locator('#inspiration-card .framework li').count()>=3);
-    assert.equal(await page.locator('#draw-button-label').textContent(),'再翻一張');
+    assert.equal(await page.locator('#draw-button-label').textContent(),'翻一張');
     await capture('doodle-drawn-desktop.png',true);
     for(let i=0;i<4;i++){
       const prior=await page.locator('#inspiration-card').getAttribute('data-card-id');
@@ -68,9 +68,50 @@ function executablePath() {
       assert.notEqual(await page.locator('#inspiration-card').getAttribute('data-card-id'),prior);
       assert.equal(await page.evaluate(()=>document.activeElement.id),'draw-button');
     }
-    pass('Cover and primary button draw usable frameworks; consecutive cards differ; keyboard focus survives repeated flips');
+    pass('Primary button draws usable frameworks; consecutive cards differ; keyboard focus survives repeated flips');
+    // The draw controls and card nodes must stay put while their contents change.
+    const drawIds = () => page.locator('#draw-results [data-card-id]').evaluateAll(nodes=>nodes.map(n=>n.dataset.cardId));
+    const settleDraw = () => page.waitForFunction(()=>!document.querySelector('#draw-button').disabled);
+    await page.evaluate(()=>{window.__firstDrawCard=document.querySelector('#inspiration-card');});
+    for (const count of [1,3,5]) {
+      await page.locator('input[name="draw-count"][value="'+count+'"]').check();
+      const before=await page.locator('#draw-button').boundingBox();
+      const scrollBefore=await page.evaluate(()=>scrollY);
+      await page.locator('#draw-button').click();
+      await settleDraw();
+      const ids=await drawIds();
+      assert.equal(ids.length,count); assert.equal(new Set(ids).size,count);
+      assert.ok(await page.evaluate(()=>window.__firstDrawCard===document.querySelector('#inspiration-card')),'First card must flip in place instead of being recreated');
+      const after=await page.locator('#draw-button').boundingBox();
+      assert.ok(Math.abs(before.x-after.x)<1 && Math.abs(before.y-after.y)<1,'Draw button moved');
+      assert.equal(await page.evaluate(()=>scrollY),scrollBefore,'Draw should not auto-scroll');
+      assert.ok(await page.locator('#draw-results .framework').count()===count);
+      if(count>1) await capture('batch-'+count+'-desktop.png',true);
+      await page.locator('#draw-button').click(); await settleDraw();
+      const next=await drawIds();
+      assert.ok(next.every(id=>!ids.includes(id)),'New batch should exclude the previous batch');
+      assert.ok((await page.locator('#draw-button').boundingBox()).y===after.y);
+    }
+    const batchIds=await drawIds();
+    await page.locator('#draw-results .card-detail-link').nth(4).click();
+    await page.waitForSelector('#detail-view:not([hidden])');
+    assert.equal(await page.locator('.detail-card .card-code').textContent(),batchIds[4]);
+    await page.locator('#detail-back').click();
+    await page.waitForSelector('#draw-view:not([hidden])');
+    assert.deepEqual(await drawIds(),batchIds);
+    await page.locator('input[name="draw-count"][value="3"]').check();
+    await page.evaluate(()=>{document.querySelector('#draw-button').click();location.hash='#cards';});
+    await page.waitForSelector('#cards-view:not([hidden])');
+    await page.waitForTimeout(430);
+    await page.locator('[data-page="draw"]').click();
+    await page.waitForSelector('#draw-view:not([hidden])');
+    assert.deepEqual(await drawIds(),batchIds,'Cancelling a different-sized batch must restore the previous complete batch');
+    pass('1/3/5 draws have unique cards, retain the same card node and button position, exclude the previous batch and survive detail navigation');
+    await page.locator('input[name="draw-count"][value="1"]').check();
+    await page.locator('#draw-button').click(); await settleDraw();
+
     const drawn=await page.locator('#inspiration-card').getAttribute('data-card-id');
-    await page.locator('.card-detail-link').click();
+    await page.locator('.card-detail-link').first().click();
     await page.waitForSelector('#detail-view:not([hidden])');
     assert.ok((await page.locator('#detail-back').textContent()).includes('回到翻卡'));
     assert.ok(await page.locator('.detail-card .card-code').textContent()===drawn);
@@ -132,6 +173,14 @@ function executablePath() {
         await page.goto(base+hash);
         const target=hash==='#draw'?'#draw-view':hash==='#cards'?'#cards-view':'#detail-view';
         await page.waitForSelector(target+':not([hidden])');
+        if(hash==='#draw') {
+          for(const count of [1,3,5]) {
+            await page.locator('input[name="draw-count"][value="'+count+'"]').check();
+            await page.locator('#draw-button').click(); await settleDraw();
+            assert.equal((await drawIds()).length,count);
+            assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+1),'Batch overflow at '+width+' / '+count);
+          }
+        }
         const dimensions=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth}));
         assert.ok(dimensions.scroll<=dimensions.client+1,'Horizontal overflow at '+width+' '+hash+' '+JSON.stringify(dimensions));
       }
@@ -143,6 +192,21 @@ function executablePath() {
     await page.waitForFunction(()=>!document.querySelector('#draw-button').disabled);
     await page.waitForTimeout(500);
     await capture('doodle-drawn-mobile.png',true);
+    // On a phone the control row stays visible even when reading the fifth card.
+    await page.locator('input[name="draw-count"][value="5"]').check();
+    await page.locator('#draw-button').click(); await settleDraw();
+    await capture('batch-5-mobile.png');
+    assert.equal((await drawIds()).length,5);
+    await page.evaluate(()=>window.scrollTo(0,1000));
+    const mobilePosition=await page.locator('#draw-button').boundingBox();
+    const mobileScroll=await page.evaluate(()=>scrollY);
+    assert.ok(mobilePosition.y>=0 && mobilePosition.y<30,'Mobile draw button should remain at the top while scrolling');
+    const previousMobile=await drawIds();
+    await page.locator('#draw-button').click(); await settleDraw();
+    assert.ok(Math.abs((await page.locator('#draw-button').boundingBox()).y-mobilePosition.y)<1);
+    assert.equal(await page.evaluate(()=>scrollY),mobileScroll,'Repeated mobile draw must preserve scroll position');
+    assert.ok((await drawIds()).every(id=>!previousMobile.includes(id)));
+    pass('Five-card mobile draw keeps sticky controls at the same coordinates and does not scroll the page');
     await page.goto(base+'#cards');
     await capture('doodle-cards-mobile.png');
     assert.equal(await page.locator('#card-search').evaluate(n=>getComputedStyle(n).fontSize),'16px');
@@ -156,7 +220,7 @@ function executablePath() {
     assert.ok(!await page.locator('#draw-button').isDisabled());
     assert.equal(await page.locator('#inspiration-card').evaluate(n=>n.getAnimations().length),0);
     await page.keyboard.press('Tab');
-    assert.ok(await page.evaluate(()=>document.activeElement.matches('a,button,input,select,summary')));
+    assert.ok(await page.evaluate(()=>document.activeElement.matches('a,button,input,select,summary,[role=region]')));
     pass('Reduced motion draws immediately with no animation and keyboard navigation remains native');
     await page.goto('file:///'+path.join(root,'index.html').replace(/\\/g,'/'));
     await page.waitForSelector('#draw-button');
@@ -164,7 +228,7 @@ function executablePath() {
     await page.waitForSelector('#inspiration-card[data-card-id]');
     assert.equal(errors.length,0,errors.join('\n'));
     pass('Direct file opening works; no JavaScript errors or missing local assets');
-    const report={date:new Date().toISOString(),scope:'simple-doodle-redesign',checks:checks.length,passed:checks,errors};
+    const report={date:new Date().toISOString(),scope:'stable-batch-draw',checks:checks.length,passed:checks,errors};
     fs.writeFileSync(path.join(root,'docs/TEST_RESULTS.json'),JSON.stringify(report,null,2)+'\n');
     console.log('ALL '+checks.length+' CHECK GROUPS PASSED');
     await context.close();

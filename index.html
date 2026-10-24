@@ -6,10 +6,10 @@
   <meta name="theme-color" content="#faf8ee">
   <meta name="description" content="不知道下一支短影音拍什麼？隨機翻一張靈感卡，從210種架構中找到開場、故事走向與拍攝點子。">
   <title>靈感場｜翻一張，想到下一支！</title>
-  <link rel="icon" href="assets/favicon.svg?v=doodle-1" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=doodle-1">
+  <link rel="icon" href="assets/favicon.svg?v=batch-2" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=batch-2">
   <script src="data/catalog.js" defer></script>
-  <script src="app.js?v=doodle-1" defer></script>
+  <script src="app.js?v=batch-2" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">跳到主要內容</a>
@@ -22,52 +22,36 @@
   <symbol id="i-star" viewBox="0 0 64 64"><path d="m32 5 7 17 19 2-14 13 4 20-16-10-17 10 4-20L5 24l19-2z"/></symbol>
   <symbol id="i-spark" viewBox="0 0 64 64"><path d="M31 5q3 24 26 27-23 1-26 26Q28 34 6 32 28 29 31 5z"/></symbol>
   <symbol id="i-smile" viewBox="0 0 64 64"><path d="M32 5C15 3 4 17 5 33s13 27 29 26S61 44 59 28 48 5 32 5z"/><path d="M20 24v6m23-6v6M19 39q13 15 26-1"/></symbol>
-</defs></svg>
+<symbol id="i-cover" viewBox="0 0 280 220">
+                <path class="doodle-fill" d="M69 63q-12-29 15-39 15-7 24 16 19-22 36-5 15 13-1 32 27 3 23 24-4 18-28 17 7 23-12 31-23 8-33-17-14 23-34 10-22-16-4-35-30-1-27-23 3-21 41-11z"/>
+                <path d="M81 76v9m35-12v9m-35 17q19 13 36-4"/>
+                <rect class="tiny-card" x="153" y="81" width="85" height="103" rx="17" transform="rotate(9 195 132)"/>
+                <path d="M185 110q0-20 19-15 18 9-2 21-10 6-10 16m-2 15v2M144 108l18 8M99 140l-11 36m37-42 6 35m30 13-7 13m55-7 6 13"/>
+                <path class="doodle-star" d="m222 26 5 13 14 2-11 9 3 14-12-7-12 7 3-14-10-10 14-1z"/>
+              </symbol></defs></svg>
 
 <header class="site-header">
-  <a class="brand" href="#draw" aria-label="靈感場首頁"><svg class="brand-face" aria-hidden="true"><use href="#i-smile"/></svg><span>靈感場<small>一張卡，一個新點子。</small></span></a>
+  <a class="brand" href="#draw" aria-label="靈感場首頁"><svg class="brand-face" aria-hidden="true"><use href="#i-smile"/></svg><span>靈感場</span></a>
   <nav class="main-nav" aria-label="主選單">
-    <a href="#draw" data-page="draw" aria-current="page">隨機翻一張</a>
+    <a href="#draw" data-page="draw" aria-current="page">翻卡</a>
     <a href="#cards" data-page="cards">全部卡片 <span>210</span></a>
   </nav>
 </header>
 
 <main id="main" tabindex="-1">
   <section id="draw-view" class="page" aria-labelledby="draw-heading">
-    <div class="draw-layout">
-      <div class="intro">
-        <span class="eyebrow"><svg aria-hidden="true"><use href="#i-spark"/></svg> 給腦袋一點小驚喜</span>
-        <h1 id="draw-heading">卡住了？<br><span class="headline-sticker">翻一張</span>就好。</h1>
-        <p class="intro-copy">210 種短影音架構，<br>幫你找到下一支影片的起點。</p>
-        <button id="draw-button" class="button draw-button"><svg aria-hidden="true"><use href="#i-dice"/></svg><span id="draw-button-label">隨機翻一張</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
-        <a class="browse-link" href="#cards">想自己挑？看全部卡片 <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        <div class="little-note"><svg aria-hidden="true" viewBox="0 0 80 42"><path d="M6 9q10 38 58 9m-15-4 16 3-6 15"/></svg><span>先有個點子，再慢慢變厲害。</span></div>
-      </div>
-      <div class="deck-area">
-        <svg class="deck-spark spark-one" aria-hidden="true"><use href="#i-spark"/></svg>
-        <svg class="deck-spark spark-two" aria-hidden="true"><use href="#i-star"/></svg>
-        <div class="deck-stack">
-          <div class="deck-sheet sheet-back" aria-hidden="true"></div>
-          <div class="deck-sheet sheet-middle" aria-hidden="true"></div>
-          <article id="inspiration-card" class="inspiration-card is-cover" aria-label="待翻開的短影音靈感卡">
-            <div id="card-content">
-              <div class="cover-top"><span>IDEA CARD</span><span>?</span></div>
-              <svg class="cover-doodle" aria-hidden="true" viewBox="0 0 280 220">
-                <path class="doodle-fill" d="M69 63q-12-29 15-39 15-7 24 16 19-22 36-5 15 13-1 32 27 3 23 24-4 18-28 17 7 23-12 31-23 8-33-17-14 23-34 10-22-16-4-35-30-1-27-23 3-21 41-11z"/>
-                <path d="M81 76v9m35-12v9m-35 17q19 13 36-4"/>
-                <rect class="tiny-card" x="153" y="81" width="85" height="103" rx="17" transform="rotate(9 195 132)"/>
-                <path d="M185 110q0-20 19-15 18 9-2 21-10 6-10 16m-2 15v2M144 108l18 8M99 140l-11 36m37-42 6 35m30 13-7 13m55-7 6 13"/>
-                <path class="doodle-star" d="m222 26 5 13 14 2-11 9 3 14-12-7-12 7 3-14-10-10 14-1z"/>
-              </svg>
-              <h2>你的下一支，<br>藏在這張卡裡。</h2>
-              <p>按一下，讓靈感來找你！</p>
-              <button id="cover-draw" class="cover-bottom" type="button">翻開看看 <span aria-hidden="true">↗</span></button>
-            </div>
-          </article>
-        </div>
-        <p id="draw-status" class="draw-status" role="status" aria-live="polite" aria-atomic="true">不用想太多，先翻一張。</p>
-      </div>
+    <h1 id="draw-heading" class="sr-only">翻一張</h1>
+    <div class="draw-controls">
+      <fieldset class="draw-count">
+        <legend class="sr-only">每次抽幾張</legend>
+        <label><input type="radio" name="draw-count" value="1" checked><span>1 張</span></label>
+        <label><input type="radio" name="draw-count" value="3"><span>3 張</span></label>
+        <label><input type="radio" name="draw-count" value="5"><span>5 張</span></label>
+      </fieldset>
+      <button id="draw-button" class="button draw-button"><svg aria-hidden="true"><use href="#i-dice"/></svg><span id="draw-button-label">翻一張</span></button>
     </div>
+    <div id="draw-results" class="draw-results" data-count="1" aria-label="抽卡結果"></div>
+    <p id="draw-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
   </section>
 
   <section id="cards-view" class="page" hidden aria-labelledby="cards-heading">

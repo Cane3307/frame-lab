@@ -1,13 +1,15 @@
 {
-  "date": "2026-10-24T08:37:48.856Z",
-  "scope": "simple-doodle-redesign",
-  "checks": 8,
+  "date": "2026-10-24T08:52:18.869Z",
+  "scope": "stable-batch-draw",
+  "checks": 10,
   "passed": [
     "210 complete unique frameworks; active UI has no gradients or old notebook dependencies",
-    "Cover and primary button draw usable frameworks; consecutive cards differ; keyboard focus survives repeated flips",
+    "Primary button draws usable frameworks; consecutive cards differ; keyboard focus survives repeated flips",
+    "1/3/5 draws have unique cards, retain the same card node and button position, exclude the previous batch and survive detail navigation",
     "Draw/detail navigation preserves current card; navigation cancels animation; all 210 cards are rendered",
     "Search, empty reset and seven-theme filtering work; detail examples expand and back restores card position/focus",
     "Clipboard copies actual structure; unavailable clipboard exposes selectable text without false success",
+    "Five-card mobile draw keeps sticky controls at the same coordinates and does not scroll the page",
     "All three views fit 320/360/390/768/1024/1440px; mobile inputs use 16px type",
     "Reduced motion draws immediately with no animation and keyboard navigation remains native",
     "Direct file opening works; no JavaScript errors or missing local assets"
