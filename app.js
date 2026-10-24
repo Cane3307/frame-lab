@@ -215,15 +215,15 @@
     drawTimers.push(setTimeout(()=>{
       renderDraw(next,true);
       results.classList.remove('is-gathering');results.dataset.phase='spread';
-    },300));
+    },180));
     next.forEach((card,index)=>{
       drawTimers.push(setTimeout(()=>{
         results.dataset.phase='reveal';results.dataset.revealIndex=index+1;
         setCovered(results.children[index],false);positionHand();
         $('#draw-button-label').textContent='翻牌 '+(index+1)+' / '+next.length;
-      },880+index*480));
+      },540+index*240));
     });
-    drawTimers.push(setTimeout(complete,880+(next.length-1)*480+500));
+    drawTimers.push(setTimeout(complete,540+(next.length-1)*240+260));
   }
   $('#draw-button').addEventListener('click',draw);
   $$('.draw-count input').forEach(input=>input.addEventListener('change',()=>{

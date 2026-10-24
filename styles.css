@@ -65,11 +65,11 @@ main { max-width: 1160px; margin: 0 auto; padding: 22px 28px 35px; }
 .draw-button[aria-busy=true] { background: var(--pink); }
 .draw-results { position: relative; width: 100%; max-width: none; margin: 0 auto; padding: 0; perspective: 1400px; isolation: isolate; }
 .draw-results::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 34%; width: 87%; height: 260px; transform: translateX(-50%); border: 3px dashed oklch(22% .015 280 / .16); border-radius: 50%; background: oklch(94% .035 155); pointer-events: none; }
-#draw-results .inspiration-card { --card-fill: var(--pink); position: absolute; top: var(--hand-top,90px); left: 50%; width: var(--hand-card-width,330px); height: auto; min-height: 460px; min-width: 0; padding: 0; border: 0; border-radius: 27px; background: transparent; box-shadow: none; color: var(--ink); text-decoration: none; transform: translateX(-50%) translate(var(--fan-x,0px),var(--fan-y,0px)) rotate(var(--fan-angle,0deg)) scale(var(--fan-scale,1)); transform-origin: 50% 100%; transform-style: preserve-3d; transition: transform .42s var(--ease); will-change: transform; }
+#draw-results .inspiration-card { --card-fill: var(--pink); position: absolute; top: var(--hand-top,90px); left: 50%; width: var(--hand-card-width,330px); height: auto; min-height: 460px; min-width: 0; padding: 0; border: 0; border-radius: 27px; background: transparent; box-shadow: none; color: var(--ink); text-decoration: none; transform: translateX(-50%) translate(var(--fan-x,0px),var(--fan-y,0px)) rotate(var(--fan-angle,0deg)) scale(var(--fan-scale,1)); transform-origin: 50% 100%; transform-style: preserve-3d; transition: transform .24s var(--ease); will-change: transform; }
 #draw-results .card-yellow { --card-fill: var(--yellow); }
 #draw-results .card-blue { --card-fill: var(--blue); }
 #draw-results .card-mint { --card-fill: var(--mint); }
-.card-flipper { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transform: rotateY(0deg); transition: transform .46s cubic-bezier(.45,0,.2,1); }
+.card-flipper { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transform: rotateY(0deg); transition: transform .22s cubic-bezier(.45,0,.2,1); }
 .is-covered .card-flipper { transform: rotateY(180deg); }
 .card-face { width: 100%; min-height: 460px; border: 4px solid var(--ink); border-radius: inherit; box-shadow: 7px 8px 0 var(--ink); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
 .card-front { position: relative; height: 100%; padding: 23px 23px 19px; border-radius: 27px; background: var(--card-fill); transform: rotateY(0deg); }
@@ -88,7 +88,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 22px 28px 35px; }
 .card-reverse { position: absolute; inset: 0; height: 100%; display: flex; align-items: center; justify-content: center; padding: 35px; border-radius: 27px; background: var(--pink); transform: rotateY(180deg); pointer-events: none; }
 .card-reverse::before { content: ""; position: absolute; inset: 13px; border: 2px dashed var(--ink); border-radius: 16px; }
 .is-gathering .inspiration-card { transform: translateX(-50%) translateY(28px) rotate(0deg) scale(.78) !important; }
-.is-gathering .card-flipper { transition-duration: .28s; }
+.is-gathering .card-flipper { transition-duration: .16s; }
 .is-dealing .inspiration-card { pointer-events: none; }
 .skip-flip .card-flipper { transition: none !important; }
 .hand-picker { display: none; }
@@ -183,6 +183,8 @@ body[data-view="draw"] .site-footer { display: none; }
 .noscript { margin: 25px; padding: 20px; border: var(--line); border-radius: 20px; background: var(--yellow); }
 .card-dialog { width: min(860px,calc(100vw - 32px)); max-width: none; max-height: calc(100svh - 32px); margin: auto; padding: 0; border: 4px solid var(--ink); border-radius: 28px; color: var(--ink); box-shadow: 10px 10px 0 var(--ink); overflow-y: auto; overscroll-behavior: contain; }
 .card-dialog::backdrop { background: oklch(18% .02 280 / .66); }
+.card-dialog { scrollbar-width: none; -ms-overflow-style: none; }
+.card-dialog::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .dialog-toolbar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; min-height: 66px; padding: 10px 26px; border-bottom: 2px solid var(--ink); background: inherit; font-size: 13px; font-weight: 850; }
 .dialog-close { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: var(--line); border-radius: 14px; background: var(--paper); box-shadow: 3px 3px 0 var(--ink); font-size: 29px; line-height: 1; }
 .dialog-close:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }

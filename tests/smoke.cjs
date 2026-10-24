@@ -64,8 +64,9 @@ function executablePath() {
     assert.equal(await page.locator('.main-nav a').count(),2);
     await choose(5);
     const controlBefore=await page.locator('#draw-button').boundingBox();
+    const fastDrawStarted=Date.now();
     await page.locator('#draw-button').click();
-    await phase('spread');await page.waitForTimeout(420);
+    await phase('spread');await page.waitForTimeout(240);
     assert.equal(await page.locator('#draw-results .is-covered').count(),5);
     assert.ok(await page.locator('.card-flipper').evaluateAll(nodes=>nodes.every(n=>new DOMMatrix(getComputedStyle(n).transform).m11 < -.99)));
     assert.ok(await page.locator('.card-face').evaluateAll(nodes=>nodes.every(n=>getComputedStyle(n).backfaceVisibility==='hidden')));
@@ -74,13 +75,14 @@ function executablePath() {
       await page.waitForFunction(i=>document.querySelector('#draw-results').dataset.revealIndex===String(i+1),index);
       assert.equal(await page.locator('#draw-results .is-covered').count(),4-index);
       if(index===0){
-        await page.waitForTimeout(150);
+        await page.waitForTimeout(70);
         const matrix=await page.locator('.card-flipper').first().evaluate(n=>{const m=new DOMMatrix(getComputedStyle(n).transform);return{edge:Math.abs(m.m13),front:m.m11};});
         assert.ok(matrix.edge>.1&&Math.abs(matrix.front)<.99,'Card must rotate through 3D, not just replace its text');
         await page.screenshot({path:path.join(shots,'flip-first-desktop.png')});
       }
     }
     await settle();
+    assert.ok(Date.now()-fastDrawStarted<2300,'Five-card draw should finish in about 1.8 seconds');
     assert.equal(await page.locator('#draw-results .is-covered').count(),0);
     assert.ok(await page.locator('.card-flipper').evaluateAll(nodes=>nodes.every(n=>new DOMMatrix(getComputedStyle(n).transform).m11>.99)));
     assert.ok(Math.abs((await page.locator('#draw-button').boundingBox()).y-controlBefore.y)<1);
@@ -119,7 +121,10 @@ function executablePath() {
       await page.waitForSelector('#card-dialog[open]');
       assert.equal(page.url(),originalURL);assert.ok(await page.locator('#draw-view').isVisible());
       assert.ok(await page.locator('#card-dialog').evaluate(n=>n.matches(':modal')));
+      assert.equal(await page.locator('#card-dialog').evaluate(n=>getComputedStyle(n).scrollbarWidth),'none');
       assert.equal(await page.locator('#close-detail').evaluate(n=>document.activeElement===n),true);
+      await page.locator('#card-dialog').hover();await page.mouse.wheel(0,350);
+      await page.waitForFunction(()=>document.querySelector('#card-dialog').scrollTop>0);
       for(let tab=0;tab<12;tab++){await page.keyboard.press('Tab');assert.ok(await page.evaluate(()=>document.querySelector('#card-dialog').contains(document.activeElement)));}
       if(method==='close'){await page.locator('#card-dialog').evaluate(n=>{n.scrollTop=0;});await shot('dialog-desktop.png');await page.locator('#close-detail').click();}
       else if(method==='escape')await page.keyboard.press('Escape');
@@ -215,7 +220,7 @@ function executablePath() {
       await page.locator('#draw-button').click();await phase(stop);await page.locator('[data-page="cards"]').click();await page.waitForSelector('#cards-view:not([hidden])');
       await page.locator('[data-page="draw"]').click();assert.deepEqual(await ids(),lastHand);
     }
-    await page.waitForTimeout(3400);assert.deepEqual(await ids(),lastHand);assert.ok(!await page.locator('#draw-button').isDisabled());assert.equal(await page.locator('#draw-results .is-covered').count(),0);
+    await page.waitForTimeout(1900);assert.deepEqual(await ids(),lastHand);assert.ok(!await page.locator('#draw-button').isDisabled());assert.equal(await page.locator('#draw-results .is-covered').count(),0);
     pass('Navigation cancels gathering, spreading and revealing with no delayed mutation and restores the previous complete hand');
     await page.goto('file:///'+path.join(root,'index.html').replace(/\\/g,'/'));await page.emulateMedia({reducedMotion:'reduce'});await page.locator('#draw-button').click();await page.locator('#inspiration-card .draw-card-title').click();
     assert.ok(await page.locator('#card-dialog').evaluate(n=>n.open));await page.locator('#close-detail').click();assert.ok(await page.locator('#inspiration-card').getAttribute('data-card-id'));
