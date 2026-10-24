@@ -135,11 +135,24 @@ function executablePath() {
       assert.equal(await page.evaluate(()=>document.activeElement.id),'draw-card-2');
     }
     pass('Card popup keeps the URL, hand, selected card, exact positions and focus; X, Escape and backdrop all close safely with focus containment');
+    await page.locator('[data-page="cards"]').click();
+    await page.locator('#card-search').fill('zzzz找不到任何卡片');await page.waitForSelector('#empty-state:not([hidden])');
+    await page.locator('[data-page="draw"]').click();
+    await opener.focus();await page.waitForTimeout(300);
     await opener.locator('.framework li').first().click();
     await page.waitForSelector('#card-dialog[open]');
-    await page.locator('[data-modal-nav="cards"]').click();
+    const linkedId=await opener.getAttribute('data-card-id');
+    assert.equal(await page.locator('[data-catalog-card]').first().getAttribute('href'),'#cards/'+linkedId);
+    await page.locator('[data-modal-nav="cards"]').first().click();
+    await page.waitForFunction(id=>document.querySelector('#card-dialog').open&&document.querySelector('.detail-card .card-code').textContent===id,linkedId);
     await page.waitForSelector('#cards-view:not([hidden])');
-    assert.equal(await page.locator('.card-tile').count(),210);assert.ok(!await page.locator('#card-dialog').evaluate(n=>n.open));
+    assert.equal(new URL(page.url()).hash,'#cards/'+linkedId);
+    assert.equal(await page.locator('#card-search').inputValue(),'');
+    assert.equal(await page.locator('.card-tile').count(),210);
+    await page.locator('#close-detail').click();
+    assert.equal(new URL(page.url()).hash,'#cards');
+    assert.equal(await page.evaluate(()=>document.activeElement.dataset.openCard),linkedId);
+    assert.ok(await page.locator('.card-tile[data-open-card="'+linkedId+'"]').evaluate(n=>{const r=n.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0;}));
     await page.locator('#card-search').fill('C069');await page.waitForFunction(()=>document.querySelectorAll('.card-tile').length===1);
     assert.equal(await page.locator('.card-tile').getAttribute('data-open-card'),'C069');
     await page.locator('#card-search').fill('zzzz無結果');await page.waitForSelector('#empty-state:not([hidden])');
@@ -167,6 +180,10 @@ function executablePath() {
     await context.clearPermissions();await page.evaluate(()=>{Object.defineProperty(navigator,'clipboard',{configurable:true,value:undefined});document.execCommand=()=>false;});
     await page.locator('#copy-framework').click();assert.ok(await page.locator('#copy-fallback').isVisible());assert.ok((await page.locator('#framework-text').inputValue()).includes('拍攝架構'));
     await page.keyboard.press('Escape');assert.equal(new URL(page.url()).hash,'#cards');
+    await page.goto(base+'#cards/C069');await page.waitForSelector('#card-dialog[open]');
+    assert.equal(await page.locator('.detail-card .card-code').textContent(),'C069');
+    await page.locator('#close-detail').click();
+    assert.equal(await page.evaluate(()=>document.activeElement.dataset.openCard),'C069');
     await page.goto(base+'#card/INVALID');await page.waitForSelector('#draw-view:not([hidden])');
     pass('Legacy card links open a popup over the catalog; closing normalizes the URL; copying and manual fallback work inside the dialog');
     await page.goto(base+'#card/C069');await page.waitForSelector('#card-dialog[open]');

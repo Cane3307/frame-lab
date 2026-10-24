@@ -260,8 +260,11 @@
     const examples=card.examples.map((example,index)=>'<details class="example"'+(index===0?' open':'')+'><summary><span>範例 '+(index+1)+'：'+escape(example.scenario)+'</span><span class="plus" aria-hidden="true">+</span></summary><div class="example-content"><h3>'+escape(example.title)+'</h3><p class="example-note">虛構示例，請換成你的真實素材。</p><p>'+escape(example.copy)+'</p>'+(example.shots?.length?'<h4>畫面怎麼拍</h4><ul>'+example.shots.map(text=>'<li>'+escape(text)+'</li>').join('')+'</ul>':'')+'</div></details>').join('');
     const footer=modalState.source==='cards'
       ?'<div class="return-draw"><a class="button" href="#draw" data-modal-nav="draw">'+icon('dice')+'回到翻卡</a><p>沒靈感，再抽抽看</p></div><button class="button secondary" data-close-detail type="button">關閉視窗</button>'
-      :'<button class="button" data-close-detail type="button">回到這手卡片</button><a class="button secondary" href="#cards" data-modal-nav="cards">查看全部卡片 '+icon('arrow')+'</a>';
-    $('#detail-content').innerHTML='<article class="detail-card"><header><div class="card-meta"><span class="card-code">'+card.id+'</span><span class="detail-doodle" aria-hidden="true">'+icon('spark')+'</span></div>'+tags(card)+'<h1 id="detail-title">'+escape(card.template)+'</h1><p class="detail-concept">'+escape(card.concept)+'</p></header><section class="detail-framework" aria-labelledby="framework-title"><div class="section-heading"><h2 id="framework-title">這張卡的拍攝架構</h2><button class="button small-button" id="copy-framework">'+icon('copy')+'<span>複製架構</span></button></div>'+structure(card)+'<div id="copy-fallback" hidden><label for="framework-text">請選取文字複製</label><textarea id="framework-text" readonly rows="8"></textarea></div></section><section class="detail-examples" aria-labelledby="examples-title"><h2 id="examples-title">把架構，變成一支影片。</h2>'+examples+'</section><aside class="detail-tips"><h2>開拍前的小提醒</h2><ul>'+card.avoid.map(text=>'<li>'+escape(text)+'</li>').join('')+'</ul></aside><footer class="dialog-footer">'+footer+'</footer></article>';
+      :'<button class="button" data-close-detail type="button">回到這手卡片</button><a class="button secondary" href="#cards/'+card.id+'" data-modal-nav="cards" data-catalog-card="'+card.id+'">在全部卡片開啟這張 '+icon('arrow')+'</a>';
+    const headingAction=modalState.source==='draw'
+      ?'<a class="button small-button" href="#cards/'+card.id+'" data-modal-nav="cards" data-catalog-card="'+card.id+'">在全部卡片開啟 '+icon('arrow')+'</a>'
+      :'<span class="detail-doodle" aria-hidden="true">'+icon('spark')+'</span>';
+    $('#detail-content').innerHTML='<article class="detail-card"><header><div class="card-meta"><span class="card-code">'+card.id+'</span>'+headingAction+'</div>'+tags(card)+'<h1 id="detail-title">'+escape(card.template)+'</h1><p class="detail-concept">'+escape(card.concept)+'</p></header><section class="detail-framework" aria-labelledby="framework-title"><div class="section-heading"><h2 id="framework-title">這張卡的拍攝架構</h2><button class="button small-button" id="copy-framework">'+icon('copy')+'<span>複製架構</span></button></div>'+structure(card)+'<div id="copy-fallback" hidden><label for="framework-text">請選取文字複製</label><textarea id="framework-text" readonly rows="8"></textarea></div></section><section class="detail-examples" aria-labelledby="examples-title"><h2 id="examples-title">把架構，變成一支影片。</h2>'+examples+'</section><aside class="detail-tips"><h2>開拍前的小提醒</h2><ul>'+card.avoid.map(text=>'<li>'+escape(text)+'</li>').join('')+'</ul></aside><footer class="dialog-footer">'+footer+'</footer></article>';
     $('#copy-framework').addEventListener('click',()=>copyFramework(card));
   }
   function baseTitle() {
@@ -345,8 +348,8 @@
     cancelFlip();
     if(modalState)closeDetail({restore:false,normalizeHash:false});
     const [target,id]=(location.hash.slice(1)||'draw').split('/');
-    const legacy=(target==='card'||target==='detail')&&byId.has(id);
-    page=target==='cards'||target==='browse'||legacy?'cards':'draw';
+    const linkedCard=(target==='cards'||target==='card'||target==='detail')&&byId.has(id);
+    page=target==='cards'||target==='browse'||linkedCard?'cards':'draw';
     document.body.dataset.view=page;
     $$('.page').forEach(section=>{section.hidden=section.id!==page+'-view';});
     $$('[data-page]').forEach(link=>{
@@ -356,17 +359,30 @@
     if(page==='cards')renderCards();else layoutHand();
     document.title=baseTitle();
     if(focus){window.scrollTo({top:0,behavior:'instant'});$('#main').focus({preventScroll:true});}
-    if(legacy)openDetail(id,$('#main'),true);
+    if(linkedCard){
+      clearTimeout(searchTimer);
+      let opener=$('[data-open-card="'+id+'"]',$('#cards-grid'));
+      if(!opener){
+        query=theme='';
+        $('#card-search').value='';$('#theme-filter').value='';renderCards();
+        opener=$('[data-open-card="'+id+'"]',$('#cards-grid'));
+      }
+      opener.scrollIntoView({block:'center',behavior:'instant'});
+      opener.focus({preventScroll:true});
+      openDetail(id,opener,true);
+    }
   }
   document.addEventListener('click',event=>{
     const close=event.target.closest('[data-close-detail]');
     if(close){event.preventDefault();closeDetail();return;}
     const destination=event.target.closest('[data-modal-nav]');
     if(destination){
+      if(event.button!==0||event.ctrlKey||event.metaKey||event.altKey||event.shiftKey)return;
       event.preventDefault();
       const target=destination.dataset.modalNav;
+      const hash=target==='cards'&&destination.dataset.catalogCard?'#cards/'+destination.dataset.catalogCard:'#'+target;
       closeDetail({restore:false});
-      if(location.hash==='#'+target)route();else location.hash=target;
+      if(location.hash===hash)route();else location.hash=hash;
       return;
     }
     const link=event.target.closest('[data-open-card]');
