@@ -63,21 +63,36 @@ main { max-width: 1160px; margin: 0 auto; padding: 22px 28px 35px; }
 .draw-button:hover,.draw-button:active:not(:disabled) { transform: none; }
 .draw-button svg { width: 25px; height: 25px; }
 .draw-button[aria-busy=true] { background: var(--pink); }
-.draw-results { display: grid; grid-template-columns: minmax(0,1fr); gap: 28px; max-width: 460px; margin: 15px auto 0; padding: 0 10px 14px 0; perspective: 1400px; }
-.draw-results:not([data-count="1"]) { max-width: none; grid-template-columns: repeat(3,minmax(0,1fr)); }
-#draw-results .inspiration-card { position: relative; height: 570px; min-height: 0; min-width: 0; padding: 23px 23px 18px; border: 4px solid var(--ink); border-radius: 29px; background: var(--pink); box-shadow: 8px 8px 0 var(--ink); transform-style: preserve-3d; }
+.draw-results { position: relative; width: 100%; max-width: none; margin: 0 auto; padding: 0; perspective: 1400px; isolation: isolate; }
+.draw-results::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 34%; width: 87%; height: 260px; transform: translateX(-50%); border: 3px dashed oklch(22% .015 280 / .16); border-radius: 50%; background: oklch(94% .035 155); pointer-events: none; }
+#draw-results .inspiration-card { position: absolute; top: var(--hand-top,90px); left: 50%; width: var(--hand-card-width,330px); height: auto; min-height: 460px; min-width: 0; padding: 23px 23px 19px; border: 4px solid var(--ink); border-radius: 27px; background: var(--pink); box-shadow: 7px 8px 0 var(--ink); transform: translateX(-50%) translate(var(--fan-x,0px),var(--fan-y,0px)) rotate(var(--fan-angle,0deg)) scale(var(--fan-scale,1)); transform-origin: 50% 100%; transition: transform .36s var(--ease),box-shadow .22s var(--ease); will-change: transform; }
 #draw-results .card-yellow { background: var(--yellow); }
 #draw-results .card-blue { background: var(--blue); }
 #draw-results .card-mint { background: var(--mint); }
-.card-content { display: flex; flex-direction: column; height: 100%; min-height: 0; }
-.draw-card-scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 4px 4px 0; scrollbar-gutter: stable; }
+#draw-results .is-active { box-shadow: 10px 13px 0 var(--ink); }
+.card-content { display: flex; flex-direction: column; height: 100%; min-height: 0; backface-visibility: hidden; }
 .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
-#draw-results .card-detail-link { flex-shrink: 0; min-height: 44px; margin-top: 13px; }
-.card-cover { display: flex; flex: 1; align-items: center; justify-content: center; min-height: 0; }
-.cover-doodle { width: min(100%,270px); height: 230px; stroke-width: 3.5; }
+#draw-results .draw-card-title { font-size: 21px; line-height: 1.6; }
+#draw-results .section-label { margin-top: 19px; }
+#draw-results .framework { margin-bottom: 16px; }
+#draw-results .card-detail-link { flex-shrink: 0; min-height: 44px; margin-top: auto; }
+.card-cover { display: flex; flex: 1; align-items: center; justify-content: center; min-height: 300px; }
+.cover-doodle { width: min(100%,260px); height: 220px; stroke-width: 3.5; }
 .doodle-fill { fill: var(--yellow); }
 .tiny-card { fill: var(--paper); }
 .doodle-star { fill: var(--mint); }
+.card-reverse { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 35px; border-radius: 22px; background: var(--pink); opacity: 0; visibility: hidden; pointer-events: none; }
+.card-reverse::before { content: ""; position: absolute; inset: 13px; border: 2px dashed var(--ink); border-radius: 16px; }
+.is-gathering .inspiration-card { transform: translateX(-50%) translateY(28px) rotate(0deg) scale(.78) !important; }
+.is-gathering .card-content { opacity: 0; }
+.is-gathering .card-reverse { opacity: 1; visibility: visible; }
+.is-gathering .inspiration-card,.is-revealing .inspiration-card { pointer-events: none; }
+.is-revealing .inspiration-card { transition-delay: var(--deal-delay,0ms) !important; }
+.is-revealing .card-content { animation: hand-face .36s var(--ease) both; animation-delay: var(--deal-delay,0ms); }
+@keyframes hand-face { from { transform: rotateY(-88deg); opacity: 0; } to { transform: rotateY(0); opacity: 1; } }
+.hand-picker { display: none; }
+.hand-picker button { display: grid; place-items: center; min-width: 44px; min-height: 44px; padding: 3px; border: var(--line); border-radius: 13px; background: var(--paper); box-shadow: 2px 2px 0 var(--ink); font: 800 13px/1 ui-monospace,monospace; }
+.hand-picker button[aria-pressed="true"] { background: var(--pink); }
 body[data-view="draw"] .site-footer { display: none; }
 .card-yellow { background: var(--yellow); }
 .card-blue { background: var(--blue); }
@@ -98,13 +113,6 @@ body[data-view="draw"] .site-footer { display: none; }
 .framework li > span:last-child { min-width: 0; padding-top: 3px; overflow-wrap: anywhere; }
 .card-detail-link { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 43px; margin-top: 18px; padding: 10px 0 0; border-top: 2px solid var(--ink); font-size: 12px; font-weight: 800; text-decoration: none; }
 .card-detail-link:hover { text-decoration: underline; }
-.inspiration-card.is-flipping { animation: card-flip .38s var(--ease) both; }
-@keyframes card-flip {
-  0% { transform: rotateY(0) translateY(0); }
-  47% { transform: rotateY(-88deg) translateY(-6px); }
-  49% { transform: rotateY(88deg) translateY(-6px); }
-  100% { transform: rotateY(0) translateY(0); }
-}
 .page-heading { max-width: 760px; padding-top: 27px; margin-bottom: 31px; }
 .page-heading .eyebrow { margin-bottom: 10px; }
 .page-heading h1 { font-size: 37px; line-height: 1.55; }
@@ -175,9 +183,7 @@ body[data-view="draw"] .site-footer { display: none; }
 @media (max-width: 1160px) {
   .site-footer { margin-inline: 28px; }
 }
-@media (max-width: 980px) {
-  .draw-results:not([data-count="1"]) { grid-template-columns: repeat(2,minmax(0,1fr)); }
-}
+
 @media (max-width: 920px) {
   .cards-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .draw-card-title { font-size: 21px; }
@@ -190,8 +196,8 @@ body[data-view="draw"] .site-footer { display: none; }
   .draw-controls { padding-top: 12px; padding-bottom: 22px; gap: 12px; }
   .draw-button { font-size: 16px; gap: 8px; }
   .draw-count span { font-size: 13px; }
-  #draw-results .inspiration-card { height: 560px; padding: 21px 20px 16px; border-radius: 25px; }
-  .draw-results { gap: 24px; margin-top: 9px; }
+
+
   .card-concept,.framework li { font-size: 13px; }
   .card-detail-link { font-size: 12px; }
   .page-heading { padding-top: 19px; margin-bottom: 25px; }
@@ -222,9 +228,7 @@ body[data-view="draw"] .site-footer { display: none; }
   .site-footer { margin: 28px 20px 0; padding-block: 20px; font-size: 10px; }
   .toast { font-size: 11px; }
 }
-@media (max-width: 640px) {
-  .draw-results:not([data-count="1"]) { grid-template-columns: minmax(0,1fr); max-width: 460px; }
-}
+
 @media (max-width: 540px) {
   .site-header { justify-content: center; gap: 18px; }
   .brand { margin-right: auto; }
@@ -240,10 +244,21 @@ body[data-view="draw"] .site-footer { display: none; }
   .site-header { padding-inline: 16px; } main { padding-inline: 16px; }
   .draw-controls { gap: 10px; }
   .draw-button { font-size: 15px; gap: 7px; } .draw-button svg { width: 21px; height: 21px; }
-  #draw-results .inspiration-card { padding: 20px 16px 16px; }
+
   .page-heading h1 { font-size: 26px; }
   .detail-card { padding: 20px 16px; } .detail-card h1 { font-size: 23px; }
   .card-count { font-size: 11px; }
+}
+@media (max-width: 740px), (hover: none) {
+  .hand-picker:not([hidden]) { display: flex; justify-content: center; gap: 8px; padding: 4px 0 2px; }
+  #draw-results .inspiration-card { padding: 21px 20px 17px; border-radius: 24px; }
+  #draw-results .draw-card-title { font-size: 20px; }
+  .draw-results::before { width: 94%; height: 200px; top: 37%; }
+}
+@media (max-width: 370px) {
+  .brand { font-size: 20px; gap: 9px; }
+  #draw-results .inspiration-card { padding: 19px 16px 15px; }
+  #draw-results .draw-card-title { font-size: 19px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *,*::before,*::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }

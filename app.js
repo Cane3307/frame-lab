@@ -25,6 +25,77 @@
   const searchIndex = new Map(catalog.map(card => [card.id, JSON.stringify(card).toLocaleLowerCase()]));
   const order = catalog.map((_,index) => catalog[(index % 7)*30 + ((Math.floor(index/7)*7 + (index%7)*4)%30)]);
 
+  let activeHand = -1, handLayout, resizeFrame;
+  const compactHand = () => $('#draw-results').clientWidth < 720;
+  function positionHand() {
+    const results = $('#draw-results');
+    if (!handLayout) return;
+    const cards = [...results.children];
+    const {compact,height,spacing,angle,scale,activeScale} = handLayout;
+    const middle = (cards.length-1)/2;
+    cards.forEach((card,index) => {
+      const relative = index-middle;
+      const active = index===activeHand && Boolean(card.dataset.cardId);
+      card.classList.toggle('is-active',active);
+      card.style.setProperty('--fan-x',(active && compact ? 0 : relative*spacing)+'px');
+      card.style.setProperty('--fan-y',(active ? -24 : Math.abs(relative)*(compact?9:13))+'px');
+      card.style.setProperty('--fan-angle',(active ? 0 : relative*(middle ? angle/middle : 0))+'deg');
+      card.style.setProperty('--fan-scale',active ? activeScale : cards.length===1 ? 1 : scale);
+      card.style.setProperty('--deal-delay',index*55+'ms');
+      card.style.zIndex=active ? 100 : 10+cards.length-Math.round(Math.abs(relative));
+    });
+    $$('#hand-picker button').forEach((button,index) => button.setAttribute('aria-pressed',String(index===activeHand)));
+  }
+  function setActiveHand(index) {
+    if ($('#draw-button').disabled) return;
+    activeHand=index;
+    positionHand();
+  }
+  function layoutHand() {
+    const results=$('#draw-results');
+    if (!results.clientWidth || !results.children.length) return;
+    const compact=compactHand(), count=results.children.length, width=results.clientWidth;
+    const cardWidth=Math.min(count===1?370:330,width-(compact?52:44));
+    results.style.setProperty('--hand-card-width',cardWidth+'px');
+    const cards=[...results.children];
+    cards.forEach(card=>{card.style.height='auto';});
+    const height=Math.max(460,...cards.map(card=>Math.ceil(card.offsetHeight)));
+    cards.forEach(card=>{card.style.height=height+'px';});
+    const scale=compact ? .82 : .92, activeScale=compact ? 1.025 : 1.11;
+    const angle=count===1?0:compact?3:8;
+    const radians=angle*Math.PI/180;
+    const extent=scale*(cardWidth*Math.cos(radians)/2+height*Math.sin(radians));
+    const spread=Math.max(0,Math.min(width/2-20-extent,(width-cardWidth*activeScale)/2-20));
+    const spacing=count===1?0:Math.min(count===3?245:185,spread/((count-1)/2));
+    const top=Math.ceil(height*(activeScale-1)+42);
+    results.style.setProperty('--hand-top',top+'px');
+    results.style.height=Math.max(compact ? innerHeight : 0,Math.ceil(top+height+70))+'px';
+    handLayout={compact,height,spacing,angle,scale,activeScale};
+    positionHand();
+  }
+  function renderHandPicker() {
+    const picker=$('#hand-picker');
+    picker.hidden=currentCards.length<2;
+    picker.innerHTML=currentCards.map((card,index)=>'<button type="button" data-hand-index="'+index+'" aria-pressed="'+(index===activeHand)+'" aria-label="放大第 '+(index+1)+' 張：'+card.id+' '+escape(card.template)+'">'+(index+1)+'</button>').join('');
+    $$('button',picker).forEach(button=>{button.disabled=$('#draw-button').disabled;});
+  }
+  $('#hand-picker').addEventListener('click',event=>{
+    const button=event.target.closest('[data-hand-index]');
+    if(button) setActiveHand(Number(button.dataset.handIndex));
+  });
+  $('#draw-results').addEventListener('pointerleave',()=>{
+    if(!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    const focused=document.activeElement.closest('.inspiration-card');
+    setActiveHand(focused ? [...$('#draw-results').children].indexOf(focused) : -1);
+  });
+  window.addEventListener('resize',()=>{
+    cancelAnimationFrame(resizeFrame);
+    resizeFrame=requestAnimationFrame(()=>{
+      if(compactHand() && currentCards.length && activeHand<0) activeHand=Math.floor(currentCards.length/2);
+      layoutHand();
+    });
+  });
+
   function toast(text) {
     clearTimeout(toastTimer);
     $('#toast').textContent = text;
@@ -36,8 +107,10 @@
     $('#draw-button').removeAttribute('aria-busy');
     $('#draw-button-label').textContent = drawCount === 1 ? '翻一張' : '翻 ' + drawCount + ' 張';
     $$('.draw-count input').forEach(input => { input.disabled = false; });
-    $('#draw-results').removeAttribute('aria-busy');
-    $$('.inspiration-card',$('#draw-results')).forEach(card => card.classList.remove('is-flipping'));
+    $$('#hand-picker button').forEach(button=>{button.disabled=false;});
+    const results=$('#draw-results');
+    results.removeAttribute('aria-busy');
+    results.classList.remove('is-gathering','is-revealing');
   }
   function cancelFlip() {
     const unrevealed = midTimer !== undefined;
@@ -57,20 +130,40 @@
       const article = document.createElement('article');
       article.id = results.children.length ? 'draw-card-' + (results.children.length+1) : 'inspiration-card';
       article.className = 'inspiration-card is-cover';
-      article.setAttribute('aria-label','待翻開的短影音靈感卡');
-      article.innerHTML = '<div class="card-content"><div class="card-meta"><span class="card-code">?</span><span class="mini-face" aria-hidden="true">' + icon('smile') + '</span></div><div class="card-cover"><svg class="cover-doodle" aria-hidden="true"><use href="#i-cover"/></svg></div></div>';
+      article.setAttribute('aria-label','待翻開的文案靈感卡');
+      article.tabIndex=0;
+      article.innerHTML = '<div class="card-content"><div class="card-meta"><span class="card-code">?</span><span class="mini-face" aria-hidden="true">' + icon('smile') + '</span></div><div class="card-cover"><svg class="cover-doodle" aria-hidden="true"><use href="#i-cover"/></svg></div></div><div class="card-reverse" aria-hidden="true"><svg class="cover-doodle"><use href="#i-cover"/></svg></div>';
+      const index=results.children.length;
+      article.addEventListener('pointerenter',event=>{
+        if(event.pointerType==='mouse' && article.dataset.cardId) setActiveHand(index);
+      });
+      article.addEventListener('focusin',()=>{if(article.dataset.cardId)setActiveHand(index);});
+      article.addEventListener('click',event=>{
+        if(!event.target.closest('a') && article.dataset.cardId){setActiveHand(index);article.focus({preventScroll:true});}
+      });
+      article.addEventListener('keydown',event=>{
+        if(event.target!==article) return;
+        if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){
+          event.preventDefault();
+          const next=event.key==='Home'?0:event.key==='End'?results.children.length-1:(index+(event.key==='ArrowRight'?1:-1)+results.children.length)%results.children.length;
+          results.children[next].focus({preventScroll:true});
+        } else if(event.key==='Enter') $('.card-detail-link',article)?.click();
+      });
       results.append(article);
     }
   }
   function renderDraw(cards) {
     currentCards = cards;
+    if(activeHand>=cards.length)activeHand=cards.length-1;
     cards.forEach((card,index) => {
       const article = $('#draw-results').children[index];
-      article.className = 'inspiration-card card-' + themeColor(card) + (article.classList.contains('is-flipping') ? ' is-flipping' : '');
+      article.className = 'inspiration-card card-' + themeColor(card);
       article.dataset.cardId = card.id;
       article.setAttribute('aria-label',card.id + ' ' + card.template);
-      $('.card-content',article).innerHTML = '<div class="draw-card-scroll" tabindex="0" role="region" aria-label="題材與故事架構"><div class="card-meta"><span class="card-code">' + card.id + '</span><span class="mini-face" aria-hidden="true">' + icon('smile') + '</span></div>' + tags(card) + '<h2 class="draw-card-title">' + escape(card.template) + '</h2><div class="section-label">故事架構</div>' + structure(card) + '</div><a class="card-detail-link" href="#card/' + card.id + '" data-open-card="' + card.id + '">看完整內容 ' + icon('arrow') + '</a>';
+      $('.card-content',article).innerHTML = '<div class="card-meta"><span class="card-code">' + card.id + '</span><span class="mini-face" aria-hidden="true">' + icon('smile') + '</span></div>' + tags(card) + '<h2 class="draw-card-title">' + escape(card.template) + '</h2><div class="section-label">故事架構</div>' + structure(card) + '<a class="card-detail-link" href="#card/' + card.id + '" data-open-card="' + card.id + '">看完整內容 ' + icon('arrow') + '</a>';
     });
+    renderHandPicker();
+    layoutHand();
   }
   function draw() {
     if ($('#draw-button').disabled) return;
@@ -82,6 +175,8 @@
     else random.forEach((_,index) => { random[index] = Math.floor(Math.random()*4294967296); });
     for (let index=0; index<drawCount; index++) next.push(candidates.splice(random[index] % candidates.length,1)[0]);
     ensureSlots(drawCount);
+    activeHand=compactHand()?Math.floor(drawCount/2):-1;
+    layoutHand();
     flipFocus = document.activeElement;
     const complete = () => {
       resetFlipControls();
@@ -96,17 +191,22 @@
     $('#draw-button').setAttribute('aria-busy','true');
     $('#draw-button-label').textContent = '翻卡中…';
     $$('.draw-count input').forEach(input => { input.disabled = true; });
-    $('#draw-results').setAttribute('aria-busy','true');
-    $$('.inspiration-card',$('#draw-results')).forEach(card => card.classList.add('is-flipping'));
+    $$('#hand-picker button').forEach(button=>{button.disabled=true;});
+    const results=$('#draw-results');
+    results.setAttribute('aria-busy','true');
+    results.classList.add('is-gathering');
     $('#draw-status').textContent = '正在翻開 ' + drawCount + ' 張靈感卡';
-    midTimer = setTimeout(() => { renderDraw(next); midTimer = undefined; },180);
-    endTimer = setTimeout(() => { endTimer = undefined; complete(); },380);
+    midTimer = setTimeout(() => {
+      renderDraw(next);
+      results.classList.remove('is-gathering');
+      results.classList.add('is-revealing');
+      midTimer=undefined;
+    },180);
+    endTimer = setTimeout(() => {endTimer=undefined;complete();},180+360+55*(drawCount-1));
   }
   $('#draw-button').addEventListener('click',draw);
   $$('.draw-count input').forEach(input => input.addEventListener('change',() => {
-    cancelFlip();
-    drawCount = Number(input.value);
-    resetFlipControls();
+    cancelFlip(); drawCount=Number(input.value); resetFlipControls();
   }));
 
   const character = (index) => {
@@ -174,7 +274,8 @@
       if (active) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
     });
     if (page==='cards') renderCards();
-    document.title = page==='detail' ? byId.get(id).template + '｜靈感場' : page==='cards' ? '全部靈感卡｜靈感場' : '靈感場｜翻一張，想到下一支！';
+    if (page==='draw') layoutHand();
+    document.title = page==='detail' ? byId.get(id).template + '｜文案靈感隨機卡片' : page==='cards' ? '全部靈感卡｜文案靈感隨機卡片' : '文案靈感隨機卡片';
     if (focus) {
       if (page==='cards' && previous==='detail' && detailOrigin==='cards') {
         window.scrollTo({top:listScroll,behavior:'instant'});

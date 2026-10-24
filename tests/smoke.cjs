@@ -92,7 +92,35 @@ function executablePath() {
       assert.ok(next.every(id=>!ids.includes(id)),'New batch should exclude the previous batch');
       assert.ok((await page.locator('#draw-button').boundingBox()).y===after.y);
     }
+    // Find an exposed part of a card, then use a real pointer move to inspect it.
+    await page.evaluate(()=>document.activeElement.blur());
+    await page.locator('#draw-button').hover();
+    await page.waitForTimeout(380);
+    const hoverCard=page.locator('#inspiration-card');
+    const beforeScale=await hoverCard.evaluate(n=>{const m=new DOMMatrix(getComputedStyle(n).transform);return Math.hypot(m.a,m.b);});
+    const exposed=await hoverCard.evaluate(n=>{
+      const r=n.getBoundingClientRect();
+      for(let y=r.top+40;y<Math.min(r.bottom,innerHeight-10);y+=20)for(let x=r.left+14;x<r.right-14;x+=14){
+        if(document.elementFromPoint(x,y)?.closest('.inspiration-card')===n)return{x,y};
+      }
+      return null;
+    });
+    assert.ok(exposed,'Every outer card should have an exposed hover target');
+    await page.mouse.move(exposed.x,exposed.y);
+    await page.waitForTimeout(400);
+    assert.ok(await hoverCard.evaluate(n=>n.classList.contains('is-active')));
+    assert.ok(await hoverCard.evaluate(n=>{const m=new DOMMatrix(getComputedStyle(n).transform);return Math.hypot(m.a,m.b);})>beforeScale+0.1);
+    assert.equal(await hoverCard.evaluate(n=>getComputedStyle(n).zIndex),'100');
+    await capture('hand-hover-desktop.png',true);
+    fs.copyFileSync(path.join(shots,'hand-hover-desktop.png'),path.join(shots,'preview.png'));
+    await hoverCard.focus(); await page.keyboard.press('ArrowRight');
+    assert.equal(await page.evaluate(()=>document.activeElement.id),'draw-card-2');
+    assert.ok(await page.locator('#draw-card-2').evaluate(n=>n.classList.contains('is-active')));
+    pass('Real pointer hover raises and enlarges a card; keyboard arrows select neighboring cards');
+
     const batchIds=await drawIds();
+    await page.locator('#draw-card-5').focus();
+    await page.waitForTimeout(380);
     await page.locator('#draw-results .card-detail-link').nth(4).click();
     await page.waitForSelector('#detail-view:not([hidden])');
     assert.equal(await page.locator('.detail-card .card-code').textContent(),batchIds[4]);
@@ -192,21 +220,23 @@ function executablePath() {
     await page.waitForFunction(()=>!document.querySelector('#draw-button').disabled);
     await page.waitForTimeout(500);
     await capture('doodle-drawn-mobile.png',true);
-    // On a phone the control row stays visible even when reading the fifth card.
+    // Phone users select a card directly, without a horizontal or nested scroller.
     await page.locator('input[name="draw-count"][value="5"]').check();
     await page.locator('#draw-button').click(); await settleDraw();
-    await capture('batch-5-mobile.png');
-    assert.equal((await drawIds()).length,5);
+    await page.locator('#hand-picker button').nth(4).click();
+    await page.waitForTimeout(380);
+    assert.ok(await page.locator('#draw-card-5').evaluate(n=>n.classList.contains('is-active')));
+    assert.equal(await page.locator('#hand-picker button').nth(4).getAttribute('aria-pressed'),'true');
+    assert.ok(await page.locator('#draw-card-5').evaluate(n=>n.scrollHeight<=n.clientHeight+1));
+    await capture('hand-five-mobile.png',true);
     await page.evaluate(()=>window.scrollTo(0,1000));
     const mobilePosition=await page.locator('#draw-button').boundingBox();
-    const mobileScroll=await page.evaluate(()=>scrollY);
-    assert.ok(mobilePosition.y>=0 && mobilePosition.y<30,'Mobile draw button should remain at the top while scrolling');
+    assert.ok(mobilePosition.y>=0 && mobilePosition.y<30,'Draw controls should stay at the top while reading the hand');
     const previousMobile=await drawIds();
     await page.locator('#draw-button').click(); await settleDraw();
     assert.ok(Math.abs((await page.locator('#draw-button').boundingBox()).y-mobilePosition.y)<1);
-    assert.equal(await page.evaluate(()=>scrollY),mobileScroll,'Repeated mobile draw must preserve scroll position');
     assert.ok((await drawIds()).every(id=>!previousMobile.includes(id)));
-    pass('Five-card mobile draw keeps sticky controls at the same coordinates and does not scroll the page');
+    pass('Mobile hand selector expands individual cards without a nested scrollbar; repeated draws keep controls stable');
     await page.goto(base+'#cards');
     await capture('doodle-cards-mobile.png');
     assert.equal(await page.locator('#card-search').evaluate(n=>getComputedStyle(n).fontSize),'16px');
@@ -220,15 +250,49 @@ function executablePath() {
     assert.ok(!await page.locator('#draw-button').isDisabled());
     assert.equal(await page.locator('#inspiration-card').evaluate(n=>n.getAnimations().length),0);
     await page.keyboard.press('Tab');
-    assert.ok(await page.evaluate(()=>document.activeElement.matches('a,button,input,select,summary,[role=region]')));
+    assert.ok(await page.evaluate(()=>document.activeElement.matches('a,button,input,select,summary,.inspiration-card')));
     pass('Reduced motion draws immediately with no animation and keyboard navigation remains native');
+    // Force disjoint groups to inspect every actual rendered framework at mobile width.
+    await page.emulateMedia({reducedMotion:'reduce'});
+    await page.locator('input[name="draw-count"][value="5"]').check();
+    await page.evaluate(()=>{
+      window.__originalRng=crypto.getRandomValues;
+      crypto.getRandomValues=array=>{
+        const current=new Set([...document.querySelectorAll('#draw-results [data-card-id]')].map(n=>n.dataset.cardId));
+        const pool=window.LAB_DATA.combinations.filter(card=>!current.has(card.id));
+        window.__targetCards.forEach((id,index)=>{const at=pool.findIndex(card=>card.id===id);array[index]=at;pool.splice(at,1);});
+        return array;
+      };
+    });
+    const inspected=new Set();
+    for(let offset=0;offset<210;offset+=5){
+      const targets=data.slice(offset,offset+5).map(card=>card.id);
+      // The first forced batch may overlap the preceding random batch; move away first.
+      if(offset===0){
+        await page.evaluate(()=>{const current=new Set([...document.querySelectorAll('#draw-results [data-card-id]')].map(n=>n.dataset.cardId));window.__targetCards=window.LAB_DATA.combinations.filter((card,index)=>index>=5&&!current.has(card.id)).slice(-5).map(card=>card.id);});
+        await page.locator('#draw-button').click();
+      }
+      await page.evaluate(ids=>{window.__targetCards=ids;},targets);
+      await page.locator('#draw-button').click();
+      const actual=await drawIds();
+      assert.deepEqual(actual,Array.from(targets));
+      actual.forEach(id=>inspected.add(id));
+      const clipped=await page.locator('#draw-results .inspiration-card').evaluateAll(nodes=>nodes.filter(n=>n.scrollHeight>n.clientHeight+1 || n.querySelector('.card-content').scrollHeight>n.querySelector('.card-content').clientHeight+1).map(n=>n.dataset.cardId));
+      assert.deepEqual(clipped,[],'Clipped frameworks: '+clipped.join(','));
+      const scrollers=await page.locator('#draw-results *').evaluateAll(nodes=>nodes.filter(n=>['auto','scroll'].includes(getComputedStyle(n).overflowY)).length);
+      assert.equal(scrollers,0,'Cards must not contain scroll regions');
+    }
+    assert.equal(inspected.size,210);
+    await page.evaluate(()=>{crypto.getRandomValues=window.__originalRng;});
+    pass('All 210 actual rendered frameworks fit fully at mobile width without clipping or internal scroll containers');
+
     await page.goto('file:///'+path.join(root,'index.html').replace(/\\/g,'/'));
     await page.waitForSelector('#draw-button');
     await page.locator('#draw-button').click();
     await page.waitForSelector('#inspiration-card[data-card-id]');
     assert.equal(errors.length,0,errors.join('\n'));
     pass('Direct file opening works; no JavaScript errors or missing local assets');
-    const report={date:new Date().toISOString(),scope:'stable-batch-draw',checks:checks.length,passed:checks,errors};
+    const report={date:new Date().toISOString(),scope:'game-hand-draw',checks:checks.length,passed:checks,errors};
     fs.writeFileSync(path.join(root,'docs/TEST_RESULTS.json'),JSON.stringify(report,null,2)+'\n');
     console.log('ALL '+checks.length+' CHECK GROUPS PASSED');
     await context.close();

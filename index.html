@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#faf8ee">
-  <meta name="description" content="不知道下一支短影音拍什麼？隨機翻一張靈感卡，從210種架構中找到開場、故事走向與拍攝點子。">
-  <title>靈感場｜翻一張，想到下一支！</title>
-  <link rel="icon" href="assets/favicon.svg?v=batch-3" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=batch-3">
+  <meta name="description" content="一次抽 1、3 或 5 張文案靈感卡，從 210 種短影音架構中找到下一個點子。">
+  <title>文案靈感隨機卡片</title>
+  <link rel="icon" href="assets/favicon.svg?v=hand-1" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=hand-1">
   <script src="data/catalog.js" defer></script>
-  <script src="app.js?v=batch-3" defer></script>
+  <script src="app.js?v=hand-1" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">跳到主要內容</a>
@@ -31,7 +31,7 @@
               </symbol></defs></svg>
 
 <header class="site-header">
-  <a class="brand" href="#draw" aria-label="靈感場首頁"><svg class="brand-face" aria-hidden="true"><use href="#i-smile"/></svg><span>靈感場</span></a>
+  <a class="brand" href="#draw" aria-label="文案靈感隨機卡片首頁"><svg class="brand-face" aria-hidden="true"><use href="#i-smile"/></svg><span>文案靈感隨機卡片</span></a>
   <nav class="main-nav" aria-label="主選單">
     <a href="#draw" data-page="draw" aria-current="page">翻卡</a>
     <a href="#cards" data-page="cards">全部卡片 <span>210</span></a>
@@ -40,7 +40,7 @@
 
 <main id="main" tabindex="-1">
   <section id="draw-view" class="page" aria-labelledby="draw-heading">
-    <h1 id="draw-heading" class="sr-only">翻一張</h1>
+    <h1 id="draw-heading" class="sr-only">文案靈感隨機卡片</h1>
     <div class="draw-controls">
       <fieldset class="draw-count">
         <legend class="sr-only">每次抽幾張</legend>
@@ -50,6 +50,7 @@
       </fieldset>
       <button id="draw-button" class="button draw-button"><svg aria-hidden="true"><use href="#i-dice"/></svg><span id="draw-button-label">翻一張</span></button>
     </div>
+    <div id="hand-picker" class="hand-picker" role="group" aria-label="選擇要放大的卡片" hidden></div>
     <div id="draw-results" class="draw-results" data-count="1" aria-label="抽卡結果"></div>
     <p id="draw-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
   </section>
@@ -67,7 +68,7 @@
 
   <section id="detail-view" class="page detail-page" hidden aria-label="靈感卡完整內容"><div id="detail-content"></div></section>
 </main>
-<footer class="site-footer"><span>靈感場 <svg aria-hidden="true"><use href="#i-smile"/></svg></span><p>好點子，不用一次想完。</p></footer>
+<footer class="site-footer"><span>文案靈感隨機卡片 <svg aria-hidden="true"><use href="#i-smile"/></svg></span><p>好點子，不用一次想完。</p></footer>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 <noscript><p class="noscript">開啟 JavaScript，就能翻開你的靈感卡。</p></noscript>
 </body>
