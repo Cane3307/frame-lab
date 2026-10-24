@@ -1,0 +1,13 @@
+interface:
+  display_name: 短影音文案與企劃資料庫
+  short_description: 用 210 種組合與雙範例，提供通用短影音改稿、提案和呈現建議
+  default_prompt: 使用 $short-video-copy-lab，依我的素材修改短影音文案，說明選用組合、強化理由與拍攝方式。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

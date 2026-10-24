@@ -1,0 +1,2942 @@
+[
+  {
+    "id": "C001",
+    "theme": "曬過程",
+    "form": "切片",
+    "headline": "新知式",
+    "template": "原來【工作】還有這個步驟",
+    "path": "catalog-process.md",
+    "anchor": "c001",
+    "scenarios": [
+      "木盒製作紀錄切片",
+      "植物拓印長紀錄切片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C002",
+    "theme": "曬過程",
+    "form": "切片",
+    "headline": "提問式",
+    "template": "【原始狀態】真的能變成【成果】嗎？",
+    "path": "catalog-process.md",
+    "anchor": "c002",
+    "scenarios": [
+      "舊紙箱改收納盒切片",
+      "練習繩結紀錄切片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C003",
+    "theme": "曬過程",
+    "form": "切片",
+    "headline": "解答式",
+    "template": "【問題】卡住時，我這樣完成",
+    "path": "catalog-process.md",
+    "anchor": "c003",
+    "scenarios": [
+      "相片牆排版直播切片",
+      "黏土小盤製作切片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C004",
+    "theme": "曬過程",
+    "form": "切片",
+    "headline": "反常式",
+    "template": "少做【步驟】，結果反而更好？",
+    "path": "catalog-process.md",
+    "anchor": "c004",
+    "scenarios": [
+      "桌面整理長紀錄切片",
+      "水彩練習紀錄切片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C005",
+    "theme": "曬過程",
+    "form": "切片",
+    "headline": "佔便宜",
+    "template": "這段示範，幫你少走【冤枉路】",
+    "path": "catalog-process.md",
+    "anchor": "c005",
+    "scenarios": [
+      "手工信封教學切片",
+      "旅行行李整理切片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C006",
+    "theme": "曬過程",
+    "form": "切片",
+    "headline": "揭秘式",
+    "template": "【成品】完成前，還經過這些事",
+    "path": "catalog-process.md",
+    "anchor": "c006",
+    "scenarios": [
+      "手作筆記本紀錄切片",
+      "活動布置紀錄切片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C007",
+    "theme": "曬過程",
+    "form": "口播",
+    "headline": "新知式",
+    "template": "做完【任務】，我才發現【細節】",
+    "path": "catalog-process.md",
+    "anchor": "c007",
+    "scenarios": [
+      "刺繡初學心得",
+      "書架整理心得"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C008",
+    "theme": "曬過程",
+    "form": "口播",
+    "headline": "提問式",
+    "template": "為什麼我做【任務】一直卡在這一步？",
+    "path": "catalog-process.md",
+    "anchor": "c008",
+    "scenarios": [
+      "拍攝定格動畫卡關",
+      "手寫卡片卡關"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C009",
+    "theme": "曬過程",
+    "form": "口播",
+    "headline": "解答式",
+    "template": "我的【任務】流程，拆成這幾步",
+    "path": "catalog-process.md",
+    "anchor": "c009",
+    "scenarios": [
+      "家庭照片整理",
+      "窗邊香草換盆紀錄"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C010",
+    "theme": "曬過程",
+    "form": "口播",
+    "headline": "反常式",
+    "template": "我先停下來，才把【任務】做快",
+    "path": "catalog-process.md",
+    "anchor": "c010",
+    "scenarios": [
+      "手工作品批次包裝",
+      "拼圖進度整理"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C011",
+    "theme": "曬過程",
+    "form": "口播",
+    "headline": "佔便宜",
+    "template": "重做【次數】後，整理出這份避坑清單",
+    "path": "catalog-process.md",
+    "anchor": "c011",
+    "scenarios": [
+      "布書套製作心得",
+      "植物標籤製作心得"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C012",
+    "theme": "曬過程",
+    "form": "口播",
+    "headline": "揭秘式",
+    "template": "外行看成果，內行會先檢查這裡",
+    "path": "catalog-process.md",
+    "anchor": "c012",
+    "scenarios": [
+      "手作拉鍊袋檢查",
+      "紙製模型檢查"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C013",
+    "theme": "曬過程",
+    "form": "圖片旁白",
+    "headline": "新知式",
+    "template": "用幾張照片，看懂【事物】怎麼形成",
+    "path": "catalog-process.md",
+    "anchor": "c013",
+    "scenarios": [
+      "摺紙燈罩階段照片",
+      "再生紙製作照片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C014",
+    "theme": "曬過程",
+    "form": "圖片旁白",
+    "headline": "提問式",
+    "template": "這兩張照片之間，究竟做了什麼？",
+    "path": "catalog-process.md",
+    "anchor": "c014",
+    "scenarios": [
+      "陽台角落整理照片",
+      "舊相片數位修整照片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C015",
+    "theme": "曬過程",
+    "form": "圖片旁白",
+    "headline": "解答式",
+    "template": "【改造／整理】步驟圖解",
+    "path": "catalog-process.md",
+    "anchor": "c015",
+    "scenarios": [
+      "抽屜分區整理圖解",
+      "手作紙花圖解"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C016",
+    "theme": "曬過程",
+    "form": "圖片旁白",
+    "headline": "反常式",
+    "template": "看起來更亂，其實是完成前的必要階段",
+    "path": "catalog-process.md",
+    "anchor": "c016",
+    "scenarios": [
+      "布料碎片整理",
+      "模型重組照片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C017",
+    "theme": "曬過程",
+    "form": "圖片旁白",
+    "headline": "佔便宜",
+    "template": "照著這張流程清單，少漏掉關鍵步驟",
+    "path": "catalog-process.md",
+    "anchor": "c017",
+    "scenarios": [
+      "小型手作市集準備圖卡",
+      "戶外寫生活動準備圖卡"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C018",
+    "theme": "曬過程",
+    "form": "圖片旁白",
+    "headline": "揭秘式",
+    "template": "成品照片沒拍到的【工序】",
+    "path": "catalog-process.md",
+    "anchor": "c018",
+    "scenarios": [
+      "手寫海報製作照片",
+      "布偶製作照片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C019",
+    "theme": "曬過程",
+    "form": "影片旁白",
+    "headline": "新知式",
+    "template": "近看【工序】，才知道它這麼講究",
+    "path": "catalog-process.md",
+    "anchor": "c019",
+    "scenarios": [
+      "皮革邊緣打磨紀錄",
+      "陶土杯把接合練習"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C020",
+    "theme": "曬過程",
+    "form": "影片旁白",
+    "headline": "提問式",
+    "template": "只用【限制資源】，能完成【任務】嗎？",
+    "path": "catalog-process.md",
+    "anchor": "c020",
+    "scenarios": [
+      "剩餘紙材做賀卡",
+      "小空間拍攝挑戰"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C021",
+    "theme": "曬過程",
+    "form": "影片旁白",
+    "headline": "解答式",
+    "template": "【問題】的完整處理示範",
+    "path": "catalog-process.md",
+    "anchor": "c021",
+    "scenarios": [
+      "背包抽繩重新穿入",
+      "相框背板重新定位"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C022",
+    "theme": "曬過程",
+    "form": "影片旁白",
+    "headline": "反常式",
+    "template": "看起來做錯了，為什麼結果才對？",
+    "path": "catalog-process.md",
+    "anchor": "c022",
+    "scenarios": [
+      "拼貼紙面處理",
+      "編繩圖案修正"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C023",
+    "theme": "曬過程",
+    "form": "影片旁白",
+    "headline": "佔便宜",
+    "template": "我實測【做法】，哪些步驟可以省？",
+    "path": "catalog-process.md",
+    "anchor": "c023",
+    "scenarios": [
+      "手作卡片批次定位",
+      "布置小旗串製作"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C024",
+    "theme": "曬過程",
+    "form": "影片旁白",
+    "headline": "揭秘式",
+    "template": "【產業／工作】一天真正花時間的地方",
+    "path": "catalog-process.md",
+    "anchor": "c024",
+    "scenarios": [
+      "手作紙張工作紀錄",
+      "小型展覽撤場紀錄"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C025",
+    "theme": "曬過程",
+    "form": "情境劇",
+    "headline": "新知式",
+    "template": "第一次做【工作】，才知道還要這一步",
+    "path": "catalog-process.md",
+    "anchor": "c025",
+    "scenarios": [
+      "手工裝訂情境演繹",
+      "包裝玻璃小花瓶情境演繹"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C026",
+    "theme": "曬過程",
+    "form": "情境劇",
+    "headline": "提問式",
+    "template": "新手照這樣做，最後會發生什麼？",
+    "path": "catalog-process.md",
+    "anchor": "c026",
+    "scenarios": [
+      "紙盒組裝情境演繹",
+      "拼貼海報情境演繹"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C027",
+    "theme": "曬過程",
+    "form": "情境劇",
+    "headline": "解答式",
+    "template": "師傅如何救回這次【失誤】",
+    "path": "catalog-process.md",
+    "anchor": "c027",
+    "scenarios": [
+      "刺繡打結情境演繹",
+      "展示桌布鋪設情境演繹"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C028",
+    "theme": "曬過程",
+    "form": "情境劇",
+    "headline": "反常式",
+    "template": "客人以為我在偷懶，其實正在做關鍵工作",
+    "path": "catalog-process.md",
+    "anchor": "c028",
+    "scenarios": [
+      "紙製品膠合情境演繹",
+      "攝影道具安排情境演繹"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C029",
+    "theme": "曬過程",
+    "form": "情境劇",
+    "headline": "佔便宜",
+    "template": "早知道這個做法，就不用重做",
+    "path": "catalog-process.md",
+    "anchor": "c029",
+    "scenarios": [
+      "批次貼標籤情境演繹",
+      "活動桌牌印前確認情境演繹"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C030",
+    "theme": "曬過程",
+    "form": "情境劇",
+    "headline": "揭秘式",
+    "template": "客人走後，這件工作才真正開始",
+    "path": "catalog-process.md",
+    "anchor": "c030",
+    "scenarios": [
+      "手作教室課後整理情境演繹",
+      "租借布置用品歸還情境演繹"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C031",
+    "theme": "說故事",
+    "form": "切片",
+    "headline": "新知式",
+    "template": "聽完他的經歷，才知道【行業】還有這一面",
+    "path": "catalog-story.md",
+    "anchor": "c031",
+    "scenarios": [
+      "道具修復訪談",
+      "劇場字幕工作訪談"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C032",
+    "theme": "說故事",
+    "form": "切片",
+    "headline": "提問式",
+    "template": "他為什麼放棄【看似好的選擇】？",
+    "path": "catalog-story.md",
+    "anchor": "c032",
+    "scenarios": [
+      "市集攤主訪談",
+      "合唱團成員訪談"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C033",
+    "theme": "說故事",
+    "form": "切片",
+    "headline": "解答式",
+    "template": "他怎麼走出【一次困境】？",
+    "path": "catalog-story.md",
+    "anchor": "c033",
+    "scenarios": [
+      "陶作學員訪談",
+      "社區讀書會主持訪談"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C034",
+    "theme": "說故事",
+    "form": "切片",
+    "headline": "反常式",
+    "template": "大家以為那是成功，他卻說是轉折",
+    "path": "catalog-story.md",
+    "anchor": "c034",
+    "scenarios": [
+      "手作展售訪談",
+      "校園戲劇演員訪談"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C035",
+    "theme": "說故事",
+    "form": "切片",
+    "headline": "佔便宜",
+    "template": "這次失敗，能讓後來的人少犯什麼錯？",
+    "path": "catalog-story.md",
+    "anchor": "c035",
+    "scenarios": [
+      "活動攝影學員訪談",
+      "烘焙社團成員訪談"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C036",
+    "theme": "說故事",
+    "form": "切片",
+    "headline": "揭秘式",
+    "template": "那個決定背後，他當時沒有說出口的原因",
+    "path": "catalog-story.md",
+    "anchor": "c036",
+    "scenarios": [
+      "園藝志工訪談",
+      "畢業作品創作者訪談"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C037",
+    "theme": "說故事",
+    "form": "口播",
+    "headline": "新知式",
+    "template": "遇到【事件】後，我才理解【事情】",
+    "path": "catalog-story.md",
+    "anchor": "c037",
+    "scenarios": [
+      "旅行速寫經歷",
+      "社團道具整理經歷"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C038",
+    "theme": "說故事",
+    "form": "口播",
+    "headline": "提問式",
+    "template": "如果回到那一天，我還會選【A】嗎？",
+    "path": "catalog-story.md",
+    "anchor": "c038",
+    "scenarios": [
+      "接下社團主持工作",
+      "改變展覽動線"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C039",
+    "theme": "說故事",
+    "form": "口播",
+    "headline": "解答式",
+    "template": "我從【困境】走出來，真正做了哪些事",
+    "path": "catalog-story.md",
+    "anchor": "c039",
+    "scenarios": [
+      "寫作卡稿",
+      "小型展覽邀請沒回覆"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C040",
+    "theme": "說故事",
+    "form": "口播",
+    "headline": "反常式",
+    "template": "我最慶幸的，竟然是那次【失敗】",
+    "path": "catalog-story.md",
+    "anchor": "c040",
+    "scenarios": [
+      "海報印錯",
+      "野餐料理打翻"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C041",
+    "theme": "說故事",
+    "form": "口播",
+    "headline": "佔便宜",
+    "template": "如果你也準備【行動】，先聽我的這次教訓",
+    "path": "catalog-story.md",
+    "anchor": "c041",
+    "scenarios": [
+      "第一次借教室辦工作坊",
+      "第一次送作品參展"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C042",
+    "theme": "說故事",
+    "form": "口播",
+    "headline": "揭秘式",
+    "template": "我當時選【A】，真正考慮的是【B】",
+    "path": "catalog-story.md",
+    "anchor": "c042",
+    "scenarios": [
+      "選擇較小展場",
+      "不在聚會中展示新作"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C043",
+    "theme": "說故事",
+    "form": "圖片旁白",
+    "headline": "新知式",
+    "template": "從這些舊照片，重新認識【人物／地方】",
+    "path": "catalog-story.md",
+    "anchor": "c043",
+    "scenarios": [
+      "家庭縫紉紀錄",
+      "學校走廊照片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C044",
+    "theme": "說故事",
+    "form": "圖片旁白",
+    "headline": "提問式",
+    "template": "這張照片裡的人，後來怎麼了？",
+    "path": "catalog-story.md",
+    "anchor": "c044",
+    "scenarios": [
+      "木工課畢業照",
+      "營隊小隊長照片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C045",
+    "theme": "說故事",
+    "form": "圖片旁白",
+    "headline": "解答式",
+    "template": "用一條時間線，看懂他怎麼完成【轉變】",
+    "path": "catalog-story.md",
+    "anchor": "c045",
+    "scenarios": [
+      "房間閱讀角轉變",
+      "社團手冊改版"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C046",
+    "theme": "說故事",
+    "form": "圖片旁白",
+    "headline": "反常式",
+    "template": "最風光的照片，拍在我最艱難的時候",
+    "path": "catalog-story.md",
+    "anchor": "c046",
+    "scenarios": [
+      "成果展合照",
+      "畢業表演宣傳照"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C047",
+    "theme": "說故事",
+    "form": "圖片旁白",
+    "headline": "佔便宜",
+    "template": "我留下的這些紀錄，能幫你少踩哪些坑？",
+    "path": "catalog-story.md",
+    "anchor": "c047",
+    "scenarios": [
+      "陽台植栽位置紀錄",
+      "手作包裝試寄紀錄"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C048",
+    "theme": "說故事",
+    "form": "圖片旁白",
+    "headline": "揭秘式",
+    "template": "看懂這張截圖，才知道事情為何轉向",
+    "path": "catalog-story.md",
+    "anchor": "c048",
+    "scenarios": [
+      "展覽指引訊息",
+      "社團共用空間紀錄"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C049",
+    "theme": "說故事",
+    "form": "影片旁白",
+    "headline": "新知式",
+    "template": "跟著【人物】一天，才看見他的另一面",
+    "path": "catalog-story.md",
+    "anchor": "c049",
+    "scenarios": [
+      "社區圖書角志工",
+      "戲劇服裝管理"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C050",
+    "theme": "說故事",
+    "form": "影片旁白",
+    "headline": "提問式",
+    "template": "這趟【旅程／任務】，會改變什麼？",
+    "path": "catalog-story.md",
+    "anchor": "c050",
+    "scenarios": [
+      "步行尋找老橋",
+      "第一次幫忙社區廚房"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C051",
+    "theme": "說故事",
+    "form": "影片旁白",
+    "headline": "解答式",
+    "template": "他如何一步步處理【困境】",
+    "path": "catalog-story.md",
+    "anchor": "c051",
+    "scenarios": [
+      "整理混亂的道具間",
+      "排練換景卡住"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C052",
+    "theme": "說故事",
+    "form": "影片旁白",
+    "headline": "反常式",
+    "template": "目的地沒到，卻完成了另一件更重要的事",
+    "path": "catalog-story.md",
+    "anchor": "c052",
+    "scenarios": [
+      "看日出改成陪伴散步",
+      "尋找舊教室改訪門房"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C053",
+    "theme": "說故事",
+    "form": "影片旁白",
+    "headline": "佔便宜",
+    "template": "跟著這次經歷，學會判斷【情境】",
+    "path": "catalog-story.md",
+    "anchor": "c053",
+    "scenarios": [
+      "選市集展示桌位置",
+      "決定訪談拍攝位置"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C054",
+    "theme": "說故事",
+    "form": "影片旁白",
+    "headline": "揭秘式",
+    "template": "鏡頭外的一件事，改變了整個結果",
+    "path": "catalog-story.md",
+    "anchor": "c054",
+    "scenarios": [
+      "改拍工作手部",
+      "改變活動記錄對象"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C055",
+    "theme": "說故事",
+    "form": "情境劇",
+    "headline": "新知式",
+    "template": "換到【另一個角色】的位置，才看懂這件事",
+    "path": "catalog-story.md",
+    "anchor": "c055",
+    "scenarios": [
+      "圖書角借書規則",
+      "排練提醒安靜"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C056",
+    "theme": "說故事",
+    "form": "情境劇",
+    "headline": "提問式",
+    "template": "收到這個【要求／消息】，你會怎麼選？",
+    "path": "catalog-story.md",
+    "anchor": "c056",
+    "scenarios": [
+      "臨時增加演出時間",
+      "借出正在製作的道具"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C057",
+    "theme": "說故事",
+    "form": "情境劇",
+    "headline": "解答式",
+    "template": "一次【衝突】如何被化解",
+    "path": "catalog-story.md",
+    "anchor": "c057",
+    "scenarios": [
+      "共用桌面衝突",
+      "海報修改爭議"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C058",
+    "theme": "說故事",
+    "form": "情境劇",
+    "headline": "反常式",
+    "template": "以為他在阻止我，後來才知道原因",
+    "path": "catalog-story.md",
+    "anchor": "c058",
+    "scenarios": [
+      "阻止掛上海報",
+      "阻止提前收器材"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C059",
+    "theme": "說故事",
+    "form": "情境劇",
+    "headline": "佔便宜",
+    "template": "這種【誤會】，其實可以早一步避免",
+    "path": "catalog-story.md",
+    "anchor": "c059",
+    "scenarios": [
+      "幫忙帶材料",
+      "拍照指令誤會"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C060",
+    "theme": "說故事",
+    "form": "情境劇",
+    "headline": "揭秘式",
+    "template": "同一件事，從另一個人的視角重看",
+    "path": "catalog-story.md",
+    "anchor": "c060",
+    "scenarios": [
+      "沒有回應的舞台揮手",
+      "作品前匆匆離開"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C061",
+    "theme": "教知識",
+    "form": "切片",
+    "headline": "新知式",
+    "template": "【熟悉事物】還有這個你可能沒注意的原理",
+    "path": "catalog-knowledge.md",
+    "anchor": "c061",
+    "scenarios": [
+      "整理教學的模擬切片",
+      "寫作工作坊的模擬切片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C062",
+    "theme": "教知識",
+    "form": "切片",
+    "headline": "提問式",
+    "template": "為什麼【常見現象】會發生？",
+    "path": "catalog-knowledge.md",
+    "anchor": "c062",
+    "scenarios": [
+      "手帳教學的模擬切片",
+      "攝影入門的模擬切片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C063",
+    "theme": "教知識",
+    "form": "切片",
+    "headline": "解答式",
+    "template": "【問題】的處理方法，看這一段",
+    "path": "catalog-knowledge.md",
+    "anchor": "c063",
+    "scenarios": [
+      "紙藝課的模擬切片",
+      "讀書會的模擬切片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C064",
+    "theme": "教知識",
+    "form": "切片",
+    "headline": "反常式",
+    "template": "【常見做法】不一定有效，差別在這個條件",
+    "path": "catalog-knowledge.md",
+    "anchor": "c064",
+    "scenarios": [
+      "簡報課的模擬切片",
+      "文件整理講座的模擬切片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C065",
+    "theme": "教知識",
+    "form": "切片",
+    "headline": "佔便宜",
+    "template": "把【長內容】最實用的判斷方法整理給你",
+    "path": "catalog-knowledge.md",
+    "anchor": "c065",
+    "scenarios": [
+      "活動規劃長談的模擬切片",
+      "選紙教學的模擬切片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C066",
+    "theme": "教知識",
+    "form": "切片",
+    "headline": "揭秘式",
+    "template": "專業人士判斷【問題】時，先看哪裡？",
+    "path": "catalog-knowledge.md",
+    "anchor": "c066",
+    "scenarios": [
+      "排版講評的模擬切片",
+      "手縫入門的模擬切片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C067",
+    "theme": "教知識",
+    "form": "口播",
+    "headline": "新知式",
+    "template": "【概念】用這個生活例子就能懂",
+    "path": "catalog-knowledge.md",
+    "anchor": "c067",
+    "scenarios": [
+      "檔案整理觀念",
+      "寫作概念"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C068",
+    "theme": "教知識",
+    "form": "口播",
+    "headline": "提問式",
+    "template": "為什麼你做了【A】，還是沒有【B】？",
+    "path": "catalog-knowledge.md",
+    "anchor": "c068",
+    "scenarios": [
+      "練習畫畫",
+      "工作交接"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C069",
+    "theme": "教知識",
+    "form": "口播",
+    "headline": "解答式",
+    "template": "遇到【問題】，先做這幾個檢查",
+    "path": "catalog-knowledge.md",
+    "anchor": "c069",
+    "scenarios": [
+      "簡報排版",
+      "縫紉工具管理"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C070",
+    "theme": "教知識",
+    "form": "口播",
+    "headline": "反常式",
+    "template": "【常識】在這個情況下，可能剛好相反",
+    "path": "catalog-knowledge.md",
+    "anchor": "c070",
+    "scenarios": [
+      "活動討論方式",
+      "入門作品選擇"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C071",
+    "theme": "教知識",
+    "form": "口播",
+    "headline": "佔便宜",
+    "template": "記住這個判斷法，省下反覆查找的時間",
+    "path": "catalog-knowledge.md",
+    "anchor": "c071",
+    "scenarios": [
+      "訊息寫作",
+      "手作材料挑選"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C072",
+    "theme": "教知識",
+    "form": "口播",
+    "headline": "揭秘式",
+    "template": "【表面現象】背後，其實有這個運作機制",
+    "path": "catalog-knowledge.md",
+    "anchor": "c072",
+    "scenarios": [
+      "團體協作",
+      "說明文字設計"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C073",
+    "theme": "教知識",
+    "form": "圖片旁白",
+    "headline": "新知式",
+    "template": "一張圖看懂【概念】的結構",
+    "path": "catalog-knowledge.md",
+    "anchor": "c073",
+    "scenarios": [
+      "活動企劃結構",
+      "寫作架構"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C074",
+    "theme": "教知識",
+    "form": "圖片旁白",
+    "headline": "提問式",
+    "template": "【A】與【B】看起來一樣，差在哪？",
+    "path": "catalog-knowledge.md",
+    "anchor": "c074",
+    "scenarios": [
+      "筆記方法",
+      "排版概念"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C075",
+    "theme": "教知識",
+    "form": "圖片旁白",
+    "headline": "解答式",
+    "template": "【任務】的圖解操作指南",
+    "path": "catalog-knowledge.md",
+    "anchor": "c075",
+    "scenarios": [
+      "紙製書籤",
+      "桌面電線標記"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C076",
+    "theme": "教知識",
+    "form": "圖片旁白",
+    "headline": "反常式",
+    "template": "這張圖，為什麼跟直覺不同？",
+    "path": "catalog-knowledge.md",
+    "anchor": "c076",
+    "scenarios": [
+      "閱讀圖表練習",
+      "包裝尺寸比較"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C077",
+    "theme": "教知識",
+    "form": "圖片旁白",
+    "headline": "佔便宜",
+    "template": "把【資訊】整理成一張查找表",
+    "path": "catalog-knowledge.md",
+    "anchor": "c077",
+    "scenarios": [
+      "手作活動準備",
+      "短文修訂"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C078",
+    "theme": "教知識",
+    "form": "圖片旁白",
+    "headline": "揭秘式",
+    "template": "拆開【結構】，看懂它如何運作",
+    "path": "catalog-knowledge.md",
+    "anchor": "c078",
+    "scenarios": [
+      "活動邀請函結構",
+      "紙盒結構"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C079",
+    "theme": "教知識",
+    "form": "影片旁白",
+    "headline": "新知式",
+    "template": "用一次實驗，看懂【原理】",
+    "path": "catalog-knowledge.md",
+    "anchor": "c079",
+    "scenarios": [
+      "拍照光線示範",
+      "摺紙結構觀察"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C080",
+    "theme": "教知識",
+    "form": "影片旁白",
+    "headline": "提問式",
+    "template": "同樣操作，為什麼這次失敗？",
+    "path": "catalog-knowledge.md",
+    "anchor": "c080",
+    "scenarios": [
+      "紙卡蓋印練習",
+      "手機錄影構圖練習"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C081",
+    "theme": "教知識",
+    "form": "影片旁白",
+    "headline": "解答式",
+    "template": "跟著畫面完成【任務】",
+    "path": "catalog-knowledge.md",
+    "anchor": "c081",
+    "scenarios": [
+      "包書皮",
+      "數位檔案整理"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C082",
+    "theme": "教知識",
+    "form": "影片旁白",
+    "headline": "反常式",
+    "template": "我把【慣例】反過來測試，結果如何？",
+    "path": "catalog-knowledge.md",
+    "anchor": "c082",
+    "scenarios": [
+      "桌面整理測試",
+      "短文修改測試"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C083",
+    "theme": "教知識",
+    "form": "影片旁白",
+    "headline": "佔便宜",
+    "template": "【工具／功能】這樣用，可以少做哪些重複工作？",
+    "path": "catalog-knowledge.md",
+    "anchor": "c083",
+    "scenarios": [
+      "活動名牌製作",
+      "通知文字重用"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C084",
+    "theme": "教知識",
+    "form": "影片旁白",
+    "headline": "揭秘式",
+    "template": "【故障／現象】的原因，藏在這個細節",
+    "path": "catalog-knowledge.md",
+    "anchor": "c084",
+    "scenarios": [
+      "紙模型接合排查",
+      "桌面拍攝背景檢查"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C085",
+    "theme": "教知識",
+    "form": "情境劇",
+    "headline": "新知式",
+    "template": "原來【日常行為】還有這種用法",
+    "path": "catalog-knowledge.md",
+    "anchor": "c085",
+    "scenarios": [
+      "紙樣定位",
+      "排隊動線規劃"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C086",
+    "theme": "教知識",
+    "form": "情境劇",
+    "headline": "提問式",
+    "template": "兩個人做一樣的事，為什麼結果不同？",
+    "path": "catalog-knowledge.md",
+    "anchor": "c086",
+    "scenarios": [
+      "折線準備",
+      "訊息回覆練習"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C087",
+    "theme": "教知識",
+    "form": "情境劇",
+    "headline": "解答式",
+    "template": "遇到【情境】，可以這樣說／這樣做",
+    "path": "catalog-knowledge.md",
+    "anchor": "c087",
+    "scenarios": [
+      "釐清活動任務",
+      "回饋海報草稿"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C088",
+    "theme": "教知識",
+    "form": "情境劇",
+    "headline": "反常式",
+    "template": "最像正確答案的選項，為什麼在這裡不適合？",
+    "path": "catalog-knowledge.md",
+    "anchor": "c088",
+    "scenarios": [
+      "現場標示設計",
+      "學習清單安排"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C089",
+    "theme": "教知識",
+    "form": "情境劇",
+    "headline": "佔便宜",
+    "template": "新手最容易白忙的一段，怎麼省掉？",
+    "path": "catalog-knowledge.md",
+    "anchor": "c089",
+    "scenarios": [
+      "名牌校對",
+      "手作材料裁切"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C090",
+    "theme": "教知識",
+    "form": "情境劇",
+    "headline": "揭秘式",
+    "template": "專家與新手，看同一件事時在想什麼？",
+    "path": "catalog-knowledge.md",
+    "anchor": "c090",
+    "scenarios": [
+      "手作作品檢查",
+      "文件講評"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C091",
+    "theme": "熬雞湯",
+    "form": "切片",
+    "headline": "新知式",
+    "template": "原來【挫折】也可以這樣理解",
+    "path": "catalog-emotion.md",
+    "anchor": "c091",
+    "scenarios": [
+      "模擬訪談：陶藝練習",
+      "模擬訪談：寫作退稿"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C092",
+    "theme": "熬雞湯",
+    "form": "切片",
+    "headline": "提問式",
+    "template": "已經很努力，卻沒有結果，還能怎麼辦？",
+    "path": "catalog-emotion.md",
+    "anchor": "c092",
+    "scenarios": [
+      "模擬訪談：素描練習",
+      "模擬訪談：求職準備"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C093",
+    "theme": "熬雞湯",
+    "form": "切片",
+    "headline": "解答式",
+    "template": "當你陷入【自我否定】，先試這個小行動",
+    "path": "catalog-emotion.md",
+    "anchor": "c093",
+    "scenarios": [
+      "模擬訪談：寫作卡關",
+      "模擬訪談：手作學習"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C094",
+    "theme": "熬雞湯",
+    "form": "切片",
+    "headline": "反常式",
+    "template": "有時候，先休息才是繼續前進的方法",
+    "path": "catalog-emotion.md",
+    "anchor": "c094",
+    "scenarios": [
+      "模擬訪談：剪輯修改",
+      "模擬訪談：家庭整理"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C095",
+    "theme": "熬雞湯",
+    "form": "切片",
+    "headline": "佔便宜",
+    "template": "少一點【無效比較】，可以把力氣留給什麼？",
+    "path": "catalog-emotion.md",
+    "anchor": "c095",
+    "scenarios": [
+      "模擬訪談：手帳紀錄",
+      "模擬訪談：學習進度"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C096",
+    "theme": "熬雞湯",
+    "form": "切片",
+    "headline": "揭秘式",
+    "template": "那句「沒事」，背後真正難的是什麼？",
+    "path": "catalog-emotion.md",
+    "anchor": "c096",
+    "scenarios": [
+      "模擬訪談：搬家求助",
+      "模擬訪談：作品被退回"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C097",
+    "theme": "熬雞湯",
+    "form": "口播",
+    "headline": "新知式",
+    "template": "你可以用另一個角度理解【一次失敗】",
+    "path": "catalog-emotion.md",
+    "anchor": "c097",
+    "scenarios": [
+      "口播：小型展出",
+      "口播：料理失手"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C098",
+    "theme": "熬雞湯",
+    "form": "口播",
+    "headline": "提問式",
+    "template": "如果今天只能做一件小事，你會先做什麼？",
+    "path": "catalog-emotion.md",
+    "anchor": "c098",
+    "scenarios": [
+      "口播：待辦堆積",
+      "口播：練習樂器"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C099",
+    "theme": "熬雞湯",
+    "form": "口播",
+    "headline": "解答式",
+    "template": "覺得【事情太多】時，先把下一步縮到這麼小",
+    "path": "catalog-emotion.md",
+    "anchor": "c099",
+    "scenarios": [
+      "口播：整理書桌",
+      "口播：準備簡報"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C100",
+    "theme": "熬雞湯",
+    "form": "口播",
+    "headline": "反常式",
+    "template": "今天沒有做到全部，也可能已經有進展",
+    "path": "catalog-emotion.md",
+    "anchor": "c100",
+    "scenarios": [
+      "口播：求職作品集",
+      "口播：學習語言"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C101",
+    "theme": "熬雞湯",
+    "form": "口播",
+    "headline": "佔便宜",
+    "template": "把這段話留給下次【受挫】的自己",
+    "path": "catalog-emotion.md",
+    "anchor": "c101",
+    "scenarios": [
+      "口播：創作被修改",
+      "口播：計畫中斷"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C102",
+    "theme": "熬雞湯",
+    "form": "口播",
+    "headline": "揭秘式",
+    "template": "我不再用【外在標準】衡量自己，是因為這件事",
+    "path": "catalog-emotion.md",
+    "anchor": "c102",
+    "scenarios": [
+      "口播：手作評價",
+      "口播：閱讀習慣"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C103",
+    "theme": "熬雞湯",
+    "form": "圖片旁白",
+    "headline": "新知式",
+    "template": "回看這些照片，才發現自己已經走了這麼遠",
+    "path": "catalog-emotion.md",
+    "anchor": "c103",
+    "scenarios": [
+      "圖片旁白：縫紉練習",
+      "圖片旁白：植物照顧紀錄"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C104",
+    "theme": "熬雞湯",
+    "form": "圖片旁白",
+    "headline": "提問式",
+    "template": "這張普通照片，為什麼對我很重要？",
+    "path": "catalog-emotion.md",
+    "anchor": "c104",
+    "scenarios": [
+      "圖片旁白：第一天工作",
+      "圖片旁白：家庭共讀"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C105",
+    "theme": "熬雞湯",
+    "form": "圖片旁白",
+    "headline": "解答式",
+    "template": "狀態不好時，我會翻這份小清單",
+    "path": "catalog-emotion.md",
+    "anchor": "c105",
+    "scenarios": [
+      "圖片旁白：工作收尾",
+      "圖片旁白：創作停滯"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C106",
+    "theme": "熬雞湯",
+    "form": "圖片旁白",
+    "headline": "反常式",
+    "template": "最不起眼的紀錄，反而最能看見改變",
+    "path": "catalog-emotion.md",
+    "anchor": "c106",
+    "scenarios": [
+      "圖片旁白：烹飪筆記",
+      "圖片旁白：會議表達"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C107",
+    "theme": "熬雞湯",
+    "form": "圖片旁白",
+    "headline": "佔便宜",
+    "template": "收藏這張提醒卡，下次卡住時可以直接看",
+    "path": "catalog-emotion.md",
+    "anchor": "c107",
+    "scenarios": [
+      "圖片旁白：任務開始",
+      "圖片旁白：回饋整理"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C108",
+    "theme": "熬雞湯",
+    "form": "圖片旁白",
+    "headline": "揭秘式",
+    "template": "那張笑著的照片背後，我當時正在經歷什麼",
+    "path": "catalog-emotion.md",
+    "anchor": "c108",
+    "scenarios": [
+      "圖片旁白：畢業紀念",
+      "圖片旁白：第一次擺攤"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C109",
+    "theme": "熬雞湯",
+    "form": "影片旁白",
+    "headline": "新知式",
+    "template": "從【日常工作】裡，我學到另一種進步方式",
+    "path": "catalog-emotion.md",
+    "anchor": "c109",
+    "scenarios": [
+      "影片旁白：修補衣物",
+      "影片旁白：整理工具"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C110",
+    "theme": "熬雞湯",
+    "form": "影片旁白",
+    "headline": "提問式",
+    "template": "沒有人看見時，你還會繼續做什麼？",
+    "path": "catalog-emotion.md",
+    "anchor": "c110",
+    "scenarios": [
+      "影片旁白：排練",
+      "影片旁白：地方記錄"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C111",
+    "theme": "熬雞湯",
+    "form": "影片旁白",
+    "headline": "解答式",
+    "template": "今天很難開始，所以我先完成這一小步",
+    "path": "catalog-emotion.md",
+    "anchor": "c111",
+    "scenarios": [
+      "影片旁白：料理準備",
+      "影片旁白：整理照片"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C112",
+    "theme": "熬雞湯",
+    "form": "影片旁白",
+    "headline": "反常式",
+    "template": "看起來沒有前進的一天，其實在準備什麼？",
+    "path": "catalog-emotion.md",
+    "anchor": "c112",
+    "scenarios": [
+      "影片旁白：攝影準備",
+      "影片旁白：木作整理"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C113",
+    "theme": "熬雞湯",
+    "form": "影片旁白",
+    "headline": "佔便宜",
+    "template": "給忙亂的一天，一個不用額外花錢的小整理",
+    "path": "catalog-emotion.md",
+    "anchor": "c113",
+    "scenarios": [
+      "影片旁白：桌面角落",
+      "影片旁白：晚間收尾"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C114",
+    "theme": "熬雞湯",
+    "form": "影片旁白",
+    "headline": "揭秘式",
+    "template": "大家只看到完成，我想留下重新開始的那一刻",
+    "path": "catalog-emotion.md",
+    "anchor": "c114",
+    "scenarios": [
+      "影片旁白：重新畫畫",
+      "影片旁白：恢復閱讀"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C115",
+    "theme": "熬雞湯",
+    "form": "情境劇",
+    "headline": "新知式",
+    "template": "同一句話，換個方式說，對方感受差多少？",
+    "path": "catalog-emotion.md",
+    "anchor": "c115",
+    "scenarios": [
+      "情境演繹：作業卡關",
+      "情境演繹：初次展出"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C116",
+    "theme": "熬雞湯",
+    "form": "情境劇",
+    "headline": "提問式",
+    "template": "朋友說「我不行」，你會怎麼回？",
+    "path": "catalog-emotion.md",
+    "anchor": "c116",
+    "scenarios": [
+      "情境演繹：簡報前夕",
+      "情境演繹：手作受挫"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C117",
+    "theme": "熬雞湯",
+    "form": "情境劇",
+    "headline": "解答式",
+    "template": "當對方受挫時，可以先做的這件事",
+    "path": "catalog-emotion.md",
+    "anchor": "c117",
+    "scenarios": [
+      "情境演繹：活動準備",
+      "情境演繹：作品遭退回"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C118",
+    "theme": "熬雞湯",
+    "form": "情境劇",
+    "headline": "反常式",
+    "template": "最有幫助的人，反而沒有說「加油」",
+    "path": "catalog-emotion.md",
+    "anchor": "c118",
+    "scenarios": [
+      "情境演繹：演出後台",
+      "情境演繹：搬家收尾"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C119",
+    "theme": "熬雞湯",
+    "form": "情境劇",
+    "headline": "佔便宜",
+    "template": "少說這句話，可能讓一次安慰更有效",
+    "path": "catalog-emotion.md",
+    "anchor": "c119",
+    "scenarios": [
+      "情境演繹：考核失利",
+      "情境演繹：旅行取消"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C120",
+    "theme": "熬雞湯",
+    "form": "情境劇",
+    "headline": "揭秘式",
+    "template": "他看起來很冷淡，其實只是不知道怎麼求助",
+    "path": "catalog-emotion.md",
+    "anchor": "c120",
+    "scenarios": [
+      "情境演繹：新成員加入",
+      "情境演繹：家庭料理"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C121",
+    "theme": "選立場",
+    "form": "切片",
+    "headline": "新知式",
+    "template": "討論【議題】時，還有這個容易被忽略的角度",
+    "path": "catalog-stance.md",
+    "anchor": "c121",
+    "scenarios": [
+      "模擬訪談：工作空間",
+      "模擬訪談：創作更新"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C122",
+    "theme": "選立場",
+    "form": "切片",
+    "headline": "提問式",
+    "template": "【A】與【B】，什麼情況下該選哪個？",
+    "path": "catalog-stance.md",
+    "anchor": "c122",
+    "scenarios": [
+      "模擬訪談：會議方式",
+      "模擬訪談：筆記習慣"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C123",
+    "theme": "選立場",
+    "form": "切片",
+    "headline": "解答式",
+    "template": "面對【爭議】，我用這個標準判斷",
+    "path": "catalog-stance.md",
+    "anchor": "c123",
+    "scenarios": [
+      "模擬訪談：工作分工",
+      "模擬訪談：作品取捨"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C124",
+    "theme": "選立場",
+    "form": "切片",
+    "headline": "反常式",
+    "template": "我支持【目標】，卻不支持這種做法",
+    "path": "catalog-stance.md",
+    "anchor": "c124",
+    "scenarios": [
+      "模擬訪談：團隊透明",
+      "模擬訪談：環境整理"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C125",
+    "theme": "選立場",
+    "form": "切片",
+    "headline": "佔便宜",
+    "template": "先問這個問題，少陷入無效爭論",
+    "path": "catalog-stance.md",
+    "anchor": "c125",
+    "scenarios": [
+      "模擬訪談：設計風格",
+      "模擬訪談：學習方式"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C126",
+    "theme": "選立場",
+    "form": "切片",
+    "headline": "揭秘式",
+    "template": "這場爭論表面在談【A】，實際分歧在哪？",
+    "path": "catalog-stance.md",
+    "anchor": "c126",
+    "scenarios": [
+      "模擬訪談：社團活動",
+      "模擬訪談：剪輯長短"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C127",
+    "theme": "選立場",
+    "form": "口播",
+    "headline": "新知式",
+    "template": "談【議題】，我想補上一個被忽略的條件",
+    "path": "catalog-stance.md",
+    "anchor": "c127",
+    "scenarios": [
+      "口播：工作訊息",
+      "口播：公開練習"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C128",
+    "theme": "選立場",
+    "form": "口播",
+    "headline": "提問式",
+    "template": "你支持【A】，是因為哪一個理由？",
+    "path": "catalog-stance.md",
+    "anchor": "c128",
+    "scenarios": [
+      "口播：紙本閱讀",
+      "口播：團隊聚會"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C129",
+    "theme": "選立場",
+    "form": "口播",
+    "headline": "解答式",
+    "template": "遇到【兩難】，可以用這幾個標準判斷",
+    "path": "catalog-stance.md",
+    "anchor": "c129",
+    "scenarios": [
+      "口播：接案範圍",
+      "口播：挑選課程"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C130",
+    "theme": "選立場",
+    "form": "口播",
+    "headline": "反常式",
+    "template": "我做【行業】，但不建議每個人都選【產品／方法】",
+    "path": "catalog-stance.md",
+    "anchor": "c130",
+    "scenarios": [
+      "口播：攝影服務",
+      "口播：收納規劃"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C131",
+    "theme": "選立場",
+    "form": "口播",
+    "headline": "佔便宜",
+    "template": "別急著跟風，先做這個判斷",
+    "path": "catalog-stance.md",
+    "anchor": "c131",
+    "scenarios": [
+      "口播：新工具導入",
+      "口播：內容風格"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C132",
+    "theme": "選立場",
+    "form": "口播",
+    "headline": "揭秘式",
+    "template": "我為什麼從支持【A】改成支持【B】？",
+    "path": "catalog-stance.md",
+    "anchor": "c132",
+    "scenarios": [
+      "口播：團隊回饋",
+      "口播：共同用品"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C133",
+    "theme": "選立場",
+    "form": "圖片旁白",
+    "headline": "新知式",
+    "template": "把【議題】拆成這幾個面向，結論會不同",
+    "path": "catalog-stance.md",
+    "anchor": "c133",
+    "scenarios": [
+      "圖片旁白：筆記工具比較",
+      "圖片旁白：作品發表方式"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C134",
+    "theme": "選立場",
+    "form": "圖片旁白",
+    "headline": "提問式",
+    "template": "這兩種說法，真正矛盾嗎？",
+    "path": "catalog-stance.md",
+    "anchor": "c134",
+    "scenarios": [
+      "圖片旁白：創作規則",
+      "圖片旁白：活動參與"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C135",
+    "theme": "選立場",
+    "form": "圖片旁白",
+    "headline": "解答式",
+    "template": "一張比較表，幫你決定【A／B】",
+    "path": "catalog-stance.md",
+    "anchor": "c135",
+    "scenarios": [
+      "圖片旁白：活動場地",
+      "圖片旁白：學習安排"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C136",
+    "theme": "選立場",
+    "form": "圖片旁白",
+    "headline": "反常式",
+    "template": "換一個比較基準，結果為什麼反過來？",
+    "path": "catalog-stance.md",
+    "anchor": "c136",
+    "scenarios": [
+      "圖片旁白：活動參與數字",
+      "圖片旁白：練習紀錄"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C137",
+    "theme": "選立場",
+    "form": "圖片旁白",
+    "headline": "佔便宜",
+    "template": "收藏這張判斷表，下次不用重新吵一輪",
+    "path": "catalog-stance.md",
+    "anchor": "c137",
+    "scenarios": [
+      "圖片旁白：任務分工",
+      "圖片旁白：內容回饋"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C138",
+    "theme": "選立場",
+    "form": "圖片旁白",
+    "headline": "揭秘式",
+    "template": "把原始資料攤開，爭議到底出在哪？",
+    "path": "catalog-stance.md",
+    "anchor": "c138",
+    "scenarios": [
+      "圖片旁白：社團規則解讀",
+      "圖片旁白：作品修改要求"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C139",
+    "theme": "選立場",
+    "form": "影片旁白",
+    "headline": "新知式",
+    "template": "到現場看過，才知道【議題】還有這個面向",
+    "path": "catalog-stance.md",
+    "anchor": "c139",
+    "scenarios": [
+      "影片旁白：閱讀空間",
+      "影片旁白：活動指示"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C140",
+    "theme": "選立場",
+    "form": "影片旁白",
+    "headline": "提問式",
+    "template": "【兩種做法】，實際差異有多大？",
+    "path": "catalog-stance.md",
+    "anchor": "c140",
+    "scenarios": [
+      "影片旁白：收納方式",
+      "影片旁白：準備方式"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C141",
+    "theme": "選立場",
+    "form": "影片旁白",
+    "headline": "解答式",
+    "template": "我為什麼選【A】？用實際情境說明",
+    "path": "catalog-stance.md",
+    "anchor": "c141",
+    "scenarios": [
+      "影片旁白：教學拍攝",
+      "影片旁白：共同工作桌"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C142",
+    "theme": "選立場",
+    "form": "影片旁白",
+    "headline": "反常式",
+    "template": "我原本支持【A】，實測後調整了看法",
+    "path": "catalog-stance.md",
+    "anchor": "c142",
+    "scenarios": [
+      "影片旁白：字幕呈現",
+      "影片旁白：植物展示架"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C143",
+    "theme": "選立場",
+    "form": "影片旁白",
+    "headline": "佔便宜",
+    "template": "我先比較【選項】，你可以少做哪些功課？",
+    "path": "catalog-stance.md",
+    "anchor": "c143",
+    "scenarios": [
+      "影片旁白：筆記版面",
+      "影片旁白：手作材料整理"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C144",
+    "theme": "選立場",
+    "form": "影片旁白",
+    "headline": "揭秘式",
+    "template": "【規則／做法】落到現場，會產生什麼影響？",
+    "path": "catalog-stance.md",
+    "anchor": "c144",
+    "scenarios": [
+      "影片旁白：共用桌面規則",
+      "影片旁白：活動問答安排"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C145",
+    "theme": "選立場",
+    "form": "情境劇",
+    "headline": "新知式",
+    "template": "同一個決定，兩個角色為什麼感受不同？",
+    "path": "catalog-stance.md",
+    "anchor": "c145",
+    "scenarios": [
+      "情境演繹：聚會地點",
+      "情境演繹：工作交付"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C146",
+    "theme": "選立場",
+    "form": "情境劇",
+    "headline": "提問式",
+    "template": "如果你是【角色】，會選哪一邊？",
+    "path": "catalog-stance.md",
+    "anchor": "c146",
+    "scenarios": [
+      "情境演繹：作品取捨",
+      "情境演繹：社團活動"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C147",
+    "theme": "選立場",
+    "form": "情境劇",
+    "headline": "解答式",
+    "template": "兩邊都覺得自己有理，怎麼找到判斷標準？",
+    "path": "catalog-stance.md",
+    "anchor": "c147",
+    "scenarios": [
+      "情境演繹：海報修改",
+      "情境演繹：共用工具"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C148",
+    "theme": "選立場",
+    "form": "情境劇",
+    "headline": "反常式",
+    "template": "看似不近人情的決定，為什麼反而公平？",
+    "path": "catalog-stance.md",
+    "anchor": "c148",
+    "scenarios": [
+      "情境演繹：活動報名",
+      "情境演繹：共用設備"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C149",
+    "theme": "選立場",
+    "form": "情境劇",
+    "headline": "佔便宜",
+    "template": "這場爭吵，早問一句話就能省掉",
+    "path": "catalog-stance.md",
+    "anchor": "c149",
+    "scenarios": [
+      "情境演繹：行程安排",
+      "情境演繹：文案修改"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C150",
+    "theme": "選立場",
+    "form": "情境劇",
+    "headline": "揭秘式",
+    "template": "把身分交換後，立場還會一樣嗎？",
+    "path": "catalog-stance.md",
+    "anchor": "c150",
+    "scenarios": [
+      "情境演繹：共用空間",
+      "情境演繹：回饋時間"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C151",
+    "theme": "賣商品",
+    "form": "切片",
+    "headline": "新知式",
+    "template": "【商品】除了【常見用途】，還能這樣用",
+    "path": "catalog-product.md",
+    "anchor": "c151",
+    "scenarios": [
+      "教學設定｜收納用品示範；模擬原素材台詞，功能須以實際產品確認",
+      "教學設定｜行李收納袋示範；模擬原素材台詞，提把功能須另確認"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C152",
+    "theme": "賣商品",
+    "form": "切片",
+    "headline": "提問式",
+    "template": "【這類使用者】適合買這個嗎？",
+    "path": "catalog-product.md",
+    "anchor": "c152",
+    "scenarios": [
+      "教學設定｜折疊桌選購問答；模擬原素材台詞，尺寸未代指真實商品",
+      "教學設定｜設計回饋服務說明；模擬原素材台詞，交付範圍為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C153",
+    "theme": "賣商品",
+    "form": "切片",
+    "headline": "解答式",
+    "template": "想解決【需求】，這個功能怎麼用？",
+    "path": "catalog-product.md",
+    "anchor": "c153",
+    "scenarios": [
+      "教學設定｜標籤工具功能示範；模擬原素材台詞，耗材相容性須查證",
+      "教學設定｜窗簾丈量諮詢說明；模擬原素材台詞，服務方式為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C154",
+    "theme": "賣商品",
+    "form": "切片",
+    "headline": "反常式",
+    "template": "買高階款之前，先確認你需不需要這個功能",
+    "path": "catalog-product.md",
+    "anchor": "c154",
+    "scenarios": [
+      "教學設定｜桌燈版本比較；模擬原素材台詞，功能配置皆為假設",
+      "教學設定｜線上技能課程方案比較；模擬原素材台詞，方案為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C155",
+    "theme": "賣商品",
+    "form": "切片",
+    "headline": "佔便宜",
+    "template": "【方案】到底包含什麼，怎麼選比較省？",
+    "path": "catalog-product.md",
+    "anchor": "c155",
+    "scenarios": [
+      "教學設定｜手作材料單買與組合比較；模擬原素材台詞，方案及價格為虛構",
+      "教學設定｜場地租用方案問答；模擬原素材台詞，計費條件為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C156",
+    "theme": "賣商品",
+    "form": "切片",
+    "headline": "揭秘式",
+    "template": "大家問【價格】，其實最容易忽略的是這項成本",
+    "path": "catalog-product.md",
+    "anchor": "c156",
+    "scenarios": [
+      "教學設定｜清潔工具耗材說明；模擬原素材台詞，耗材結構為假設",
+      "教學設定｜客製化排版服務報價說明；模擬原素材台詞，工作範圍為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C157",
+    "theme": "賣商品",
+    "form": "口播",
+    "headline": "新知式",
+    "template": "如果你有【需求】，這個功能值得先了解",
+    "path": "catalog-product.md",
+    "anchor": "c157",
+    "scenarios": [
+      "教學設定｜開口式背包功能說明，結構為虛構示意",
+      "教學設定｜語音練習課程功能說明，課程內容為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C158",
+    "theme": "賣商品",
+    "form": "口播",
+    "headline": "提問式",
+    "template": "【A 款／B 款】，哪個比較適合你？",
+    "path": "catalog-product.md",
+    "anchor": "c158",
+    "scenarios": [
+      "教學設定｜硬殼與軟袋工具收納比較，容量與保護程度未指實品",
+      "教學設定｜直播與錄播技能課程比較，安排方式為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C159",
+    "theme": "賣商品",
+    "form": "口播",
+    "headline": "解答式",
+    "template": "解決【問題】，挑選時先看這幾項",
+    "path": "catalog-product.md",
+    "anchor": "c159",
+    "scenarios": [
+      "教學設定｜桌面螢幕架選購說明，承重與尺寸須依實品確認",
+      "教學設定｜活動攝影服務挑選說明，服務條件為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C160",
+    "theme": "賣商品",
+    "form": "口播",
+    "headline": "反常式",
+    "template": "我賣【商品】，但這些人可以先不要買",
+    "path": "catalog-product.md",
+    "anchor": "c160",
+    "scenarios": [
+      "教學設定｜手作工具販售者口播，角色與商品皆為虛構",
+      "教學設定｜內容企劃諮詢服務口播，角色與交付為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C161",
+    "theme": "賣商品",
+    "form": "口播",
+    "headline": "佔便宜",
+    "template": "【預算】怎麼花，才能少買不需要的功能？",
+    "path": "catalog-product.md",
+    "anchor": "c161",
+    "scenarios": [
+      "教學設定｜居家錄音用品選購，未涉及專業效果保證",
+      "教學設定｜烘焙入門工具配置，商品清單僅示意"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C162",
+    "theme": "賣商品",
+    "form": "口播",
+    "headline": "揭秘式",
+    "template": "這個價格，實際包含哪些服務？",
+    "path": "catalog-product.md",
+    "anchor": "c162",
+    "scenarios": [
+      "教學設定｜文字編修服務方案，交付範圍為假設",
+      "教學設定｜家具組裝服務內容說明，服務規則為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C163",
+    "theme": "賣商品",
+    "form": "圖片旁白",
+    "headline": "新知式",
+    "template": "放大這個設計，才看懂它解決什麼問題",
+    "path": "catalog-product.md",
+    "anchor": "c163",
+    "scenarios": [
+      "教學設定｜收納盒標示窗設計，圖片與結構皆為示意",
+      "教學設定｜課程講義版型設計，頁面與功能皆為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C164",
+    "theme": "賣商品",
+    "form": "圖片旁白",
+    "headline": "提問式",
+    "template": "看起來差不多，這兩款差在哪？",
+    "path": "catalog-product.md",
+    "anchor": "c164",
+    "scenarios": [
+      "教學設定｜兩款便當盒比較，容量與隔層配置為示意",
+      "教學設定｜兩種攝影服務交付方案比較，內容為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C165",
+    "theme": "賣商品",
+    "form": "圖片旁白",
+    "headline": "解答式",
+    "template": "用這張表，找到適合你的【商品／方案】",
+    "path": "catalog-product.md",
+    "anchor": "c165",
+    "scenarios": [
+      "教學設定｜旅行包選擇表，容量與限制須依實際需求確認",
+      "教學設定｜網站維護服務選擇表，服務範圍為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C166",
+    "theme": "賣商品",
+    "form": "圖片旁白",
+    "headline": "反常式",
+    "template": "單價較低，為什麼總花費可能較高？",
+    "path": "catalog-product.md",
+    "anchor": "c166",
+    "scenarios": [
+      "教學設定｜可替換芯文具成本比較，未提供真實價格或耐用數據",
+      "教學設定｜活動場地起始價與總成本比較，條件皆為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C167",
+    "theme": "賣商品",
+    "form": "圖片旁白",
+    "headline": "佔便宜",
+    "template": "【組合方案】省在哪，一張圖看懂",
+    "path": "catalog-product.md",
+    "anchor": "c167",
+    "scenarios": [
+      "教學設定｜清潔用品補充方案，商品數量與優惠皆為虛構示意",
+      "教學設定｜手作課與材料包方案比較，價格與內容皆為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C168",
+    "theme": "賣商品",
+    "form": "圖片旁白",
+    "headline": "揭秘式",
+    "template": "拆開【產品結構／服務流程】，錢花在哪？",
+    "path": "catalog-product.md",
+    "anchor": "c168",
+    "scenarios": [
+      "教學設定｜客製化收納櫃結構說明，構造與報價項目皆為假設",
+      "教學設定｜活動視覺設計服務流程，工作與交付為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C169",
+    "theme": "賣商品",
+    "form": "影片旁白",
+    "headline": "新知式",
+    "template": "【商品】這個不顯眼的功能，實際用起來如何？",
+    "path": "catalog-product.md",
+    "anchor": "c169",
+    "scenarios": [
+      "教學設定｜可拆分收納袋使用展示，結構為假設",
+      "教學設定｜照片整理服務交付功能，示意檔案與命名規則為假設"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C170",
+    "theme": "賣商品",
+    "form": "影片旁白",
+    "headline": "提問式",
+    "template": "面對【具體需求】，它真的做得到嗎？",
+    "path": "catalog-product.md",
+    "anchor": "c170",
+    "scenarios": [
+      "教學設定｜收納推車通道適配測試，尺寸與結果須用實測替換",
+      "教學設定｜提袋裝載需求示範，承重與防護能力未作保證"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C171",
+    "theme": "賣商品",
+    "form": "影片旁白",
+    "headline": "解答式",
+    "template": "用【商品】處理【問題】的實際流程",
+    "path": "catalog-product.md",
+    "anchor": "c171",
+    "scenarios": [
+      "教學設定｜手動裝訂工具操作，適用材料與安全須依說明確認",
+      "教學設定｜居家整理服務流程，工作內容與場景皆為虛構"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C172",
+    "theme": "賣商品",
+    "form": "影片旁白",
+    "headline": "反常式",
+    "template": "規格較高，實際使用一定比較好嗎？",
+    "path": "catalog-product.md",
+    "anchor": "c172",
+    "scenarios": [
+      "教學設定｜大容量與小容量工具袋實用比較，容量與結果為示意",
+      "教學設定｜多功能與簡單版排程工具操作比較，功能與資料皆為示意"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C173",
+    "theme": "賣商品",
+    "form": "影片旁白",
+    "headline": "佔便宜",
+    "template": "用了【商品】，哪些工作真的變少？",
+    "path": "catalog-product.md",
+    "anchor": "c173",
+    "scenarios": [
+      "教學設定｜文件分類工具流程對照，未提供真實省時數字",
+      "教學設定｜內容排版範本服務使用對照，示例文件為虛構"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C174",
+    "theme": "賣商品",
+    "form": "影片旁白",
+    "headline": "揭秘式",
+    "template": "【商品】交到你手上之前，會做哪些檢查？",
+    "path": "catalog-product.md",
+    "anchor": "c174",
+    "scenarios": [
+      "教學設定｜木作小物出貨檢查演示，商品與檢查流程皆為虛構",
+      "教學設定｜字幕製作服務交付檢查，影片與文字皆為虛構素材"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C175",
+    "theme": "賣商品",
+    "form": "情境劇",
+    "headline": "新知式",
+    "template": "原來遇到【生活情境】，還能這樣處理",
+    "path": "catalog-product.md",
+    "anchor": "c175",
+    "scenarios": [
+      "教學設定｜可拆掛鉤收納設計；角色、規格與情節皆虛構",
+      "教學設定｜共享工作空間臨時座位服務；服務條件與角色皆虛構"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C176",
+    "theme": "賣商品",
+    "form": "情境劇",
+    "headline": "提問式",
+    "template": "兩個人需求不同，為什麼買同一款會後悔？",
+    "path": "catalog-product.md",
+    "anchor": "c176",
+    "scenarios": [
+      "教學設定｜兩位使用者選擇背包；角色與容量情境皆虛構",
+      "教學設定｜兩位使用者選擇課程方案；角色、時程與內容皆虛構"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C177",
+    "theme": "賣商品",
+    "form": "情境劇",
+    "headline": "解答式",
+    "template": "下次遇到【麻煩】，可以怎麼選？",
+    "path": "catalog-product.md",
+    "anchor": "c177",
+    "scenarios": [
+      "教學設定｜工作桌面收納選購；角色與商品皆虛構",
+      "教學設定｜活動音響租用服務；角色、器材與服務條件皆虛構"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C178",
+    "theme": "賣商品",
+    "form": "情境劇",
+    "headline": "反常式",
+    "template": "客人想買最貴的，店員卻推薦另一款",
+    "path": "catalog-product.md",
+    "anchor": "c178",
+    "scenarios": [
+      "教學設定｜行李箱選購對話；角色、版本與價格層級皆虛構",
+      "教學設定｜影像製作服務方案對話；角色、方案與範圍皆虛構"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C179",
+    "theme": "賣商品",
+    "form": "情境劇",
+    "headline": "佔便宜",
+    "template": "以為買便宜賺到了，後來多付了什麼？",
+    "path": "catalog-product.md",
+    "anchor": "c179",
+    "scenarios": [
+      "教學設定｜租用攝影器材的總成本對話；角色與租用條件皆虛構",
+      "教學設定｜廉價收納用品錯配情境；角色與尺寸條件皆虛構"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C180",
+    "theme": "賣商品",
+    "form": "情境劇",
+    "headline": "揭秘式",
+    "template": "售前沒問清楚的一件事，會造成什麼落差？",
+    "path": "catalog-product.md",
+    "anchor": "c180",
+    "scenarios": [
+      "教學設定｜客製化邀請卡服務範圍；角色、輪次與檔案皆虛構",
+      "教學設定｜家具配送與搬運範圍；角色、服務條件與場景皆虛構"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C181",
+    "theme": "演劇情",
+    "form": "切片",
+    "headline": "新知式",
+    "template": "這個角色，原來還有另一個身分",
+    "path": "catalog-drama.md",
+    "anchor": "c181",
+    "scenarios": [
+      "社區劇團的佈景整理",
+      "舊車修復工作室"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C182",
+    "theme": "演劇情",
+    "form": "切片",
+    "headline": "提問式",
+    "template": "門打開之後，他會看見什麼？",
+    "path": "catalog-drama.md",
+    "anchor": "c182",
+    "scenarios": [
+      "手作教室的神祕聲音",
+      "露營小屋的早餐"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C183",
+    "theme": "演劇情",
+    "form": "切片",
+    "headline": "解答式",
+    "template": "他怎麼化解眼前這個危機？",
+    "path": "catalog-drama.md",
+    "anchor": "c183",
+    "scenarios": [
+      "雨天的戶外書攤",
+      "排練室的道具遺漏"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C184",
+    "theme": "演劇情",
+    "form": "切片",
+    "headline": "反常式",
+    "template": "以為他輸了，真正的計畫才剛揭曉",
+    "path": "catalog-drama.md",
+    "anchor": "c184",
+    "scenarios": [
+      "拼圖活動的讓步",
+      "社區市集的攤位選擇"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C185",
+    "theme": "演劇情",
+    "form": "切片",
+    "headline": "佔便宜",
+    "template": "【長篇故事】這段精華，把關鍵衝突一次看懂",
+    "path": "catalog-drama.md",
+    "anchor": "c185",
+    "scenarios": [
+      "共用工作桌的衝突",
+      "合唱排練的誤會"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C186",
+    "theme": "演劇情",
+    "form": "切片",
+    "headline": "揭秘式",
+    "template": "回看這個小動作，才知道他早有準備",
+    "path": "catalog-drama.md",
+    "anchor": "c186",
+    "scenarios": [
+      "聚會的座位安排",
+      "手作課的材料準備"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C187",
+    "theme": "演劇情",
+    "form": "口播",
+    "headline": "新知式",
+    "template": "當【角色】第一次發現【新規則】",
+    "path": "catalog-drama.md",
+    "anchor": "c187",
+    "scenarios": [
+      "會回話的失物招領箱",
+      "只收故事的文具店"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C188",
+    "theme": "演劇情",
+    "form": "口播",
+    "headline": "提問式",
+    "template": "如果【荒謬設定】發生在你身上？",
+    "path": "catalog-drama.md",
+    "anchor": "c188",
+    "scenarios": [
+      "每說稍後就縮小的待辦本",
+      "把客套話當指令的鬧鐘"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C189",
+    "theme": "演劇情",
+    "form": "口播",
+    "headline": "解答式",
+    "template": "用【角色風格】處理【日常難題】會怎樣？",
+    "path": "catalog-drama.md",
+    "anchor": "c189",
+    "scenarios": [
+      "過度分類的收納者",
+      "把聊天當會議的朋友"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C190",
+    "theme": "演劇情",
+    "form": "口播",
+    "headline": "反常式",
+    "template": "嘴上說【A】，內心卻在想【B】",
+    "path": "catalog-drama.md",
+    "anchor": "c190",
+    "scenarios": [
+      "收到巨大盆栽的室友",
+      "聚會最後一塊餅乾"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C191",
+    "theme": "演劇情",
+    "form": "口播",
+    "headline": "佔便宜",
+    "template": "【角色】想省一點，結果付出更大代價",
+    "path": "catalog-drama.md",
+    "anchor": "c191",
+    "scenarios": [
+      "省包裝紙的送禮者",
+      "不願分兩趟搬物的人"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C192",
+    "theme": "演劇情",
+    "form": "口播",
+    "headline": "揭秘式",
+    "template": "【角色】那句話，真正想表達什麼？",
+    "path": "catalog-drama.md",
+    "anchor": "c192",
+    "scenarios": [
+      "朋友試穿新衣",
+      "搬走前的借書對話"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C193",
+    "theme": "演劇情",
+    "form": "圖片旁白",
+    "headline": "新知式",
+    "template": "看到最後一張，才知道角色真正的身分",
+    "path": "catalog-drama.md",
+    "anchor": "c193",
+    "scenarios": [
+      "老照片展的訪客",
+      "玩具修理桌的來客"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C194",
+    "theme": "演劇情",
+    "form": "圖片旁白",
+    "headline": "提問式",
+    "template": "這段對話，哪一句開始不對勁？",
+    "path": "catalog-drama.md",
+    "anchor": "c194",
+    "scenarios": [
+      "約錯排練室的群組對話",
+      "家庭取餐訊息的誤會"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C195",
+    "theme": "演劇情",
+    "form": "圖片旁白",
+    "headline": "解答式",
+    "template": "角色如何破解【謎題／困境】？",
+    "path": "catalog-drama.md",
+    "anchor": "c195",
+    "scenarios": [
+      "尋寶活動的盒子排序",
+      "家中留言的日期謎題"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C196",
+    "theme": "演劇情",
+    "form": "圖片旁白",
+    "headline": "反常式",
+    "template": "同一張圖，換個角度，故事完全不同",
+    "path": "catalog-drama.md",
+    "anchor": "c196",
+    "scenarios": [
+      "看似打翻顏料的手",
+      "遮住合照的人"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C197",
+    "theme": "演劇情",
+    "form": "圖片旁白",
+    "headline": "佔便宜",
+    "template": "用幾張圖，看完這個完整小故事",
+    "path": "catalog-drama.md",
+    "anchor": "c197",
+    "scenarios": [
+      "忘記留座位的聚會",
+      "交換便當的同桌"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C198",
+    "theme": "演劇情",
+    "form": "圖片旁白",
+    "headline": "揭秘式",
+    "template": "第一張就藏著答案，你注意到了嗎？",
+    "path": "catalog-drama.md",
+    "anchor": "c198",
+    "scenarios": [
+      "藏在餐桌上的小禮物",
+      "誰把紙花送到工作桌"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C199",
+    "theme": "演劇情",
+    "form": "影片旁白",
+    "headline": "新知式",
+    "template": "在這個世界，【普通事物】竟有另一套規則",
+    "path": "catalog-drama.md",
+    "anchor": "c199",
+    "scenarios": [
+      "只能按用途開啟的抽屜",
+      "會退回多餘物件的旅行箱"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C200",
+    "theme": "演劇情",
+    "form": "影片旁白",
+    "headline": "提問式",
+    "template": "他只剩【限制】，能完成【任務】嗎？",
+    "path": "catalog-drama.md",
+    "anchor": "c200",
+    "scenarios": [
+      "只剩一張大紙的佈置任務",
+      "停電前的手電筒影子遊戲"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C201",
+    "theme": "演劇情",
+    "form": "影片旁白",
+    "headline": "解答式",
+    "template": "面對【危機】，他想到這個辦法",
+    "path": "catalog-drama.md",
+    "anchor": "c201",
+    "scenarios": [
+      "展覽卡片被風翻亂",
+      "布偶演出缺少角色"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C202",
+    "theme": "演劇情",
+    "form": "影片旁白",
+    "headline": "反常式",
+    "template": "旁白說一切順利，畫面卻完全不是這回事",
+    "path": "catalog-drama.md",
+    "anchor": "c202",
+    "scenarios": [
+      "第一次整理工具牆",
+      "優雅的野餐準備"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C203",
+    "theme": "演劇情",
+    "form": "影片旁白",
+    "headline": "佔便宜",
+    "template": "為了省下【小成本】，他繞了多大的路？",
+    "path": "catalog-drama.md",
+    "anchor": "c203",
+    "scenarios": [
+      "找免費包裝盒",
+      "想少洗一個碗的料理準備"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C204",
+    "theme": "演劇情",
+    "form": "影片旁白",
+    "headline": "揭秘式",
+    "template": "故事一直沒拍到的另一邊，才是關鍵",
+    "path": "catalog-drama.md",
+    "anchor": "c204",
+    "scenarios": [
+      "舞臺上不停停頓的演員",
+      "餐桌邊不斷挪盤子的人"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C205",
+    "theme": "演劇情",
+    "form": "情境劇",
+    "headline": "新知式",
+    "template": "【角色】第一次遇到【陌生規則】",
+    "path": "catalog-drama.md",
+    "anchor": "c205",
+    "scenarios": [
+      "交換手作材料的小攤",
+      "不能說形容詞的畫作介紹"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C206",
+    "theme": "演劇情",
+    "form": "情境劇",
+    "headline": "提問式",
+    "template": "兩個人都藏著秘密，誰會先露餡？",
+    "path": "catalog-drama.md",
+    "anchor": "c206",
+    "scenarios": [
+      "互相準備驚喜的室友",
+      "都忘記帶道具的搭檔"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C207",
+    "theme": "演劇情",
+    "form": "情境劇",
+    "headline": "解答式",
+    "template": "這個【誤會／難題】，最後怎麼收拾？",
+    "path": "catalog-drama.md",
+    "anchor": "c207",
+    "scenarios": [
+      "排隊借工具的誤會",
+      "共用音樂練習空間"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C208",
+    "theme": "演劇情",
+    "form": "情境劇",
+    "headline": "反常式",
+    "template": "最像壞人的人，反而做了最關鍵的好事",
+    "path": "catalog-drama.md",
+    "anchor": "c208",
+    "scenarios": [
+      "不讓作品立刻上牆的管理員",
+      "堅持重拍合照的人"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C209",
+    "theme": "演劇情",
+    "form": "情境劇",
+    "headline": "佔便宜",
+    "template": "為了搶到【好處】，兩個人把事情搞成怎樣？",
+    "path": "catalog-drama.md",
+    "anchor": "c209",
+    "scenarios": [
+      "爭窗邊位置的工作搭檔",
+      "爭最後一張大紙的手作夥伴"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  },
+  {
+    "id": "C210",
+    "theme": "演劇情",
+    "form": "情境劇",
+    "headline": "揭秘式",
+    "template": "最後一句話，揭開整場戲真正的目的",
+    "path": "catalog-drama.md",
+    "anchor": "c210",
+    "scenarios": [
+      "一直借工具的鄰居",
+      "反覆要求試走的佈展夥伴"
+    ],
+    "evidence_status": "分析整理；範例為虛構教學示例"
+  }
+]

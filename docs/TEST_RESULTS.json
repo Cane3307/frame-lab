@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-24",
+  "browser": "149.0.7827.55",
+  "checks": [
+    "GitHub Pages repository subpath loads all relative assets; first shelf covers seven themes",
+    "Three-axis filter and locked random draw preserve chosen production conditions",
+    "Details, fictional examples, favorites, worksheet, mode switch, focus trap and reload persistence",
+    "Markdown download and JSON round trip preserve Traditional Chinese; invalid import preserves data",
+    "Skip link preserves current route, user text renders safely, removed favorite retains keyboard focus",
+    "All 12 formulas, 31 mixes and 12 sourced knowledge notes render and filter",
+    "Six views fit 320–1440px, mobile controls use 16px type, reduced motion disables reveal animation",
+    "Direct file:// opening works without server, fetch, CDN or build step",
+    "210 unique combinations, 506 examples, zero browser errors or missing local assets"
+  ],
+  "status": "PASS",
+  "browserErrors": []
+}
